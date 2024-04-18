@@ -5,7 +5,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
+    container:
+      image: ghcr.io/qmk/qmk_cli:latest
+
     steps:
     - name: Clone qmk/qmk_firmware
       uses: actions/checkout@v2
@@ -17,9 +20,6 @@ jobs:
       uses: actions/checkout@v2
       with:
         path: './keyboards/'
-
-    - name: Install dependencies
-      run: ./util/qmk_install.sh
 
     - name: Compile
       run: qmk compile -kb keyball/keyball44 -km default
