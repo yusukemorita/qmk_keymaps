@@ -10,31 +10,29 @@ jobs:
       image: ghcr.io/qmk/qmk_cli:latest
 
     steps:
-    - name: Clone qmk/qmk_firmware
-      uses: actions/checkout@v2
+    - name: checkout yusukemorita/keyball44_keymap
+      uses: actions/checkout@v4
+
+    - name: Checkout qmk_firmware
+      uses: actions/checkout@v4
       with:
-        repository: 'qmk/qmk_firmware'
-        submodules: true
+        path: '__qmk__'
+        repository: qmk/qmk_firmware
+        submodules: recursive
+        ref: '0.22.14'
 
     - name: Setup QMK
       shell: bash
-      run: qmk setup --home ./ --yes
+      run: qmk setup --home ./__qmk__ --yes
 
-    - name: Clone yusukemorita/keyball44_keymap
-      uses: actions/checkout@v2
-      with:
-        path: './keyboards/'
-
-    - name: test
-      run: ls
-
-    - name: test 2
-      run: ls ./keyboards
+    - name: Install a link to keyball source
+      run: ln -s $(pwd)/keyboards/keyball __qmk__/keyboards/keyball
 
     - name: Compile
-      run: cd ./keyboards/keyball/keyball44/keymaps/develop && qmk compile -j 4
+      run: qmk compile -kb keyball/keyball44 -km develop -j 4
 
-    - uses: actions/upload-artifact@v2
+    - name: Archive built firmware
+      uses: actions/upload-artifact@v4
       with:
-        name: keyball44.hex
-        path: ./.build/keyball44.hex
+        name: keyball44-firmware
+        path: __qmk__/*.hex
