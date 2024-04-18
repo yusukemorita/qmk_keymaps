@@ -29,7 +29,7 @@ jobs:
       run: ln -s $(pwd)/keyball __qmk__/keyboards/keyball
 
     - name: Compile
-      run: qmk compile -kb keyball/keyball44 -km develop -j 4
+      run: qmk compile -kb keyball/keyball44 -km default -j 4
 
     - name: Upload built firmware to artifact
       uses: actions/upload-artifact@v4
