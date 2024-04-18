@@ -22,7 +22,7 @@ jobs:
       run: ./util/qmk_install.sh
 
     - name: Compile
-      run: ./bin/qmk compile -kb keyball/keyball44 -km default
+      run: qmk compile -kb keyball/keyball44 -km default
 
     - uses: actions/upload-artifact@v2
       with:
