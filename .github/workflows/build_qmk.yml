@@ -16,6 +16,10 @@ jobs:
         repository: 'qmk/qmk_firmware'
         submodules: true
 
+    - name: Setup QMK
+      shell: bash
+      run: qmk setup --home ./ --yes
+
     - name: Clone yusukemorita/keyball44_keymap
       uses: actions/checkout@v2
       with:
