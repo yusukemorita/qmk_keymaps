@@ -25,8 +25,14 @@ jobs:
       with:
         path: './keyboards/'
 
+    - name: test
+      run: ls
+
+    - name: test 2
+      run: ls ./keyboards
+
     - name: Compile
-      run: qmk compile -kb keyball/keyball44
+      run: qmk compile -kb keyball/keyball44 -km default
 
     - uses: actions/upload-artifact@v2
       with:
