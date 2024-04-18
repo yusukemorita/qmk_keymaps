@@ -1,0 +1,30 @@
+name: build QMK
+
+on:
+  - push
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Clone qmk/qmk_firmware
+      uses: actions/checkout@v2
+      with:
+        repository: 'qmk/qmk_firmware'
+        submodules: true
+
+    - name: Clone yusukemorita/keyball44_keymap
+      uses: actions/checkout@v2
+      with:
+        path: './keyboards/'
+
+    - name: Install dependencies
+      run: ./util/qmk_install.sh
+
+    - name: Compile
+      run: ./bin/qmk compile -kb keyball/keyball44 -km default
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: keyball44.hex
+        path: ./.build/keyball44.hex
