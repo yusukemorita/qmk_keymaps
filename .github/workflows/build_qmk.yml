@@ -26,7 +26,7 @@ jobs:
         path: './keyboards/'
 
     - name: Compile
-      run: qmk compile -kb keyball/keyball44 -km default
+      run: qmk compile -kb keyball/keyball44
 
     - uses: actions/upload-artifact@v2
       with:
