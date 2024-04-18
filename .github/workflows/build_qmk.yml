@@ -32,7 +32,7 @@ jobs:
       run: ls ./keyboards
 
     - name: Compile
-      run: qmk compile -kb keyball/keyball44 -km default
+      run: cd ./keyboards/keyball/keyball44/keymaps/develop && qmk compile
 
     - uses: actions/upload-artifact@v2
       with:
