@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // aliases
 
-#define JAP KC_LANG1
-#define ENG KC_LANG2
+#define JAP KC_LANGUAGE_1
+#define ENG KC_LANGUAGE_2
 
 #define CPI_INC CPI_I100
 #define CPI_DEC CPI_D100
