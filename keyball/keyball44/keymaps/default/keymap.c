@@ -28,7 +28,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
     case KC_ESC_AND_ENG:
       if (record->event.pressed) {
-        SEND_STRING(SS_TAP(KC_ESC) SS_TAP(KC_LANGUAGE_2));
+        SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_LANGUAGE_2));
       }
       break;
   }
