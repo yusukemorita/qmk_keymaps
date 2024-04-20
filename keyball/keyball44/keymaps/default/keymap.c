@@ -57,9 +57,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           // key was used to input ":"
           SEND_STRING(":");
         }
-        // keypress was handled
-        return false;
       }
+      // keypress was handled
+      return false;
 
   }
 
