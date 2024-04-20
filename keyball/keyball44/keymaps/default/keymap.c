@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX   , KC_1      , KC_2      , KC_3      , KC_4      , KC_5      ,                          KC_6     , KC_7     , KC_8     , KC_9     , KC_0     , XXXXXXX  ,
     XXXXXXX   , _______   , _______   , SCRL_MO   , _______   , _______   ,                          KC_LEFT  , KC_DOWN  , KC_UP    , KC_RIGHT , XXXXXXX  , XXXXXXX  ,
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                          KC_DEL   , KC_BSPC  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  ,
-    _______   , _______   ,             _______   , _______   , _______   ,                    KC_ESC_AND_EN0 , LT(3,RCLICK) ,       _______  , _______  , _______
+    _______   , _______   ,             _______   , _______   , _______   ,                    KC_ESC_AND_ENG , LT(3,RCLICK) ,       _______  , _______  , _______
   ),
 
   [2] = LAYOUT_universal(
