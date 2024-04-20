@@ -37,31 +37,12 @@ enum custom_keycodes {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  static uint16_t k_timer;
-
   switch(keycode) {
     case KC_ESC_AND_ENG:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_LANGUAGE_2));
       }
       break;
-
-    // enable scroll mode when `k` is held down
-    case KC_K:
-      if (record->event.pressed) {
-        k_timer = timer_read();
-        keyball_set_scroll_mode(true); // enable scroll mode
-      } else {
-        keyball_set_scroll_mode(false); // disable scroll mode
-      }
-
-      if (timer_elapsed(k_timer) >= TAPPING_TERM) {
-        // key was used to enable scroll mode, so the keypress was handled
-        return false;
-      } else {
-        // key was used to input "k", so this still needs to be handled
-        return true;
-      }
   }
 
   return true;
