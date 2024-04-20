@@ -55,7 +55,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(SCRL_MO); // disable scroll mode
       }
 
-      if (timer_elapsed(my_hash_timer) >= TAPPING_TERM) {
+      if (timer_elapsed(k_timer) >= TAPPING_TERM) {
         // key was used to enable scroll mode, so the keypress was handled
         return false;
       } else {
