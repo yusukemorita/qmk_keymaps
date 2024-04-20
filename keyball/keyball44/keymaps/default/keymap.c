@@ -37,7 +37,7 @@ enum custom_keycodes {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  static uint16_t k_timer;
+  // static uint16_t k_timer;
 
   switch(keycode) {
     case KC_ESC_AND_ENG:
@@ -47,24 +47,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
     // enable scroll mode when `k` is held down
-    case KC_K:
-      if (record->event.pressed) {
-        k_timer = timer_read();
-        register_code(SCRL_MO); // enable scroll mode
-      } else {
-        unregister_code(SCRL_MO); // disable scroll mode
-      }
+    // case KC_K:
+    //   if (record->event.pressed) {
+    //     k_timer = timer_read();
+    //     register_code(SCRL_MO); // enable scroll mode
+    //   } else {
+    //     unregister_code(SCRL_MO); // disable scroll mode
+    //   }
 
-      if (timer_elapsed(k_timer) >= TAPPING_TERM) {
-        // key was used to enable scroll mode, so the keypress was handled
-        return false;
-      } else {
-        // key was used to input "k", so this still needs to be handled
-        return true;
-      }
+    //   if (timer_elapsed(k_timer) >= TAPPING_TERM) {
+    //     // key was used to enable scroll mode, so the keypress was handled
+    //     return false;
+    //   } else {
+    //     // key was used to input "k", so this still needs to be handled
+    //     return true;
+    //   }
   }
 
   return true;
+}
+
+// ref: https://docs.qmk.fm/#/tap_hold?id=permissive-hold
+// makes tap and hold keys trigger the hold if another key is pressed
+// before releasing, even if it hasn’t hit the TAPPING_TERM
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(1, CLICK):
+            return true;
+        case LT(2, CLICK):
+            return true;
+        default:
+            return false;
+    }
 }
 
 // clang-format off
@@ -72,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default
   [0] = LAYOUT_universal(
     XXXXXXX  , KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                                        KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     , XXXXXXX  ,
-    XXXXXXX  , LCTL_T(KC_A), KC_S  , KC_D     , KC_F     , KC_G     ,                                        KC_H     , KC_J, MT(SCRL_MO, KC_K), KC_L  , RCTL_T(KC_COLON), XXXXXXX,
+    XXXXXXX  , LCTL_T(KC_A), KC_S  , KC_D     , KC_F     , KC_G     ,                                        KC_H     , KC_J, MT(SCRL_MO, KC_K), RCTL_T(KC_L) , KC_COLON, XXXXXXX,
     XXXXXXX  , KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                                        KC_N     , KC_M     , KC_COMM  , KC_DOT   , KC_SLASH , XXXXXXX  ,
     XXXXXXX  , XXXXXXX  ,            KC_LGUI  , LT(1,CLICK), LSFT_T(KC_SPACE),                         RSFT_T(KC_ENT) , LT(2,CLICK),          _______  , KC_RALT  , CLICK
   ),
