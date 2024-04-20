@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CPI_INC CPI_I100
 #define CPI_DEC CPI_D100
 #define CLICK KC_MS_BTN1
-#define R_CLICK KC_MS_BTN2
+#define RCLICK KC_MS_BTN2
 
 // macro
 
@@ -84,31 +84,31 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default
   [0] = LAYOUT_universal(
-    XXXXXXX   , KC_Q      , KC_W      , KC_E      , KC_R      , KC_T      ,                                  KC_Y      , KC_U      , KC_I      , KC_O      , KC_P      , XXXXXXX   ,
-    XXXXXXX   , KC_A      ,LCTL_T(KC_S),LALT_T(KC_D),KC_F     , KC_G      ,                                  KC_H      , KC_J      ,LALT_T(KC_K),RCTL_T(KC_L),KC_COLON , XXXXXXX   ,
-    XXXXXXX   , KC_Z      , KC_X      , KC_C      , KC_V      , KC_B      ,                                  KC_N      , KC_M      , KC_COMM   , KC_DOT    , KC_SLASH  , XXXXXXX   ,
-    XXXXXXX   , XXXXXXX   ,             KC_LGUI   ,LT(1,CLICK), LSFT_T(KC_SPACE),                            RSFT_T(KC_ENT), LT(2,CLICK),        _______   , _______   , KC_RALT
+    XXXXXXX   , KC_Q      , KC_W      , KC_E      , KC_R      , KC_T      ,                          KC_Y      , KC_U      , KC_I      , KC_O      , KC_P      , XXXXXXX   ,
+    XXXXXXX   , KC_A      ,LCTL_T(KC_S),LALT_T(KC_D),KC_F     , KC_G      ,                          KC_H      , KC_J      ,LALT_T(KC_K),RCTL_T(KC_L),KC_COLON , XXXXXXX   ,
+    XXXXXXX   , KC_Z      , KC_X      , KC_C      , KC_V      , KC_B      ,                          KC_N      , KC_M      , KC_COMM   , KC_DOT    , KC_SLASH  , XXXXXXX   ,
+    XXXXXXX   , XXXXXXX   ,             KC_LGUI   ,LT(1,CLICK), LSFT_T(KC_SPACE),                    RSFT_T(KC_ENT), LT(2,CLICK),        _______   , _______   , KC_RALT
   ),
 
   [1] = LAYOUT_universal(
-    XXXXXXX   , KC_1      , KC_2      , KC_3      , KC_4      , KC_5      ,                                  KC_6     , KC_7     , KC_8     , KC_9     , KC_0     , XXXXXXX  ,
-    XXXXXXX   , _______   , _______   , SCRL_MO   , _______   , _______   ,                                  KC_LEFT  , KC_DOWN  , KC_UP    , KC_RIGHT , XXXXXXX  , XXXXXXX  ,
-    XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                                  KC_DEL   , KC_BSPC  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  ,
-    _______   , _______   ,             _______   , _______   , _______   ,                            KC_ESC_AND_ENG , LT(3,R_CLICK) ,       _______  , _______  , _______
+    XXXXXXX   , KC_1      , KC_2      , KC_3      , KC_4      , KC_5      ,                          KC_6     , KC_7     , KC_8     , KC_9     , KC_0     , XXXXXXX  ,
+    XXXXXXX   , _______   , _______   , SCRL_MO   , _______   , _______   ,                          KC_LEFT  , KC_DOWN  , KC_UP    , KC_RIGHT , XXXXXXX  , XXXXXXX  ,
+    XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                          KC_DEL   , KC_BSPC  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  ,
+    _______   , _______   ,             _______   , _______   , _______   ,                    KC_ESC_AND_ENG , LT(3,RCLICK) ,       _______  , _______  , _______
   ),
 
   [2] = LAYOUT_universal(
-    XXXXXXX  , KC_EXCLAIM, KC_DQT  , KC_HASH , KC_DOLLAR, KC_PERCENT,                                        KC_AMPR  , KC_ASTR  , KC_LPRN  , KC_RPRN  , KC_CIRC  , XXXXXXX  ,
-    XXXXXXX  , KC_TAB   , KC_QUOTE , ENG     , JAP      , KC_AT    ,                                         KC_MINUS , KC_EQUAL , KC_LCBR  , KC_RCBR  , KC_SCLN  , XXXXXXX  ,
-    XXXXXXX  , _______  , KC_GRAVE , KC_TILDE, KC_PIPE  , _______  ,                                     KC_UNDERSCORE, KC_PLUS  , KC_LBRC  , KC_RBRC  , KC_BACKSLASH, XXXXXXX,
-    _______  , _______  ,            _______ , LT(3,R_CLICK), _______  ,                                    _______  , _______  ,            _______  , _______  , _______
+    XXXXXXX   , KC_EXCLAIM, KC_DQT    , KC_HASH  , KC_DOLLAR , KC_PERCENT ,                           KC_AMPR   , KC_ASTR   , KC_LPRN   , KC_RPRN   , KC_CIRC   , XXXXXXX   ,
+    XXXXXXX   , KC_TAB    , KC_QUOTE  , ENG      , JAP       , KC_AT      ,                           KC_MINUS  , KC_EQUAL  , KC_LCBR   , KC_RCBR   , KC_SCLN   , XXXXXXX   ,
+    XXXXXXX   , _______   , KC_GRAVE  , KC_TILDE , KC_PIPE   , _______    ,                           KC_UNDERSCORE, KC_PLUS, KC_LBRC   , KC_RBRC   , KC_BACKSLASH,XXXXXXX  ,
+    _______   , _______   ,             _______  ,LT(3,RCLICK), _______   ,                           _______   , _______   ,             _______   , _______   , _______
   ),
 
-  [3] = LAYOUT_universal(
-    XXXXXXX  , _______  , _______  , _______  , _______  , _______  ,                                        _______  , _______  , _______  , _______  , _______  , XXXXXXX  ,
-    XXXXXXX  , _______  , _______  , _______  , SCRL_DVI , CPI_INC  ,                                        _______  , _______  , _______  , _______  , _______  , XXXXXXX  ,
-    XXXXXXX  , _______  , _______  , _______  , SCRL_DVD , CPI_DEC  ,                                        _______  , _______  , _______  , _______  , _______  , XXXXXXX  ,
-    XXXXXXX  , _______  , _______  ,            _______  , _______  ,                                        _______  , _______  ,            _______  , _______  , XXXXXXX
+  [3] = LAYOUT_universal (
+    XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
+    XXXXXXX   , _______   , _______   , _______   , SCRL_DVI  , CPI_INC   ,                           _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
+    XXXXXXX   , _______   , _______   , _______   , SCRL_DVD  , CPI_DEC   ,                           _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
+    XXXXXXX   , _______   , _______   ,             _______   , _______   ,                           _______   , _______   ,             _______   , _______   , XXXXXXX
   ),
 };
 // clang-format on
