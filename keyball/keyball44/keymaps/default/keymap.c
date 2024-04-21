@@ -81,7 +81,7 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
 }
 
 // ref: https://docs.qmk.fm/#/feature_pointing_device?id=how-to-enable
-void pointing_device_init_user(void) {
+void keyboard_post_init_user(void) {
     set_auto_mouse_enable(true);
 }
 
