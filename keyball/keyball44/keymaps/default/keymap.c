@@ -80,6 +80,11 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+// ref: https://docs.qmk.fm/#/feature_pointing_device?id=how-to-enable
+void keyboard_post_init_user(void) {
+    set_auto_mouse_enable(true);
+}
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default
@@ -87,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX   , KC_Q      , KC_W      , KC_E      , KC_R      , KC_T      ,                          KC_Y      , KC_U      , KC_I      , KC_O      , KC_P      , XXXXXXX   ,
     XXXXXXX   , KC_A      ,LCTL_T(KC_S),LALT_T(KC_D),KC_F     , KC_G      ,                          KC_H      , KC_J      ,LALT_T(KC_K),RCTL_T(KC_L),KC_COLON , XXXXXXX   ,
     XXXXXXX   , KC_Z      , KC_X      , KC_C      , KC_V      , KC_B      ,                          KC_N      , KC_M      , KC_COMM   , KC_DOT    , KC_SLASH  , XXXXXXX   ,
-    XXXXXXX   , XXXXXXX   ,             KC_LGUI   ,LT(1,CLICK), LSFT_T(KC_SPACE),                    RSFT_T(KC_ENT), LT(2,CLICK),        _______   , _______   , KC_RALT
+    XXXXXXX   , XXXXXXX   ,             KC_LGUI   ,LT(1,CLICK), LSFT_T(KC_SPACE),                    RSFT_T(KC_ENT), LT(2,CLICK),        _______   , _______   , _______
   ),
 
   [1] = LAYOUT_universal(
@@ -106,18 +111,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [3] = LAYOUT_universal (
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
-    XXXXXXX   , _______   , _______   , _______   , SCRL_DVI  , CPI_INC   ,                           _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
+    XXXXXXX   , _______   , _______   , AML_TO    , SCRL_DVI  , CPI_INC   ,                           _______   , CLICK     , RCLICK    , _______   , _______   , XXXXXXX   ,
     XXXXXXX   , _______   , _______   , _______   , SCRL_DVD  , CPI_DEC   ,                           _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
     XXXXXXX   , _______   , _______   ,             _______   , _______   ,                           _______   , _______   ,             _______   , _______   , XXXXXXX
   ),
 };
 // clang-format on
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    // Auto enable scroll mode when the highest layer is 3
-    keyball_set_scroll_mode(get_highest_layer(state) == 3);
-    return state;
-}
 
 #ifdef OLED_ENABLE
 
