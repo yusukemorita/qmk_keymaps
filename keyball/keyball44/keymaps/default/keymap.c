@@ -80,6 +80,21 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+// ref: https://github.com/qmk/qmk_firmware/blob/master/docs/tap_hold.md#tapping-term
+// permissive hold alone wasn't enough to prevent missed layer key presses
+// (i.e. layer keys weren't triggering when I wanted them to trigger), so make the
+// tapping term for the layer keys shorter.
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(1, CLICK):
+            return 100;
+        case LT(2, CLICK):
+            return 100;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
 // ref: https://docs.qmk.fm/#/feature_pointing_device?id=how-to-enable
 void keyboard_post_init_user(void) {
     set_auto_mouse_enable(true);
