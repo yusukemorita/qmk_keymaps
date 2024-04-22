@@ -43,5 +43,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUTO_MOUSE_DEFAULT_LAYER 3
 #define AUTO_MOUSE_TIME 500
 
-#define TAPPING_TERM 150
+#define TAPPING_TERM 120
 #define PERMISSIVE_HOLD_PER_KEY
