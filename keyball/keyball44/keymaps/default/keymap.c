@@ -66,20 +66,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// ref: https://docs.qmk.fm/#/tap_hold?id=permissive-hold
-// makes tap and hold keys trigger the hold if another key is pressed
-// before releasing, even if it hasn’t hit the TAPPING_TERM
-bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case LT(1, CLICK):
-            return true;
-        case LT(2, CLICK):
-            return true;
-        default:
-            return false;
-    }
-}
-
 // ref: https://github.com/qmk/qmk_firmware/blob/master/docs/tap_hold.md#tapping-term
 // permissive hold alone wasn't enough to prevent missed layer key presses
 // (i.e. layer keys weren't triggering when I wanted them to trigger), so make the
