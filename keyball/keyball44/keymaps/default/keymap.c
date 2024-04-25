@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RCLICK KC_MS_BTN2
 
 #define SCREENSHOT_PART LCMD(LSFT(KC_4))
-#define SCREENSHOT_WHOLE LCMD(LSFT(KC_4))
+#define SCREENSHOT_WHOLE LCMD(LSFT(KC_3))
 
 // macro
 
