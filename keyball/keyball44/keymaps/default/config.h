@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KEYBALL_SCROLL_DIV_DEFAULT 6
 
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
-#define AUTO_MOUSE_DEFAULT_LAYER 3
+#define AUTO_MOUSE_DEFAULT_LAYER 4
 #define AUTO_MOUSE_TIME 500
 
 #define PERMISSIVE_HOLD_PER_KEY
