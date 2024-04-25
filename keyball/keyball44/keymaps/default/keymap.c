@@ -28,6 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CLICK KC_MS_BTN1
 #define RCLICK KC_MS_BTN2
 
+#define SCREENSHOT_PART LCMD(LSFT(KC_4))
+#define SCREENSHOT_WHOLE LCMD(LSFT(KC_4))
+
 // macro
 
 enum custom_keycodes {
@@ -124,11 +127,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [3] = LAYOUT_universal (
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
-    XXXXXXX   , _______   , _______   , _______   , _______   , LCMD(LSFT(KC_4)),                     _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
-    XXXXXXX   , _______   , _______   , _______   , _______   , LCMD(LSFT(KC_3)),                     _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
+    XXXXXXX   , _______   , _______   , _______   , _______   , SCREENSHOT_PART,                      _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
+    XXXXXXX   , _______   , _______   , _______   , _______   , SCREENSHOT_WHOLE,                     _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
     XXXXXXX   , _______   , _______   ,             _______   , _______   ,                           _______   , _______   ,             _______   , _______   , XXXXXXX
   ),
 
+  // auto mouse layer
   [4] = LAYOUT_universal (
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           _______   , CLICK     , RCLICK    , _______   , _______   , XXXXXXX   ,
