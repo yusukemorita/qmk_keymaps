@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // auto mouse layer
   [4] = LAYOUT_universal (
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
-    XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           _______   , CLICK     , RCLICK    , _______   , _______   , XXXXXXX   ,
+    XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                          LCMD(CLICK), CLICK     , RCLICK    , _______   , _______   , XXXXXXX   ,
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
     XXXXXXX   , _______   , _______   ,             _______   , _______   ,                           _______   , _______   ,             _______   , _______   , XXXXXXX
   ),
