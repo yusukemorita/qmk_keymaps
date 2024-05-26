@@ -45,6 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #define AUTO_MOUSE_DEFAULT_LAYER 4
 #define AUTO_MOUSE_TIME 500
+// default is 10, increase to prevent accidental mouse layer activations
+#define AUTO_MOUSE_THRESHOLD 20
 
 #define TAPPING_TERM 150
 #define PERMISSIVE_HOLD
