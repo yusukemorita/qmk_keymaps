@@ -94,6 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX   , XXXXXXX   ,             CLICK     , MO(1)     , LSFT_T(KC_SPACE),                    RSFT_T(KC_ENT), MO(2) ,             _______   , _______   , _______
   ),
 
+  // (mostly) numbers and shortcuts
   [1] = LAYOUT_universal(
     XXXXXXX   , _______ , KC_CAPS_LOCK, L_TAB     , R_TAB     , KC_ESC,                          KC_0     , KC_1     , KC_2     , KC_3     , _______  , XXXXXXX  ,
     XXXXXXX   , _______   , KC_LCBR   , KC_DEL    , KC_BSPC   , KC_RCBR   ,                          KC_MINUS , KC_4     , KC_5     , KC_6     , _______  , XXXXXXX  ,
@@ -101,10 +102,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______   , _______   ,             _______   , _______   , _______   ,                    KC_ESC_AND_ENG , LT(3,RCLICK) ,        _______  , _______  , _______
   ),
 
+  // symbols
   [2] = LAYOUT_universal(
     XXXXXXX   , KC_EXCLAIM, KC_DQT    , KC_HASH  , KC_DOLLAR , KC_PERCENT ,                           KC_AMPR   , KC_ASTR   , KC_LPRN   , KC_RPRN   , KC_CIRC   , XXXXXXX   ,
     XXXXXXX   , KC_TAB    , KC_QUOTE  , ENG      , JAP       , KC_AT      ,                           KC_LEFT   , KC_DOWN   , KC_UP     , KC_RIGHT  , KC_SCLN   , XXXXXXX   ,
-    XXXXXXX   , _______   , KC_GRAVE  , KC_TILDE , KC_PIPE   , _______    ,                           KC_UNDERSCORE, KC_PLUS, KC_LBRC   , KC_RBRC   , KC_BACKSLASH,XXXXXXX  ,
+    XXXXXXX , LSFT(KC_TAB), KC_GRAVE  , KC_TILDE , KC_PIPE   , _______    ,                           KC_UNDERSCORE, KC_PLUS, KC_LBRC   , KC_RBRC   , KC_BACKSLASH,XXXXXXX  ,
     _______   , _______   ,             _______  ,LT(3,RCLICK), _______   ,                           _______   , _______   ,             _______   , _______   , _______
   ),
 
