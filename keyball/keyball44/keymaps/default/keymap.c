@@ -34,7 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // macro
 
 enum custom_keycodes {
-  KC_ESC_AND_ENG = SAFE_RANGE
+  KC_ESC_AND_ENG = SAFE_RANGE,
+  CMD_CLICK
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -44,6 +45,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ESC_AND_ENG:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_LANGUAGE_2));
+      }
+      break;
+
+    // click while holding cmd
+    // for some reason `LCMD(CLICK)` did not work, so use a macro instead
+    case CMD_CLICK:
+      if (record->event.pressed) {
+        register_code(KC_LCMD);
+        register_code(CLICK);
+        unregister_code(CLICK);
+        unregister_code(KC_LCMD);
       }
       break;
 
@@ -120,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // auto mouse layer
   [4] = LAYOUT_universal (
-    XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                          LCMD(CLICK), _______   , _______   , _______   , _______   , XXXXXXX   ,
+    XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           CMD_CLICK , _______   , _______   , _______   , _______   , XXXXXXX   ,
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           CLICK     , _______   , _______   , _______   , _______   , XXXXXXX   ,
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           RCLICK    , _______   , _______   , _______   , _______   , XXXXXXX   ,
     XXXXXXX   , _______   , _______   ,             _______   , _______   ,                           _______   , _______   ,             _______   , _______   , XXXXXXX
