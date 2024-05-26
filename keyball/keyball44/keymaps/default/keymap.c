@@ -54,8 +54,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         register_code(KC_LCMD);
         register_code(CLICK);
-        unregister_code(CLICK);
-        unregister_code(KC_LCMD);
       }
       break;
 
@@ -77,6 +75,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   return true;
+}
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    // click while holding cmd
+    case CMD_CLICK:
+      if (!record->event.pressed) {
+        unregister_code(CLICK);
+        unregister_code(KC_LCMD);
+      }
+      break;
+  }
 }
 
 // ref: https://github.com/qmk/qmk_firmware/blob/master/docs/tap_hold.md#tapping-term
