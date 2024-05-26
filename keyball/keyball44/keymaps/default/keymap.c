@@ -34,7 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // macro
 
 enum custom_keycodes {
-  KC_ESC_AND_ENG = SAFE_RANGE
+  KC_ESC_AND_ENG = SAFE_RANGE,
+  CMD_CLICK
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -44,6 +45,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ESC_AND_ENG:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_LANGUAGE_2));
+      }
+      break;
+
+    // click while holding cmd
+    // for some reason `LCMD(CLICK)` did not work, so use a macro instead
+    case CMD_CLICK:
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LCMD) SS_DELAY(20) SS_TAP(X_BTN1) SS_DELAY(20) SS_UP(X_LCMD));
       }
       break;
 
@@ -61,7 +70,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       // keypress was handled
       return false;
-
   }
 
   return true;
@@ -98,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [1] = LAYOUT_universal(
-    XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                          KC_0     , KC_1     , KC_2     , KC_3     , _______  , XXXXXXX  ,
+    XXXXXXX   , _______   , _______, LCMD(KC_LCBR), LCMD(KC_RCBR), _______,                          KC_0     , KC_1     , KC_2     , KC_3     , _______  , XXXXXXX  ,
     XXXXXXX   , _______   , KC_LCBR   , KC_DEL    , KC_BSPC   , KC_RCBR   ,                          KC_MINUS , KC_4     , KC_5     , KC_6     , _______  , XXXXXXX  ,
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                          KC_EQUAL , KC_7     , KC_8     , KC_9     , _______  , XXXXXXX  ,
     _______   , _______   ,             _______   , _______   , _______   ,                    KC_ESC_AND_ENG , LT(3,RCLICK) ,        _______  , _______  , _______
@@ -120,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // auto mouse layer
   [4] = LAYOUT_universal (
-    XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                          LCMD(CLICK), _______   , _______   , _______   , _______   , XXXXXXX   ,
+    XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           CMD_CLICK , _______   , _______   , _______   , _______   , XXXXXXX   ,
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           CLICK     , _______   , _______   , _______   , _______   , XXXXXXX   ,
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           RCLICK    , _______   , _______   , _______   , _______   , XXXXXXX   ,
     XXXXXXX   , _______   , _______   ,             _______   , _______   ,                           _______   , _______   ,             _______   , _______   , XXXXXXX
