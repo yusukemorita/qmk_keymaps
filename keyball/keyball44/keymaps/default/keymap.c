@@ -31,6 +31,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SCREENSHOT_PART LCMD(LSFT(KC_4))
 #define SCREENSHOT_WHOLE LCMD(LSFT(KC_3))
 
+// for moving tabs
+#define L_TAB LCMD(KC_LCBR)
+#define R_TAB LCMD(KC_RCBR)
+
 // macro
 
 enum custom_keycodes {
@@ -91,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [1] = LAYOUT_universal(
-    XXXXXXX   , _______   , _______, LCMD(KC_LCBR), LCMD(KC_RCBR), _______,                          KC_0     , KC_1     , KC_2     , KC_3     , _______  , XXXXXXX  ,
+    XXXXXXX   , _______ , KC_CAPS_LOCK, L_TAB     , R_TAB     , KC_ESC,                          KC_0     , KC_1     , KC_2     , KC_3     , _______  , XXXXXXX  ,
     XXXXXXX   , _______   , KC_LCBR   , KC_DEL    , KC_BSPC   , KC_RCBR   ,                          KC_MINUS , KC_4     , KC_5     , KC_6     , _______  , XXXXXXX  ,
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                          KC_EQUAL , KC_7     , KC_8     , KC_9     , _______  , XXXXXXX  ,
     _______   , _______   ,             _______   , _______   , _______   ,                    KC_ESC_AND_ENG , LT(3,RCLICK) ,        _______  , _______  , _______
