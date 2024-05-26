@@ -48,5 +48,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // default is 10, increase to prevent accidental mouse layer activations
 #define AUTO_MOUSE_THRESHOLD 20
 
-#define TAPPING_TERM 150
+#define TAPPING_TERM 180
 #define PERMISSIVE_HOLD
