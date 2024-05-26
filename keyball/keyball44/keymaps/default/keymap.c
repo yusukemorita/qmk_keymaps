@@ -52,7 +52,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // for some reason `LCMD(CLICK)` did not work, so use a macro instead
     case CMD_CLICK:
       if (record->event.pressed) {
-        SEND_STRING(SS_LCMD(CLICK));
+        SEND_STRING(SS_LCMD(X_BTN1));
       }
       break;
 
