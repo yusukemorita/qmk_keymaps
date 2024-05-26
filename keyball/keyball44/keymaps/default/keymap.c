@@ -55,7 +55,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         register_code(KC_LCMD);
         register_code(CLICK);
       }
-      break;
+      // keypress was handled
+      return false;
 
     // enable scroll mode when `:` is held down
     case KC_COLON:
@@ -85,7 +86,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(CLICK);
         unregister_code(KC_LCMD);
       }
-      break;
+      // keypress was handled
+      return false;
   }
 }
 
