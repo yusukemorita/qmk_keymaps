@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [3] = LAYOUT_universal (
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
-    XXXXXXX   , _______   , _______   , _______   , _______   , SCREENSHOT_PART,                      _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
+    XXXXXXX   , _______   , _______   , _______   , _______   , SCREENSHOT_PART,                   KC_MS_WH_LEFT, _______   , _______,KC_MS_WH_RIGHT, _______   , XXXXXXX   ,
     XXXXXXX   , _______   , _______   , _______   , _______   , SCREENSHOT_WHOLE,                     _______   , _______   , _______   , _______   , _______   , XXXXXXX   ,
     XXXXXXX   , _______   , _______   ,             _______   , _______   ,                           _______   , _______   ,             _______   , _______   , XXXXXXX
   ),
