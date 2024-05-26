@@ -52,16 +52,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // for some reason `LCMD(CLICK)` did not work, so use a macro instead
     case CMD_CLICK:
       if (record->event.pressed) {
-        // when key is pressed
-        register_code(KC_LCMD);
-        register_code(CLICK);
-      } else {
-        // when key is released
-        unregister_code(CLICK);
-        unregister_code(KC_LCMD);
+        SEND_STRING(SS_LCMD(CLICK));
       }
-      // keypress was handled
-      return false;
+      break;
 
     // enable scroll mode when `:` is held down
     case KC_COLON:
