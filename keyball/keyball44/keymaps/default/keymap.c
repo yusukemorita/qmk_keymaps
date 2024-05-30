@@ -58,8 +58,8 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
       SEND_STRING(SS_DOWN(X_CTL) SS_DELAY(20) SS_TAP(KC_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
     }
 
-    mouse_report.h = 0
-    mouse_report.v = 0
+    mouse_report.h = 0;
+    mouse_report.v = 0;
     mouse_report.x = 0;
     mouse_report.y = 0;
   }
