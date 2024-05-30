@@ -47,17 +47,21 @@ enum custom_keycodes {
 };
 
 bool switch_desktop_with_trackball = false;
+report_mouse_t previous_report = {};
 
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+report_mouse_t pointing_device_task_user(report_mouse_t current_report) {
   if (switch_desktop_with_trackball) {
-    if (mouse_report.x > 10) {
-      // move to right desktop
-      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
-    } else if (mouse_report.x < -10) {
-      // move to left desktop
-      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
+    if (has_mouse_report_changed(previous_report, current_report)) {
+      if (current_report.x > 10) {
+        // move to right desktop
+        SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
+      } else if (current_report.x < -10) {
+        // move to left desktop
+        SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
+      }
     }
 
+    previous_report = current_report;
     mouse_report.h = 0;
     mouse_report.v = 0;
     mouse_report.x = 0;
