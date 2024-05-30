@@ -66,7 +66,6 @@ report_mouse_t pointing_device_task_user(report_mouse_t current_report) {
       SEND_STRING("1");
     }
 
-    previous_report = current_report;
     current_report.h = 0;
     current_report.v = 0;
     current_report.x = 0;
