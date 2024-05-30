@@ -57,7 +57,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
       if (x_movement_sum > 0) {
         // move to right desktop
         SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
-      } else {
+      } else if (x_movement_sum < 0) {
         // move to left desktop
         SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
       }
