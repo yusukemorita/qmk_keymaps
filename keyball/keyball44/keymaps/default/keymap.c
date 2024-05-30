@@ -62,7 +62,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
         SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
       }
     } else {
-      x_movement_sum += report.x
+      x_movement_sum += report.x;
     }
 
     // prevent cursor movement
