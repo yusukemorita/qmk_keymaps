@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #include "quantum.h"
+#include <stdio.h>
 
 // aliases
 
@@ -60,7 +61,6 @@ report_mouse_t pointing_device_task_user(report_mouse_t current_report) {
 
       char buffer[20];  // Ensure the buffer is large enough to hold the string
       snprintf(buffer, sizeof(buffer), "%d/", current_report.x);
-      printf("The number as a string is: %s\n", buffer);
       SEND_STRING(buffer);
     } else if (current_report.x < -0) {
       // move to left desktop
