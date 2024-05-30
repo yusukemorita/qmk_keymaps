@@ -58,11 +58,11 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
     if (x_movement_sum > 40) {
       // move to right desktop
       SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
-      x_movement_sum -= 40
+      x_movement_sum -= 40;
     } else if (x_movement_sum < -40) {
       // move to left desktop
       SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
-      x_movement_sum += 40
+      x_movement_sum += 40;
     }
 
     // prevent cursor movement
