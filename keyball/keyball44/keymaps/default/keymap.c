@@ -62,13 +62,13 @@ report_mouse_t pointing_device_task_user(report_mouse_t current_report) {
     }
 
     previous_report = current_report;
-    mouse_report.h = 0;
-    mouse_report.v = 0;
-    mouse_report.x = 0;
-    mouse_report.y = 0;
+    current_report.h = 0;
+    current_report.v = 0;
+    current_report.x = 0;
+    current_report.y = 0;
   }
 
-  return mouse_report;
+  return current_report;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
