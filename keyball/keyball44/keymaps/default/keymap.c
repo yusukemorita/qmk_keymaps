@@ -46,11 +46,14 @@ enum custom_keycodes {
   CMD_CLICK
 };
 
+// triggered by left layer key
 bool switch_desktop_with_trackball = false;
-report_mouse_t previous_report = {};
+// without this, the desktop switch will be triggered multiple times for one trackball movement
+bool currently_switching_desktop = false;
 
 report_mouse_t pointing_device_task_user(report_mouse_t current_report) {
-  if (switch_desktop_with_trackball) {
+  if (switch_desktop_with_trackball && !currently_switching_desktop) {
+    currently_switching_desktop = true;
     if (current_report.x > 10) {
       // move to right desktop
       SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
@@ -111,6 +114,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch_desktop_with_trackball = true;
       } else {
         switch_desktop_with_trackball = false;
+        currently_switching_desktop = false;
       }
   }
 
