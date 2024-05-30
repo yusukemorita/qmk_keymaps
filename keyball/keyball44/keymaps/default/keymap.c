@@ -46,10 +46,10 @@ enum custom_keycodes {
   CMD_CLICK
 };
 
-// triggered by left layer key
+// trigger by holding down a key
 bool switch_desktop_with_trackball = false;
 int x_movement_sum = 0;
-int switch_threshold = 120;
+int switch_threshold = 160;
 
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
   if (switch_desktop_with_trackball) {
@@ -108,6 +108,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
 
     case MO(1):
+    case KC_SLASH:
       if (record->event.pressed) {
         switch_desktop_with_trackball = true;
       } else {
