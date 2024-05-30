@@ -49,7 +49,7 @@ enum custom_keycodes {
 // triggered by left layer key
 bool switch_desktop_with_trackball = false;
 int x_movement_sum = 0;
-int switch_threshold = 80;
+int switch_threshold = 120;
 
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
   if (switch_desktop_with_trackball) {
