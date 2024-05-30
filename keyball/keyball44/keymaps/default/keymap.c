@@ -57,14 +57,16 @@ report_mouse_t pointing_device_task_user(report_mouse_t current_report) {
       // move to right desktop
       SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
       // debug how many times this is being sent
-      SEND_STRING(current_report.x);
-      SEND_STRING("/");
+
+      char buffer[20];  // Ensure the buffer is large enough to hold the string
+      snprintf(buffer, sizeof(buffer), "%d/", current_report.x);
+      printf("The number as a string is: %s\n", buffer);
+      SEND_STRING(buffer);
     } else if (current_report.x < -0) {
       // move to left desktop
       SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
       // debug how many times this is being sent
-      SEND_STRING(current_report.x);
-      SEND_STRING("/");
+      SEND_STRING("1");
     }
 
     current_report.x = 0;
