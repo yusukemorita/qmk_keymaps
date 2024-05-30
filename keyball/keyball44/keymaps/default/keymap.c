@@ -49,25 +49,25 @@ enum custom_keycodes {
 // triggered by left layer key
 bool switch_desktop_with_trackball = false;
 // without this, the desktop switch will be triggered multiple times for one trackball movement
-bool currently_switching_desktop = false;
+bool already_switched_desktop = false;
 
 report_mouse_t pointing_device_task_user(report_mouse_t current_report) {
-  if (switch_desktop_with_trackball && !currently_switching_desktop) {
-    currently_switching_desktop = true;
-    if (current_report.x > 10) {
-      // move to right desktop
-      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
-      // debug how many times this is being sent
-      SEND_STRING("1");
-    } else if (current_report.x < -10) {
-      // move to left desktop
-      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
-      // debug how many times this is being sent
-      SEND_STRING("1");
+  if (switch_desktop_with_trackball) {
+    if (!already_switched_desktop) {
+      if (current_report.x > 10) {
+        // move to right desktop
+        SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
+        // debug how many times this is being sent
+        SEND_STRING("1");
+      } else if (current_report.x < -10) {
+        // move to left desktop
+        SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
+        // debug how many times this is being sent
+        SEND_STRING("1");
+      }
+      already_switched_desktop = true;
     }
 
-    current_report.h = 0;
-    current_report.v = 0;
     current_report.x = 0;
     current_report.y = 0;
   }
@@ -113,7 +113,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch_desktop_with_trackball = true;
       } else {
         switch_desktop_with_trackball = false;
-        currently_switching_desktop = false;
+        already_switched_desktop = false;
       }
   }
 
