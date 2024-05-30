@@ -52,18 +52,17 @@ int x_movement_sum = 0;
 
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
   if (switch_desktop_with_trackball) {
-    if (report.x == 0) {
-      // when trackball stops moving, switch desktops
-      if (x_movement_sum > 10) {
-        // move to right desktop
-        SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
-      } else if (x_movement_sum < -10) {
-        // move to left desktop
-        SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
-      }
-      x_movement_sum = 0;
-    } else {
-      x_movement_sum += report.x;
+    x_movement_sum += report.x;
+
+    // when sum has reached threshold, trigger switch
+    if (x_movement_sum > 40) {
+      // move to right desktop
+      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
+      x_movement_sum -= 40
+    } else if (x_movement_sum < -40) {
+      // move to left desktop
+      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
+      x_movement_sum += 40
     }
 
     // prevent cursor movement
@@ -112,6 +111,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch_desktop_with_trackball = true;
       } else {
         switch_desktop_with_trackball = false;
+        x_movement_sum = 0;
       }
   }
 
