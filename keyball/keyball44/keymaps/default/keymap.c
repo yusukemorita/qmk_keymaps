@@ -51,14 +51,16 @@ report_mouse_t previous_report = {};
 
 report_mouse_t pointing_device_task_user(report_mouse_t current_report) {
   if (switch_desktop_with_trackball) {
-    if (has_mouse_report_changed(&previous_report, &current_report)) {
-      if (current_report.x > 10) {
-        // move to right desktop
-        SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
-      } else if (current_report.x < -10) {
-        // move to left desktop
-        SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
-      }
+    if (current_report.x > 10) {
+      // move to right desktop
+      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
+      // debug how many times this is being sent
+      SEND_STRING("1")
+    } else if (current_report.x < -10) {
+      // move to left desktop
+      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
+      // debug how many times this is being sent
+      SEND_STRING("1")
     }
 
     previous_report = current_report;
