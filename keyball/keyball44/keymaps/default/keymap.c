@@ -50,10 +50,10 @@ bool switch_desktop_with_trackball = false;
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
   if (switch_desktop_with_trackball) {
-    if mouse_report.x > 10 {
+    if (mouse_report.x > 10) {
       // move to right desktop
       SEND_STRING(SS_DOWN(X_CTL) SS_DELAY(20) SS_TAP(KC_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
-    } else if mouse_report.x < -10 {
+    } else if (mouse_report.x < -10) {
       // move to left desktop
       SEND_STRING(SS_DOWN(X_CTL) SS_DELAY(20) SS_TAP(KC_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
     }
