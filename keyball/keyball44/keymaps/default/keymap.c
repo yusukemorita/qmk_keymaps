@@ -49,20 +49,21 @@ enum custom_keycodes {
 // triggered by left layer key
 bool switch_desktop_with_trackball = false;
 int x_movement_sum = 0;
+int switch_threshold = 80;
 
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
   if (switch_desktop_with_trackball) {
     x_movement_sum += report.x;
 
     // when sum has reached threshold, trigger switch
-    if (x_movement_sum > 40) {
+    if (x_movement_sum > switch_threshold) {
       // move to right desktop
       SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
-      x_movement_sum -= 40;
-    } else if (x_movement_sum < -40) {
+      x_movement_sum -= switch_threshold;
+    } else if (x_movement_sum < -switch_threshold) {
       // move to left desktop
       SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
-      x_movement_sum += 40;
+      x_movement_sum += switch_threshold;
     }
 
     // prevent cursor movement
