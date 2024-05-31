@@ -46,6 +46,34 @@ enum custom_keycodes {
   CMD_CLICK
 };
 
+// trigger by holding down a key
+bool switch_desktop_with_trackball = false;
+int x_movement_sum = 0;
+int switch_threshold = 160;
+
+report_mouse_t pointing_device_task_user(report_mouse_t report) {
+  if (switch_desktop_with_trackball) {
+    x_movement_sum += report.x;
+
+    // when sum has reached threshold, trigger switch
+    if (x_movement_sum > switch_threshold) {
+      // move to left desktop
+      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
+      x_movement_sum -= switch_threshold;
+    } else if (x_movement_sum < -switch_threshold) {
+      // move to right desktop
+      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
+      x_movement_sum += switch_threshold;
+    }
+
+    // prevent cursor movement
+    report.x = 0;
+    report.y = 0;
+  }
+
+  return report;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static uint16_t scroll_timer;
 
@@ -78,6 +106,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       // keypress was handled
       return false;
+
+    case MO(1):
+    case KC_SLASH:
+      if (record->event.pressed) {
+        switch_desktop_with_trackball = true;
+      } else {
+        switch_desktop_with_trackball = false;
+        x_movement_sum = 0;
+      }
   }
 
   return true;
