@@ -80,11 +80,11 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
 
     // when sum has reached threshold, trigger switch
     if (x_movement_sum > switch_tabs_threshold) {
-      // move to left desktop
+      // move to left tab
       SEND_STRING(SS_LGUI("{"));
       x_movement_sum -= switch_tabs_threshold;
     } else if (x_movement_sum < -switch_tabs_threshold) {
-      // move to right desktop
+      // move to right tab
       SEND_STRING(SS_LGUI("}"));
       x_movement_sum += switch_tabs_threshold;
     }
