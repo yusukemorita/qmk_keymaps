@@ -217,11 +217,16 @@ static char to_1x(uint8_t x) {
     return x < 10 ? x + '0' : x + 'a' - 10;
 }
 
+// TODO: logo isn't rendered, so the function name is not accurate
 void oledkit_render_logo_user(void) {
     uint8_t current_layer = get_highest_layer(layer_state);
 
     oled_write_P(PSTR("L\xB6\xB7r\xB1"), false);
-    oled_write_char(to_1x(current_layer), false);
+    if (is_auto_mouse_active()) {
+      oled_write_char(to_1x(4), false);
+    } else {
+      oled_write_char(to_1x(current_layer), false);
+    }
 }
 
 #endif
