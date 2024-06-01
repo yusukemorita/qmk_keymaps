@@ -213,7 +213,10 @@ void oledkit_render_info_user(void) {
 }
 
 void oledkit_render_logo_user(void) {
-    keyball_oled_render_layerinfo();
+    uint8_t current_layer = get_highest_layer(layer_state);
+
+    oled_write_P(PSTR("L\xB6\xB7r\xB1"), false);
+    oled_write_char(to_1x(current_layer), false);
 }
 
 #endif
