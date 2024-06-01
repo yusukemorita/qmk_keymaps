@@ -53,3 +53,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // transmit layer state to slave side
 #define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_POINTING_ENABLE // needed for displaying detecting when auto mouse layer is enabled on slave
+
