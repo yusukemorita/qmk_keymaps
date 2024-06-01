@@ -212,6 +212,11 @@ void oledkit_render_info_user(void) {
     keyball_oled_render_layerinfo();
 }
 
+static char to_1x(uint8_t x) {
+    x &= 0x0f;
+    return x < 10 ? x + '0' : x + 'a' - 10;
+}
+
 void oledkit_render_logo_user(void) {
     uint8_t current_layer = get_highest_layer(layer_state);
 
