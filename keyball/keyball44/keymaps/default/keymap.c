@@ -79,7 +79,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
       y_movement_sum += switch_desktop_y_threshold;
     } else if (y_movement_sum > switch_desktop_y_threshold) {
       // show desktop
-      SEND_STRING(SS_LCTL(X_F11));
+      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(10) SS_TAP(X_F11) SS_DELAY(10) SS_UP(X_LCTL));
       y_movement_sum -= switch_desktop_y_threshold;
     }
 
