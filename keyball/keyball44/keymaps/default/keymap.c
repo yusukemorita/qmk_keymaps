@@ -54,10 +54,12 @@ bool switch_tabs_with_trackball = false;
 int switch_tabs_threshold = 160;
 
 int x_movement_sum = 0;
+int y_movement_sum = 0;
 
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
   if (switch_desktop_with_trackball) {
     x_movement_sum += report.x;
+    y_movement_sum += report.y;
 
     // when sum has reached threshold, trigger switch
     if (x_movement_sum > switch_desktop_threshold) {
@@ -68,6 +70,12 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
       // move to right desktop
       SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
       x_movement_sum += switch_desktop_threshold;
+    }
+
+    if (y_movement_sum > switch_desktop_threshold) {
+      // mission control
+      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_UP) SS_DELAY(20) SS_UP(X_LCTL));
+      y_movement_sum -= switch_desktop_threshold;
     }
 
     // prevent cursor movement
