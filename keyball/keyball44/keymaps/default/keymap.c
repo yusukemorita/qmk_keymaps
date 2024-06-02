@@ -160,6 +160,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         switch_tabs_with_trackball = false;
         x_movement_sum = 0;
+        y_movement_sum = 0;
       }
   }
 
