@@ -48,7 +48,8 @@ enum custom_keycodes {
 
 // trigger by holding down a key
 bool switch_desktop_with_trackball = false;
-int switch_desktop_threshold = 160;
+int switch_desktop_x_threshold = 160;
+int switch_desktop_y_threshold = 120;
 
 bool switch_tabs_with_trackball = false;
 int switch_tabs_threshold = 160;
@@ -62,20 +63,24 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
     y_movement_sum += report.y;
 
     // when sum has reached threshold, trigger switch
-    if (x_movement_sum > switch_desktop_threshold) {
+    if (x_movement_sum > switch_desktop_x_threshold) {
       // move to left desktop
       SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
-      x_movement_sum -= switch_desktop_threshold;
-    } else if (x_movement_sum < -switch_desktop_threshold) {
+      x_movement_sum -= switch_desktop_x_threshold;
+    } else if (x_movement_sum < -switch_desktop_x_threshold) {
       // move to right desktop
       SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
-      x_movement_sum += switch_desktop_threshold;
+      x_movement_sum += switch_desktop_x_threshold;
     }
 
-    if (y_movement_sum > switch_desktop_threshold) {
+    if (y_movement_sum < -switch_desktop_y_threshold) {
       // mission control
       SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_UP) SS_DELAY(20) SS_UP(X_LCTL));
-      y_movement_sum -= switch_desktop_threshold;
+      y_movement_sum += switch_desktop_y_threshold;
+    } else if (y_movement_sum > switch_desktop_y_threshold) {
+      // show desktop
+      SEND_STRING(SS_LCTL(X_F11));
+      y_movement_sum -= switch_desktop_y_threshold;
     }
 
     // prevent cursor movement
