@@ -49,7 +49,7 @@ enum custom_keycodes {
 // trigger by holding down a key
 bool switch_desktop_with_trackball = false;
 int switch_desktop_x_threshold = 160;
-int switch_desktop_y_threshold = 120;
+int switch_desktop_y_threshold = 100;
 
 bool switch_tabs_with_trackball = false;
 int switch_tabs_threshold = 160;
@@ -79,7 +79,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
       y_movement_sum += switch_desktop_y_threshold;
     } else if (y_movement_sum > switch_desktop_y_threshold) {
       // show desktop
-      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(10) SS_TAP(X_F11) SS_DELAY(10) SS_UP(X_LCTL));
+      SEND_STRING(SS_TAP(X_F11));
       y_movement_sum -= switch_desktop_y_threshold;
     }
 
