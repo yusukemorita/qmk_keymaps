@@ -35,10 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define L_TAB LCMD(KC_LCBR)
 #define R_TAB LCMD(KC_RCBR)
 
-// for moving desktops
-#define L_DESK LCTL(KC_LEFT)
-#define R_DESK LCTL(KC_RIGHT)
-
 // macro
 
 enum custom_keycodes {
@@ -184,9 +180,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // (mostly) numbers and shortcuts
   [1] = LAYOUT_universal(
-    XXXXXXX   , _______   , L_DESK    , L_TAB     , R_TAB     , R_DESK    ,                          KC_0     , KC_1     , KC_2     , KC_3     , _______  , XXXXXXX,
+    XXXXXXX   , _______   , _______   , L_TAB     , R_TAB     , _______   ,                          KC_0     , KC_1     , KC_2     , KC_3     , _______  , XXXXXXX,
     XXXXXXX   , _______   , KC_LCBR   , KC_DEL    , KC_BSPC   , KC_RCBR   ,                          KC_MINUS , KC_4     , KC_5     , KC_6     , _______  , XXXXXXX,
-    XXXXXXX   , _______ , KC_CAPS_LOCK, _______   , _______   , KC_ESC    ,                          KC_EQUAL , KC_7     , KC_8     , KC_9     , _______  , XXXXXXX,
+    XXXXXXX   , _______  ,KC_CAPS_LOCK, _______   , _______   , KC_ESC    ,                          KC_EQUAL , KC_7     , KC_8     , KC_9     , _______  , XXXXXXX,
     XXXXXXX   , _______   ,             _______   , _______   , QK_BOOT   ,                       ESC_AND_ENG , MO(3)    ,        _______  , _______  , _______
   ),
 
