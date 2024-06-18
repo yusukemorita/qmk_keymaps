@@ -45,7 +45,7 @@ enum custom_keycodes {
 // trigger by holding down a key
 bool switch_desktop_with_trackball = false;
 int switch_desktop_x_threshold = 160;
-int switch_desktop_y_threshold = 300;
+int switch_desktop_y_threshold = 450;
 
 bool switch_tabs_with_trackball = false;
 int switch_tabs_threshold = 160;
@@ -72,11 +72,11 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
     if (y_movement_sum < -switch_desktop_y_threshold) {
       // mission control
       SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_UP) SS_DELAY(20) SS_UP(X_LCTL));
-      y_movement_sum += switch_desktop_y_threshold;
+      y_movement_sum = 0; // set to zero to prevent triggering multiple times
     } else if (y_movement_sum > switch_desktop_y_threshold) {
       // show desktop
       SEND_STRING(SS_TAP(X_F11));
-      y_movement_sum -= switch_desktop_y_threshold;
+      y_movement_sum = 0;
     }
 
     // prevent cursor movement
