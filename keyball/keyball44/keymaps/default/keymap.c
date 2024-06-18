@@ -45,7 +45,7 @@ enum custom_keycodes {
 // trigger by holding down a key
 bool switch_desktop_with_trackball = false;
 int switch_desktop_x_threshold = 160;
-int switch_desktop_y_threshold = 300;
+int switch_desktop_y_threshold = 450;
 
 bool switch_tabs_with_trackball = false;
 int switch_tabs_threshold = 160;
