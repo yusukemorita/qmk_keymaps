@@ -186,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX   , KC_EXCLAIM, KC_DQT    , KC_HASH  , KC_DOLLAR , KC_PERCENT ,                           KC_AMPR   , KC_ASTR   , KC_LPRN   , KC_RPRN   , KC_CIRC   , XXXXXXX,
     XXXXXXX   , KC_TAB    , KC_QUOTE  , ENG      , JAP       , KC_AT      ,                           KC_LEFT   , KC_DOWN   , KC_UP     , KC_RIGHT  , KC_SCLN   , XXXXXXX,
     XXXXXXX , LSFT(KC_TAB), KC_GRAVE  , KC_TILDE , KC_PIPE   , _______    ,                           KC_UNDERSCORE, KC_PLUS, KC_LBRC   , KC_RBRC   , KC_BACKSLASH,XXXXXXX,
-    XXXXXXX   , _______   ,             _______  , MO(3)     , _______    ,                           QK_BOOT   , _______   ,             _______   , _______   , XXXXXXX
+    XXXXXXX   , _______   ,             RCLICK   , MO(3)     , _______    ,                           QK_BOOT   , _______   ,             _______   , _______   , XXXXXXX
   ),
 
   // shortcuts
