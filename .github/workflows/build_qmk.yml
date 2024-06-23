@@ -13,10 +13,17 @@ jobs:
     - name: Checkout yusukemorita/keyball44_keymap
       uses: actions/checkout@v4
 
+    - name: Cache qmk repository
+      id: cache-qmk-repository
+      uses: actions/cache@v4
+      with:
+        path: __qmk__
+        key: ${{ runner.os }}-qmk-repository
+
     - name: Checkout qmk/qmk_firmware
       uses: actions/checkout@v4
       with:
-        path: '__qmk__'
+        path: __qmk__
         repository: qmk/qmk_firmware
         submodules: recursive
         ref: '0.22.14'
