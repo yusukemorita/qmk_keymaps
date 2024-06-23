@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
+    env:
+      QMK_VERSION: '0.22.14'
     container:
       image: ghcr.io/qmk/qmk_cli:latest
 
@@ -18,7 +20,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: __qmk__
-        key: ${{ runner.os }}-qmk-repository
+        key: qmk-${{ env.QMK_VERSION }}
 
     - name: Checkout qmk/qmk_firmware
       uses: actions/checkout@v4
@@ -26,7 +28,7 @@ jobs:
         path: __qmk__
         repository: qmk/qmk_firmware
         submodules: recursive
-        ref: '0.22.14'
+        ref: ${{ env.QMK_VERSION }}
 
     - name: Setup QMK
       shell: bash
