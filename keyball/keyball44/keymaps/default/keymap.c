@@ -104,11 +104,17 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
     report.y = 0;
   }
 
+  // enable scroll mode when CMD(GUI) is held down
+  if (get_mods() & MOD_MASK_GUI) {
+    keyball_set_scroll_mode(true);
+  } else {
+    keyball_set_scroll_mode(false);
+  }
+
   return report;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  static uint16_t scroll_timer;
   static uint16_t qk_boot_timer;
 
   switch(keycode) {
@@ -125,21 +131,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(SS_DOWN(X_LCMD) SS_DELAY(20) SS_TAP(X_BTN1) SS_DELAY(20) SS_UP(X_LCMD));
       }
       break;
-
-    // enable scroll mode when `:` is held down
-    case KC_COLON:
-      if (record->event.pressed) {
-        scroll_timer = timer_read();
-        keyball_set_scroll_mode(true); // enable scroll mode
-      } else {
-        keyball_set_scroll_mode(false); // disable scroll mode
-        if (timer_elapsed(scroll_timer) < TAPPING_TERM) {
-          // key was used to input ":"
-          SEND_STRING(":");
-        }
-      }
-      // keypress was handled
-      return false;
 
     // for switching desktops with trackball
     case MO(1):
