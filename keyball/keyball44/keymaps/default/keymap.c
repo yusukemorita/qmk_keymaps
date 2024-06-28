@@ -40,6 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 enum custom_keycodes {
   ESC_AND_ENG = SAFE_RANGE,
   CMD_CLICK
+  HOLD_QK_BOOT
 };
 
 // trigger by holding down a key
@@ -108,6 +109,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static uint16_t scroll_timer;
+  static uint16_t qk_boot_timer;
 
   switch(keycode) {
     case ESC_AND_ENG:
@@ -158,6 +160,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         x_movement_sum = 0;
         y_movement_sum = 0;
       }
+
+    case HOLD_QK_BOOT:
+      if (record->event.pressed) {
+        qk_boot_timer = timer_read();
+      } else {
+        // trigger boot mode if held down for 2 seconds
+        if (timer_elapsed(qk_boot_timer) > 2000) {
+          tap_code(QK_BOOT)
+        }
+      }
+      // keypress was handled
+      return false;
   }
 
   return true;
@@ -178,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX   , _______   , _______   , L_TAB     , R_TAB     , _______   ,                          KC_0     , KC_1     , KC_2     , KC_3     , _______  , XXXXXXX,
     XXXXXXX   , _______   , KC_LCBR   , KC_DEL    , KC_BSPC   , KC_RCBR   ,                          KC_MINUS , KC_4     , KC_5     , KC_6     , _______  , XXXXXXX,
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                          KC_EQUAL , KC_7     , KC_8     , KC_9     , _______  , XXXXXXX,
-    XXXXXXX   , _______   ,             _______   , _______   , QK_BOOT   ,                       ESC_AND_ENG , MO(3)    ,        _______  , _______  , _______
+    XXXXXXX   , _______   ,             _______   , _______   , HOLD_QK_BOOT,                     ESC_AND_ENG , MO(3)    ,        _______  , _______  , _______
   ),
 
   // symbols
@@ -186,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX   , KC_EXCLAIM, KC_DQT    , KC_HASH  , KC_DOLLAR , KC_PERCENT ,                           KC_AMPR   , KC_ASTR   , KC_LPRN   , KC_RPRN   , KC_CIRC   , XXXXXXX,
     XXXXXXX   , KC_TAB    , KC_QUOTE  , ENG      , JAP       , KC_AT      ,                           KC_LEFT   , KC_DOWN   , KC_UP     , KC_RIGHT  , KC_SCLN   , XXXXXXX,
     XXXXXXX , LSFT(KC_TAB), KC_GRAVE  , KC_TILDE , KC_PIPE   , _______    ,                           KC_UNDERSCORE, KC_PLUS, KC_LBRC   , KC_RBRC   , KC_BACKSLASH,XXXXXXX,
-    XXXXXXX   , _______   ,             RCLICK   , MO(3)     , _______    ,                           QK_BOOT   , _______   ,             _______   , _______   , XXXXXXX
+    XXXXXXX   , _______   ,             RCLICK   , MO(3)     , _______    ,                         HOLD_QK_BOOT, _______   ,             _______   , _______   , XXXXXXX
   ),
 
   // shortcuts
