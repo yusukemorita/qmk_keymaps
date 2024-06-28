@@ -55,12 +55,6 @@ int x_movement_sum = 0;
 int y_movement_sum = 0;
 
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
-  if (get_mods() & MOD_MASK_GUI) {
-    keyball_set_scroll_mode(true); // enable scroll
-  } else {
-    keyball_set_scroll_mode(false); // disable scroll
-  }
-
   if (switch_desktop_with_trackball) {
     x_movement_sum += report.x;
     y_movement_sum += report.y;
@@ -108,6 +102,13 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
     // prevent cursor movement
     report.x = 0;
     report.y = 0;
+  }
+
+  // enable scroll mode when CMD(GUI) is held down
+  if (get_mods() & MOD_MASK_GUI) {
+    keyball_set_scroll_mode(true);
+  } else {
+    keyball_set_scroll_mode(false);
   }
 
   return report;
