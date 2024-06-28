@@ -126,20 +126,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-    // enable scroll mode when `:` is held down
-    case KC_COLON:
+    // enable scroll mode when `CMD` keys are held down
+    case LCMD_T(KC_J):
+    case LCMD_T(KC_F):
       if (record->event.pressed) {
-        scroll_timer = timer_read();
         keyball_set_scroll_mode(true); // enable scroll mode
       } else {
         keyball_set_scroll_mode(false); // disable scroll mode
-        if (timer_elapsed(scroll_timer) < TAPPING_TERM) {
-          // key was used to input ":"
-          SEND_STRING(":");
-        }
       }
-      // keypress was handled
-      return false;
 
     // for switching desktops with trackball
     case MO(1):
