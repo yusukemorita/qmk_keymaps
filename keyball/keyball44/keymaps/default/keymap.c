@@ -167,7 +167,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         // trigger boot mode if held down for 2 seconds
         if (timer_elapsed(qk_boot_timer) > 2000) {
-          tap_code(QK_BOOT)
+          bootloader_jump();
         }
       }
       // keypress was handled
