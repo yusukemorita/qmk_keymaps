@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum custom_keycodes {
   ESC_AND_ENG = SAFE_RANGE,
-  CMD_CLICK
+  CMD_CLICK,
   HOLD_QK_BOOT
 };
 
