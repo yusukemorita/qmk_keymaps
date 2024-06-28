@@ -55,7 +55,8 @@ int x_movement_sum = 0;
 int y_movement_sum = 0;
 
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
-  if (switch_desktop_with_trackball) {
+  // trigger desktop operations with left layer key or control
+  if (switch_desktop_with_trackball || (get_mods() & MOD_MASK_CTRL)) {
     x_movement_sum += report.x;
     y_movement_sum += report.y;
 
@@ -134,7 +135,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // for switching desktops with trackball
     case MO(1):
-    case KC_SLASH:
       if (record->event.pressed) {
         switch_desktop_with_trackball = true;
       } else {
@@ -171,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default
   [0] = LAYOUT_universal(
     XXXXXXX   , KC_Q      , KC_W      , KC_E      , KC_R      , KC_T      ,                          KC_Y      , KC_U      , KC_I      , KC_O      , KC_P      , XXXXXXX   ,
-    XXXXXXX   , KC_A      ,LCTL_T(KC_S),LALT_T(KC_D),LCMD_T(KC_F), KC_G   ,                          KC_H     ,LCMD_T(KC_J),LALT_T(KC_K),RCTL_T(KC_L),KC_COLON , XXXXXXX   ,
+    XXXXXXX   , KC_A      ,LCTL_T(KC_S),LALT_T(KC_D),LCMD_T(KC_F), KC_G   ,                          KC_H     ,RCMD_T(KC_J),RALT_T(KC_K),RCTL_T(KC_L),KC_COLON , XXXXXXX   ,
     XXXXXXX   , KC_Z      , KC_X      , KC_C      , KC_V      , KC_B      ,                          KC_N      , KC_M      , KC_COMM   , KC_DOT    , KC_SLASH  , XXXXXXX   ,
     XXXXXXX   , _______   ,             CLICK     , MO(1)     , LSFT_T(KC_SPACE),                    RSFT_T(KC_ENT), MO(2) ,             _______   , _______   , _______
   ),
