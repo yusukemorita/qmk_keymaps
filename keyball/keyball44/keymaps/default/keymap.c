@@ -55,6 +55,12 @@ int x_movement_sum = 0;
 int y_movement_sum = 0;
 
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
+  if (get_mods() & MOD_MASK_GUI) {
+    keyball_set_scroll_mode(true); // enable scroll
+  } else {
+    keyball_set_scroll_mode(false); // disable scroll
+  }
+
   if (switch_desktop_with_trackball) {
     x_movement_sum += report.x;
     y_movement_sum += report.y;
@@ -124,15 +130,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(SS_DOWN(X_LCMD) SS_DELAY(20) SS_TAP(X_BTN1) SS_DELAY(20) SS_UP(X_LCMD));
       }
       break;
-
-    // enable scroll mode when `CMD` keys are held down
-    case LCMD_T(KC_J):
-    case LCMD_T(KC_F):
-      if (record->event.pressed) {
-        keyball_set_scroll_mode(true); // enable scroll mode
-      } else {
-        keyball_set_scroll_mode(false); // disable scroll mode
-      }
 
     // for switching desktops with trackball
     case MO(1):
