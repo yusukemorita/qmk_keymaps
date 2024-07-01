@@ -128,7 +128,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case EMAIL_1:
       if (record->event.pressed) {
-        SEND_STRING(EMAIL);
+        SEND_STRING(ENV_EMAIL_1);
       }
       break;
 
