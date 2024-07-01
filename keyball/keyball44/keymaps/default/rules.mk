@@ -1,1 +1,7 @@
 OLED_ENABLE = yes
+
+# `PERSONAL_EMAIL`, `PERSONAL_EMAIL_DEV`, `WORK_EMAIL`
+# should be defined as env variables at compile time
+EXTRAFLAGS += -DENV_EMAIL_1=\"$(PERSONAL_EMAIL)\"
+EXTRAFLAGS += -DENV_EMAIL_2=\"$(WORK_EMAIL)\"
+EXTRAFLAGS += -DENV_EMAIL_3=\"$(PERSONAL_EMAIL_DEV)\"
