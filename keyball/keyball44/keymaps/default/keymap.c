@@ -39,7 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum custom_keycodes {
   ESC_AND_ENG = SAFE_RANGE,
-  CMD_CLICK,
   HOLD_QK_BOOT
 };
 
@@ -47,9 +46,6 @@ enum custom_keycodes {
 bool switch_desktop_with_trackball = false;
 int switch_desktop_x_threshold = 160;
 int switch_desktop_y_threshold = 400;
-
-bool switch_tabs_with_trackball = false;
-int switch_tabs_threshold = 160;
 
 int x_movement_sum = 0;
 int y_movement_sum = 0;
@@ -86,25 +82,6 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
     report.y = 0;
   }
 
-  if (switch_tabs_with_trackball) {
-    x_movement_sum += report.x;
-
-    // when sum has reached threshold, trigger switch
-    if (x_movement_sum > switch_tabs_threshold) {
-      // move to left tab
-      SEND_STRING(SS_LGUI("{"));
-      x_movement_sum -= switch_tabs_threshold;
-    } else if (x_movement_sum < -switch_tabs_threshold) {
-      // move to right tab
-      SEND_STRING(SS_LGUI("}"));
-      x_movement_sum += switch_tabs_threshold;
-    }
-
-    // prevent cursor movement
-    report.x = 0;
-    report.y = 0;
-  }
-
   // enable scroll mode when CMD(GUI) is held down
   if (get_mods() & MOD_MASK_GUI) {
     keyball_set_scroll_mode(true);
@@ -125,14 +102,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-    // click while holding cmd
-    // for some reason `LCMD(CLICK)` did not work, so use a macro instead
-    case CMD_CLICK:
-      if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LCMD) SS_DELAY(20) SS_TAP(X_BTN1) SS_DELAY(20) SS_UP(X_LCMD));
-      }
-      break;
-
     // for switching desktops with trackball
     case MO(1):
       if (record->event.pressed) {
@@ -140,17 +109,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         switch_desktop_with_trackball = false;
         x_movement_sum = 0;
-      }
-      break;
-
-    // for switching tabs with trackball
-    case KC_M:
-      if (record->event.pressed) {
-        switch_tabs_with_trackball = true;
-      } else {
-        switch_tabs_with_trackball = false;
-        x_movement_sum = 0;
-        y_movement_sum = 0;
       }
       break;
 
@@ -163,6 +121,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           bootloader_jump();
         }
       }
+      break;
   }
 
   return true;
