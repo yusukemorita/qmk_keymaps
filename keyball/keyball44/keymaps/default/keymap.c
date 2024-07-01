@@ -39,7 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum custom_keycodes {
   ESC_AND_ENG = SAFE_RANGE,
-  CMD_CLICK,
   HOLD_QK_BOOT
 };
 
@@ -100,14 +99,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ESC_AND_ENG:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_LANGUAGE_2));
-      }
-      break;
-
-    // click while holding cmd
-    // for some reason `LCMD(CLICK)` did not work, so use a macro instead
-    case CMD_CLICK:
-      if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LCMD) SS_DELAY(20) SS_TAP(X_BTN1) SS_DELAY(20) SS_UP(X_LCMD));
       }
       break;
 
