@@ -56,7 +56,7 @@ int y_movement_sum = 0;
 
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
   // trigger desktop operations with left layer key or control
-  if (switch_desktop_with_trackball || (get_mods() & MOD_MASK_CTRL)) {
+  if (switch_desktop_with_trackball) {
     x_movement_sum += report.x;
     y_movement_sum += report.y;
 
