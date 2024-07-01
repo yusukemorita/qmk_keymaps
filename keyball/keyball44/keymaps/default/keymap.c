@@ -63,17 +63,17 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
     // when sum has reached threshold, trigger switch
     if (x_movement_sum > switch_desktop_x_threshold) {
       // move to left desktop
-      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
+      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(1) SS_TAP(X_LEFT) SS_DELAY(1) SS_UP(X_LCTL));
       x_movement_sum -= switch_desktop_x_threshold;
     } else if (x_movement_sum < -switch_desktop_x_threshold) {
       // move to right desktop
-      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
+      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(1) SS_TAP(X_RIGHT) SS_DELAY(1) SS_UP(X_LCTL));
       x_movement_sum += switch_desktop_x_threshold;
     }
 
     if (y_movement_sum < -switch_desktop_y_threshold) {
       // mission control
-      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_UP) SS_DELAY(20) SS_UP(X_LCTL));
+      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(1) SS_TAP(X_UP) SS_DELAY(1) SS_UP(X_LCTL));
       y_movement_sum = 0; // set to zero to prevent triggering multiple times
     } else if (y_movement_sum > switch_desktop_y_threshold) {
       // show desktop
@@ -141,6 +141,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch_desktop_with_trackball = false;
         x_movement_sum = 0;
       }
+      break;
 
     // for switching tabs with trackball
     case KC_M:
@@ -151,6 +152,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         x_movement_sum = 0;
         y_movement_sum = 0;
       }
+      break;
 
     case HOLD_QK_BOOT:
       if (record->event.pressed) {
@@ -181,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX   , _______   , _______   , L_TAB     , R_TAB     , _______   ,                          KC_0     , KC_1     , KC_2     , KC_3     , _______  , XXXXXXX,
     XXXXXXX   , _______   , KC_LCBR   , KC_DEL    , KC_BSPC   , KC_RCBR   ,                          KC_MINUS , KC_4     , KC_5     , KC_6     , _______  , XXXXXXX,
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                          KC_EQUAL , KC_7     , KC_8     , KC_9     , _______  , XXXXXXX,
-    XXXXXXX   , _______   ,             _______   , _______   , HOLD_QK_BOOT,                     ESC_AND_ENG , MO(3)    ,        _______  , _______  , _______
+    XXXXXXX   , _______   ,             _______   , _______   , HOLD_QK_BOOT,                     ESC_AND_ENG , MO(3)    ,            _______  , _______  , _______
   ),
 
   // symbols
