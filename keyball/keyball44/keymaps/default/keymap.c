@@ -61,8 +61,6 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
     x_movement_sum += report.x;
     y_movement_sum += report.y;
 
-    uprintf("sums (x, y) = (%s, %s)", x_movement_sum, y_movement_sum);
-
     // when sum has reached threshold, trigger switch
     if (x_movement_sum > switch_desktop_x_threshold) {
       // move to left desktop
@@ -119,7 +117,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // static uint16_t qk_boot_timer;
+  static uint16_t qk_boot_timer;
 
   switch(keycode) {
     case ESC_AND_ENG:
@@ -155,15 +153,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         y_movement_sum = 0;
       }
 
-    // case HOLD_QK_BOOT:
-    //   if (record->event.pressed) {
-    //     qk_boot_timer = timer_read();
-    //   } else {
-    //     // trigger boot mode if held down for 2 seconds
-    //     if (timer_elapsed(qk_boot_timer) > 2000) {
-    //       bootloader_jump();
-    //     }
-    //   }
+    case HOLD_QK_BOOT:
+      if (record->event.pressed) {
+        print("start boot timer");
+        qk_boot_timer = timer_read();
+      } else {
+        print("  measure boot timer");
+        // trigger boot mode if held down for 2 seconds
+        if (timer_elapsed(qk_boot_timer) > 2000) {
+          bootloader_jump();
+        }
+      }
   }
 
   return true;
