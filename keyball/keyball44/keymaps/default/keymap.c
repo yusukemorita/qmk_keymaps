@@ -119,8 +119,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         qk_boot_timer = timer_read();
       } else {
-        // trigger boot mode if held down for 2 seconds
-        if (timer_elapsed(qk_boot_timer) > 2000) {
+        // trigger boot mode if held down for 1 second
+        if (timer_elapsed(qk_boot_timer) > 1000) {
           bootloader_jump();
         }
       }
