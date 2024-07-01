@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       QMK_VERSION: '0.22.14'
+      EMAIL: ${{ secrets.PERSONAL_EMAIL }}
     container:
       image: ghcr.io/qmk/qmk_cli:latest
 

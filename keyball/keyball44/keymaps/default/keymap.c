@@ -39,7 +39,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum custom_keycodes {
   ESC_AND_ENG = SAFE_RANGE,
-  HOLD_QK_BOOT
+  HOLD_QK_BOOT,
+  EMAIL_1,
+  EMAIL_2,
+  EMAIL_3,
 };
 
 // trigger by holding down a key
@@ -122,6 +125,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       break;
+
+    case EMAIL_1:
+      if (record->event.pressed) {
+        SEND_STRING(EMAIL);
+      }
+      break;
+
   }
 
   return true;
@@ -155,9 +165,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // shortcuts
   [3] = LAYOUT_universal (
-    XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                           _______   , _______   , _______   , _______   , _______   , XXXXXXX,
-    XXXXXXX   , _______   , _______   , _______   , _______   , SCREENSHOT_PART,                      _______   , _______   , _______   , _______   , _______   , XXXXXXX,
-    XXXXXXX   , _______   , _______   , _______   , _______   , SCREENSHOT_WHOLE,                     _______   , _______   , _______   , _______   , _______   , XXXXXXX,
+    XXXXXXX   , _______   , _______   , _______   , EMAIL_1   , _______   ,                           _______   , _______   , _______   , _______   , _______   , XXXXXXX,
+    XXXXXXX   , _______   , _______   , _______   , EMAIL_2   , SCREENSHOT_PART,                      _______   , _______   , _______   , _______   , _______   , XXXXXXX,
+    XXXXXXX   , _______   , _______   , _______   , EMAIL_3   , SCREENSHOT_WHOLE,                     _______   , _______   , _______   , _______   , _______   , XXXXXXX,
     XXXXXXX   , _______   , _______   ,             _______   , _______   ,                           _______   , _______   ,             _______   , _______   , XXXXXXX
   ),
 };
