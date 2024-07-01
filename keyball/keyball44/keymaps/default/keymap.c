@@ -132,6 +132,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
+    case EMAIL_2:
+      if (record->event.pressed) {
+        SEND_STRING(ENV_EMAIL_2);
+      }
+      break;
+
+    case EMAIL_3:
+      if (record->event.pressed) {
+        SEND_STRING(ENV_EMAIL_3);
+      }
+      break;
   }
 
   return true;
