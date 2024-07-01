@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #include "quantum.h"
-#include "print.h"
 
 // aliases
 
@@ -155,10 +154,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case HOLD_QK_BOOT:
       if (record->event.pressed) {
-        print("start boot timer");
+        SEND_STRING("start boot timer");
         qk_boot_timer = timer_read();
       } else {
-        print("  measure boot timer");
+        SEND_STRING("  measure boot timer");
         // trigger boot mode if held down for 2 seconds
         if (timer_elapsed(qk_boot_timer) > 2000) {
           bootloader_jump();
