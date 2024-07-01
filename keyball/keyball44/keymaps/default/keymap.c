@@ -105,13 +105,6 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
     report.y = 0;
   }
 
-  // enable scroll mode when CMD(GUI) is held down
-  if (get_mods() & MOD_MASK_GUI) {
-    keyball_set_scroll_mode(true);
-  } else {
-    keyball_set_scroll_mode(false);
-  }
-
   return report;
 }
 
