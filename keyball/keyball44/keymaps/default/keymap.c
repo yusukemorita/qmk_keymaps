@@ -63,11 +63,13 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
     // when sum has reached threshold, trigger switch
     if (x_movement_sum > switch_desktop_x_threshold) {
       // move to left desktop
-      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
+      // SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_LEFT) SS_DELAY(20) SS_UP(X_LCTL));
+      SEND_STRING("1,");
       x_movement_sum -= switch_desktop_x_threshold;
     } else if (x_movement_sum < -switch_desktop_x_threshold) {
       // move to right desktop
-      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
+      // SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(20) SS_TAP(X_RIGHT) SS_DELAY(20) SS_UP(X_LCTL));
+      SEND_STRING("2,");
       x_movement_sum += switch_desktop_x_threshold;
     }
 
