@@ -130,7 +130,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case EMOJI:
       if (record->event.pressed) {
         // ctl + cmd + space for emoji
-        SEND_STRING(SS_DOWN(X_LCTRL) SS_DELAY(1) SS_DOWN(X_GUI) SS_DELAY(1) SS_TAP(X_SPACE) SS_DELAY(1) SS_UP(X_GUI) SS_DELAY(1) SS_UP(X_LCTRL));
+        SEND_STRING(SS_DOWN(X_LCTL));
+        SEND_STRING(SS_DOWN(X_LCMD));
+        SEND_STRING(SS_TAP(X_SPACE));
+        SEND_STRING(SS_UP(X_LCMD));
+        SEND_STRING(SS_UP(X_LCTL));
       }
       break;
 
