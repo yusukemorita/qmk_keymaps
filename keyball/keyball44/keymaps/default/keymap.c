@@ -96,6 +96,8 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
   return report;
 }
 
+// see https://github.com/qmk/qmk_firmware/blob/master/quantum/send_string/send_string_keycodes.h
+// for all `X_*` keycodes
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static uint16_t qk_boot_timer;
 
