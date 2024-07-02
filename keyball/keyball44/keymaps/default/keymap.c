@@ -40,6 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 enum custom_keycodes {
   ESC_AND_ENG = SAFE_RANGE,
   HOLD_QK_BOOT,
+  EMOJI,
   EMAIL_1,
   EMAIL_2,
   EMAIL_3,
@@ -95,6 +96,8 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
   return report;
 }
 
+// see https://github.com/qmk/qmk_firmware/blob/master/quantum/send_string/send_string_keycodes.h
+// for all `X_*` keycodes
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static uint16_t qk_boot_timer;
 
@@ -123,6 +126,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (timer_elapsed(qk_boot_timer) > 500) {
           bootloader_jump();
         }
+      }
+      break;
+
+    case EMOJI:
+      if (record->event.pressed) {
+        // ctl + cmd + space for emoji
+        SEND_STRING(SS_DOWN(X_LCTL));
+        SEND_STRING(SS_DOWN(X_LCMD));
+        SEND_STRING(SS_TAP(X_SPACE));
+        SEND_STRING(SS_UP(X_LCMD));
+        SEND_STRING(SS_UP(X_LCTL));
       }
       break;
 
@@ -160,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // (mostly) numbers and shortcuts
   [1] = LAYOUT_universal(
-    XXXXXXX   , _______   , _______   , L_TAB     , R_TAB     , _______   ,                          KC_0     , KC_1     , KC_2     , KC_3     , _______  , XXXXXXX,
+    XXXXXXX   , _______   , EMOJI     , L_TAB     , R_TAB     , _______   ,                          KC_0     , KC_1     , KC_2     , KC_3     , _______  , XXXXXXX,
     XXXXXXX   , _______   , KC_LCBR   , KC_DEL    , KC_BSPC   , KC_RCBR   ,                          KC_MINUS , KC_4     , KC_5     , KC_6     , _______  , XXXXXXX,
     XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                          KC_EQUAL , KC_7     , KC_8     , KC_9     , _______  , XXXXXXX,
     XXXXXXX   , _______   ,             _______   , _______   , HOLD_QK_BOOT,                     ESC_AND_ENG , MO(3)    ,            _______  , _______  , _______
