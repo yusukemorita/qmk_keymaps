@@ -48,7 +48,7 @@ jobs:
       run: qmk compile -kb keyball/keyball44 -km default -j 4
 
     - name: Compile cocot38mini
-      run: qmk compile -kb cocot38mini -km default -j 4
+      run: qmk compile -kb cocot38mini -km vial -j 4
 
     - name: Upload built firmware to artifact
       id: artifact-upload
