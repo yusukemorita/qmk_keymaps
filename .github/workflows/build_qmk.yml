@@ -60,4 +60,4 @@ jobs:
           ${{ steps.artifact-upload.outputs.artifact-url }}
 
           Build URL
-          ${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/actions/runs/${{ env.GITHUB_RUN_ID }}
+          ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
