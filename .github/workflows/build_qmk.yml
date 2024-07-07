@@ -1,11 +1,13 @@
 name: build QMK
 
 on:
-  - push
+  - pull_request
 
 jobs:
   build:
     runs-on: ubuntu-22.04
+    permissions:
+      pull-requests: write # required for thollander/actions-comment-pull-request@v2
     env:
       QMK_VERSION: '0.22.14'
       PERSONAL_EMAIL: ${{ secrets.PERSONAL_EMAIL }}
@@ -44,7 +46,18 @@ jobs:
       run: qmk compile -kb keyball/keyball44 -km default -j 4
 
     - name: Upload built firmware to artifact
+      id: artifact-upload
       uses: actions/upload-artifact@v4
       with:
         name: keyball44-firmware
         path: __qmk__/*.hex
+
+    - name: Comment artifact url in PR
+      uses: thollander/actions-comment-pull-request@v2
+      with:
+        message: |
+          Compiled QMK firmware download URL
+          ${{ steps.artifact-upload.outputs.artifact-url }}
+
+          Build URL
+          ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
