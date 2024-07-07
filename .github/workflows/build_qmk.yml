@@ -1,7 +1,7 @@
 name: build QMK
 
 on:
-  - push
+  - pull_request
 
 jobs:
   build:
@@ -54,4 +54,5 @@ jobs:
       uses: thollander/actions-comment-pull-request@v2
       with:
         message: |
-          Artifact URL: ${{ steps.artifact-upload.outputs.artifact-url }}
+          Compiled QMK firmware download URL: ${{ steps.artifact-upload.outputs.artifact-url }}
+          Run: GITHUB_WORKFLOW_URL=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
