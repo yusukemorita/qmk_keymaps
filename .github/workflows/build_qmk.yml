@@ -44,7 +44,14 @@ jobs:
       run: qmk compile -kb keyball/keyball44 -km default -j 4
 
     - name: Upload built firmware to artifact
+      id: artifact-upload
       uses: actions/upload-artifact@v4
       with:
         name: keyball44-firmware
         path: __qmk__/*.hex
+
+    - name: Comment artifact url in PR
+      uses: thollander/actions-comment-pull-request@v2
+      with:
+        message: |
+          Artifact URL: ${{ steps.artifact-upload.outputs.artifact-url }}
