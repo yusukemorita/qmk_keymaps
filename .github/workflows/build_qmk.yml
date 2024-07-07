@@ -56,5 +56,8 @@ jobs:
       uses: thollander/actions-comment-pull-request@v2
       with:
         message: |
-          Compiled QMK firmware download URL: ${{ steps.artifact-upload.outputs.artifact-url }}
-          Run: GITHUB_WORKFLOW_URL=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+          Compiled QMK firmware download URL
+          ${{ steps.artifact-upload.outputs.artifact-url }}
+
+          Build URL
+          ${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/actions/runs/${{ env.GITHUB_RUN_ID }}
