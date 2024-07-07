@@ -39,8 +39,10 @@ jobs:
       shell: bash
       run: qmk setup --home ./__qmk__ --yes
 
-    - name: Install symbolic link
-      run: ln -s $(pwd)/keyball __qmk__/keyboards/keyball
+    - name: Install symbolic links
+      run: |
+        ln -s $(pwd)/keyball __qmk__/keyboards/keyball
+        ln -s $(pwd)/cocot38mini __qmk__/keyboards/cocot38mini
 
     - name: Compile keyball44
       run: qmk compile -kb keyball/keyball44 -km default -j 4
