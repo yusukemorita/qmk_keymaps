@@ -50,19 +50,26 @@ jobs:
     - name: Compile cocot38mini
       run: qmk compile -kb cocot38mini -km vial -j 4
 
-    - name: Upload built firmware to artifact
-      id: artifact-upload
+    - name: Upload keyball firmware to artifacts
+      id: keyball44-upload
       uses: actions/upload-artifact@v4
       with:
         name: keyball44-firmware
+        path: __qmk__/*.uf2
+
+    - name: Upload keyball firmware to artifacts
+      id: cocot38mini-upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: cocot38mini-firmware
         path: __qmk__/*.hex
 
     - name: Comment artifact url in PR
       uses: thollander/actions-comment-pull-request@v2
       with:
         message: |
-          Compiled QMK firmware download URL
-          ${{ steps.artifact-upload.outputs.artifact-url }}
+          Compiled keyball44 QMK firmware download URL
+          ${{ steps.keyball44-upload.outputs.artifact-url }}
 
           Build URL
           ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
