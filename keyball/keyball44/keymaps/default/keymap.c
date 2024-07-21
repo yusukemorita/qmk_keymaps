@@ -176,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_universal(
     XXXXXXX   , _______   , EMOJI     , L_TAB     , R_TAB     , _______   ,                          KC_0     , KC_1     , KC_2     , KC_3     , _______  , XXXXXXX,
     XXXXXXX   , _______   , KC_LCBR   , KC_DEL    , KC_BSPC   , KC_RCBR   ,                          KC_MINUS , KC_4     , KC_5     , KC_6     , _______  , XXXXXXX,
-    XXXXXXX   , _______   , KC_QUES   , _______   , _______   , _______   ,                          KC_EQUAL , KC_7     , KC_8     , KC_9     , KC_SLASH , XXXXXXX,
+    XXXXXXX   , _______   , _______   , _______   , _______   , _______   ,                          KC_EQUAL , KC_7     , KC_8     , KC_9     , KC_SLASH , XXXXXXX,
     XXXXXXX   , _______   ,             _______   , _______   , HOLD_QK_BOOT,                     ESC_AND_ENG , MO(3)    ,            _______  , _______  , _______
   ),
 
