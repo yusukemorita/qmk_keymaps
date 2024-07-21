@@ -1,0 +1,63 @@
+name: build QMK
+
+on:
+  - pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    permissions:
+      pull-requests: write # required for thollander/actions-comment-pull-request@v2
+    env:
+      QMK_VERSION: '0.25.10'
+      PERSONAL_EMAIL: ${{ secrets.PERSONAL_EMAIL }}
+      PERSONAL_EMAIL_DEV: ${{ secrets.PERSONAL_EMAIL_DEV }}
+      WORK_EMAIL: ${{ secrets.WORK_EMAIL }}
+    container:
+      image: ghcr.io/qmk/qmk_cli:latest
+
+    steps:
+    - name: Checkout yusukemorita/qmk_keymaps
+      uses: actions/checkout@v4
+
+    - name: Cache qmk repository
+      id: cache-qmk-repository
+      uses: actions/cache@v4
+      with:
+        path: __qmk__
+        key: qmk-${{ env.QMK_VERSION }}
+
+    - name: Checkout qmk/qmk_firmware
+      uses: actions/checkout@v4
+      with:
+        path: __qmk__
+        repository: qmk/qmk_firmware
+        submodules: recursive
+        ref: ${{ env.QMK_VERSION }}
+
+    - name: Setup QMK
+      shell: bash
+      run: qmk setup --home ./__qmk__ --yes
+
+    - name: Install symbolic link
+      run: ln -s $(pwd)/cocot38mini __qmk__/keyboards/cocot38mini
+
+    - name: Compile cocot38mini
+      run: qmk compile -kb cocot38mini -km vial -j 4
+
+    - name: Upload firmware to artifacts
+      id: firmware-upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: cocot38mini-firmware
+        path: __qmk__/*.hex
+
+    - name: Comment artifact url in PR
+      uses: thollander/actions-comment-pull-request@v2
+      with:
+        message: |
+          Compiled cocot38mini firmware download URL
+          ${{ steps.firmware-upload.outputs.artifact-url }}
+
+          Build URL
+          ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

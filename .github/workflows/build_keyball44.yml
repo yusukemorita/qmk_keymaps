@@ -17,7 +17,7 @@ jobs:
       image: ghcr.io/qmk/qmk_cli:latest
 
     steps:
-    - name: Checkout yusukemorita/keyball44_keymap
+    - name: Checkout yusukemorita/qmk_keymaps
       uses: actions/checkout@v4
 
     - name: Cache qmk repository
@@ -39,37 +39,25 @@ jobs:
       shell: bash
       run: qmk setup --home ./__qmk__ --yes
 
-    - name: Install symbolic links
-      run: |
-        ln -s $(pwd)/keyball __qmk__/keyboards/keyball
-        ln -s $(pwd)/cocot38mini __qmk__/keyboards/cocot38mini
+    - name: Install symbolic link
+      run: ln -s $(pwd)/keyball __qmk__/keyboards/keyball
 
     - name: Compile keyball44
       run: qmk compile -kb keyball/keyball44 -km default -j 4
 
-    - name: Compile cocot38mini
-      run: qmk compile -kb cocot38mini -km vial -j 4
-
-    - name: Upload keyball firmware to artifacts
-      id: keyball44-upload
+    - name: Upload firmware to artifacts
+      id: firmware-upload
       uses: actions/upload-artifact@v4
       with:
         name: keyball44-firmware
         path: __qmk__/*.uf2
 
-    - name: Upload keyball firmware to artifacts
-      id: cocot38mini-upload
-      uses: actions/upload-artifact@v4
-      with:
-        name: cocot38mini-firmware
-        path: __qmk__/*.hex
-
     - name: Comment artifact url in PR
       uses: thollander/actions-comment-pull-request@v2
       with:
         message: |
-          Compiled keyball44 QMK firmware download URL
-          ${{ steps.keyball44-upload.outputs.artifact-url }}
+          Compiled keyball44 firmware download URL
+          ${{ steps.firmware-upload.outputs.artifact-url }}
 
           Build URL
           ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
