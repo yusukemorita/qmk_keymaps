@@ -9,7 +9,7 @@ jobs:
     permissions:
       pull-requests: write # required for thollander/actions-comment-pull-request@v2
     env:
-      QMK_VERSION: '0.22.14'
+      QMK_VERSION: '0.25.10'
       PERSONAL_EMAIL: ${{ secrets.PERSONAL_EMAIL }}
       PERSONAL_EMAIL_DEV: ${{ secrets.PERSONAL_EMAIL_DEV }}
       WORK_EMAIL: ${{ secrets.WORK_EMAIL }}
@@ -39,25 +39,37 @@ jobs:
       shell: bash
       run: qmk setup --home ./__qmk__ --yes
 
-    - name: Install symbolic link
-      run: ln -s $(pwd)/keyball __qmk__/keyboards/keyball
+    - name: Install symbolic links
+      run: |
+        ln -s $(pwd)/keyball __qmk__/keyboards/keyball
+        ln -s $(pwd)/cocot38mini __qmk__/keyboards/cocot38mini
 
-    - name: Compile
+    - name: Compile keyball44
       run: qmk compile -kb keyball/keyball44 -km default -j 4
 
-    - name: Upload built firmware to artifact
-      id: artifact-upload
+    - name: Compile cocot38mini
+      run: qmk compile -kb cocot38mini -km vial -j 4
+
+    - name: Upload keyball firmware to artifacts
+      id: keyball44-upload
       uses: actions/upload-artifact@v4
       with:
         name: keyball44-firmware
+        path: __qmk__/*.uf2
+
+    - name: Upload keyball firmware to artifacts
+      id: cocot38mini-upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: cocot38mini-firmware
         path: __qmk__/*.hex
 
     - name: Comment artifact url in PR
       uses: thollander/actions-comment-pull-request@v2
       with:
         message: |
-          Compiled QMK firmware download URL
-          ${{ steps.artifact-upload.outputs.artifact-url }}
+          Compiled keyball44 QMK firmware download URL
+          ${{ steps.keyball44-upload.outputs.artifact-url }}
 
           Build URL
           ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
