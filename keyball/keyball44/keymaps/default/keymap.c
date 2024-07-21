@@ -190,9 +190,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // shortcuts
   [3] = LAYOUT_universal (
-    XXXXXXX   , _______   , _______   , _______   , EMAIL_1   , _______   ,                           _______   , _______   , _______   , _______   , _______   , XXXXXXX,
-    XXXXXXX   , _______   , _______   , _______   , EMAIL_2   , SCREENSHOT_PART,                      _______   , _______   , _______   , _______   , _______   , XXXXXXX,
-    XXXXXXX   , _______   , _______   , _______   , EMAIL_3   , SCREENSHOT_WHOLE,                     _______   , _______   , _______   , _______   , _______   , XXXXXXX,
+    XXXXXXX   , _______   , EMAIL_1   , _______   , _______   , _______   ,                           _______   , _______   , _______   , _______   , _______   , XXXXXXX,
+    XXXXXXX   , _______   , EMAIL_2   , _______   , _______   , SCREENSHOT_PART,                      _______   , _______   , _______   , _______   , _______   , XXXXXXX,
+    XXXXXXX   , _______   , EMAIL_3   , _______   , _______   , SCREENSHOT_WHOLE,                     _______   , _______   , _______   , _______   , _______   , XXXXXXX,
     XXXXXXX   , _______   , _______   ,             _______   , _______   ,                           _______   , _______   ,             _______   , _______   , XXXXXXX
   ),
 };
