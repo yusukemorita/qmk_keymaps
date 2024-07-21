@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - keyball/**
-      - .github/**
+      - .github/workflows/build_keyball44.yml
 
 jobs:
   build:
