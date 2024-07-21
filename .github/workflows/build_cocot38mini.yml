@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - cocot38mini/**
-      - .github/**
+      - .github/workflows/build_cocot38mini.yml
 
 jobs:
   build:
