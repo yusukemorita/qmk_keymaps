@@ -12,7 +12,7 @@ jobs:
     permissions:
       pull-requests: write # required for thollander/actions-comment-pull-request@v2
     env:
-      QMK_VERSION: '0.25.10'
+      QMK_VERSION: '0.25.17'
       PERSONAL_EMAIL: ${{ secrets.PERSONAL_EMAIL }}
       PERSONAL_EMAIL_DEV: ${{ secrets.PERSONAL_EMAIL_DEV }}
       WORK_EMAIL: ${{ secrets.WORK_EMAIL }}
