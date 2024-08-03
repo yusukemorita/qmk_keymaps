@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______,          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
         _______, KC_LCBR, KC_DEL,  KC_BSPC, _______,          KC_H,    KC_J,    KC_K,    KC_L,    KC_MINS,
         _______, KC_QUES, _______, _______, _______,          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-                          _______, _______, HOLD_QK_BOOT, 
+                          _______, _______, QK_BOOT, 
                                                      MS_BTN1, // key above trackball
                                                      KC_ENT,  KC_LNG1, KC_BSPC, _______
     ),
@@ -85,25 +85,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX    )
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  static uint16_t qk_boot_timer;
-
-  switch(keycode) {
-    case HOLD_QK_BOOT:
-      if (record->event.pressed) {
-        qk_boot_timer = timer_read();
-      } else {
-        // trigger boot mode if held down for 0.5 seconds
-        if (timer_elapsed(qk_boot_timer) > 500) {
-          bootloader_jump();
-        }
-      }
-      break;
-  }
-
-  return true;
-}
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
