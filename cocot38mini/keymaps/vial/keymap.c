@@ -23,6 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MS_BTN2 KC_MS_BTN2
 #define MS_BTN3 KC_MS_BTN3
 
+#define JAP KC_LANGUAGE_1
+#define ENG KC_LANGUAGE_2
+
 enum custom_keycodes {
   ESC_AND_ENG = SAFE_RANGE,
 };
@@ -41,12 +44,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L,    KC_MINS,
-        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  _______,
-                    KC_LEFT_SHIFT, MO(1),   KC_SPACE,
-                                                    MS_BTN2, // key above trackball
-                                                    MS_BTN1,  KC_ENT,  MO(2),   KC_RIGHT_SHIFT
+        KC_Q, KC_W,         KC_E,         KC_R,         KC_T,               KC_Y,    KC_U,         KC_I,         KC_O,         KC_P,
+        KC_A, LCTL_T(KC_S), LALT_T(KC_D), LCMD_T(KC_F), KC_G,               KC_H,    RCMD_T(KC_J), RALT_T(KC_K), RCTL_T(KC_L), KC_MINS,
+        KC_Z, KC_X,         KC_C,         KC_V,         KC_B,               KC_N,    KC_M,         KC_COMM,      KC_DOT,       _______,
+
+                           KC_LEFT_SHIFT, MO(1),        KC_SPACE,
+                                                                  MS_BTN2, // key above trackball
+                                                                  MS_BTN1,  KC_ENT,  MO(2),   KC_RIGHT_SHIFT
     ),
 
     [1] = LAYOUT(
@@ -59,10 +63,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [2] = LAYOUT(
-     KC_EXCLAIM, KC_DQT,  KC_HASH, KC_DLR,  KC_PERCENT,       KC_AMPR, KC_ASTR, KC_8,    KC_9,    KC_0,
-        KC_TAB,  KC_QUOTE,KC_F3,   KC_F4,   KC_AT,            KC_APP,  KC_UP,   KC_EQL,  KC_PLUS, KC_MINS,
-  LSFT(KC_TAB),  KC_GRAVE,KC_TILDE,KC_PIPE, KC_F10,           KC_LEFT, KC_DOWN, KC_RGHT, KC_DOT,  KC_SLSH,
-                          KC_LALT, KC_LNG2, KC_SPC,  MS_BTN1, KC_ENT,  KC_LNG1, KC_BSPC, KC_BSPC
+     KC_EXCLAIM, KC_DQT,  KC_HASH, KC_DLR,  KC_PERCENT,       KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_CIRC,
+        KC_TAB,  KC_QUOTE,ENG,     JAP,     KC_AT,            KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_SCLN,
+  LSFT(KC_TAB),  KC_GRAVE,KC_TILDE,KC_PIPE, _______,          KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BACKSLASH,
+                          _______, MO(1),   _______,  
+                                                      _______, 
+                                                      _______, KC_LNG1, KC_BSPC, KC_BSPC
     ),
 
     [3] = LAYOUT(
