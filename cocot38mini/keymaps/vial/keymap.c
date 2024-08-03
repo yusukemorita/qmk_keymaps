@@ -29,21 +29,17 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+HOLD_QK_BOOT,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
         KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L,    KC_MINS,
         KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  HOLD_QK_BOOT,
-                          KC_1,    MO(1),   KC_SPACE,    
-                                                     KC_4, // button above trackball   
-                                                  MS_BTN1, KC_ENTER,   MO(2),    KC_8
+                          KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8
     ),
 
     [1] = LAYOUT(
-        _______, KC_AT,   KC_HASH, KC_DLR,  _______,          KC_0,    KC_1,    KC_2,    KC_3,    _______,
-        _______, KC_LCBR, KC_DEL,  KC_BSPC, KC_RCBR,         KC_MINUS, KC_4,    KC_5,    KC_6,    _______,
-        _______, KC_QUES, _______, _______, _______,         KC_EQUAL, KC_7,    KC_8,    KC_9,    KC_SLASH,
-                          _______, _______, HOLD_QK_BOOT,  
-                                                     _______, 
-                                                     _______, KC_ENT,  MO(3),   _______
+        KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  KC_H,    KC_J,    KC_K,    KC_L,    KC_MINS,
+        KC_GRV,  KC_TILD, KC_NUBS, KC_PIPE, XXXXXXX,          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
+                          KC_LALT, KC_LNG2, KC_SPC,  MS_BTN1, KC_ENT,  KC_LNG1, KC_BSPC
     ),
 
     [2] = LAYOUT(
