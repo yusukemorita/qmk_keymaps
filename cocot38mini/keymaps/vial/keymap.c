@@ -39,9 +39,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT(
         KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  KC_H,    KC_J,    KC_K,    KC_L,    KC_MINS,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_H,    KC_J,    KC_K,    KC_L,    KC_MINS,
         KC_GRV,  KC_TILD, KC_NUBS, KC_PIPE, XXXXXXX,          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-                          KC_LALT, KC_LNG2, HOLD_QK_BOOT, MS_BTN1, KC_ENT,  KC_LNG1, KC_BSPC
+                          KC_LALT, KC_LNG2, HOLD_QK_BOOT, 
+                                                     MS_BTN1, // key above trackball
+                                                     KC_ENT,  KC_LNG1, KC_BSPC, _______
     ),
 
     [2] = LAYOUT(
