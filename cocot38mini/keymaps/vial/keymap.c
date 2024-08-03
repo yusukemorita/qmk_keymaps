@@ -24,32 +24,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MS_BTN3 KC_MS_BTN3
 
 enum custom_keycodes {
-  HOLD_QK_BOOT = SAFE_RANGE,
+  ESC_AND_ENG = SAFE_RANGE,
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch(keycode) {
+    case ESC_AND_ENG:
+      if (record->event.pressed) {
+        SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_LANGUAGE_2));
+      }
+      break;
+  }
+
+  return true;
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
         KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L,    KC_MINS,
-        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  HOLD_QK_BOOT,
-                   KC_LEFT_SHIFT, MO(1),   KC_3,
+        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  _______,
+                    KC_LEFT_SHIFT, MO(1),   KC_SPACE,
                                                     MS_BTN2, // key above trackball
-                                                    MS_BTN1,  KC_ENT,  MO(2),    KC_RIGHT_SHIFT
+                                                    MS_BTN1,  KC_ENT,  MO(2),   KC_RIGHT_SHIFT
     ),
 
     [1] = LAYOUT(
         _______, _______, _______, _______, _______,          KC_0,    KC_1,    KC_2,    KC_3,    _______,
         _______, KC_LCBR, KC_DEL,  KC_BSPC, KC_RCBR,          KC_MINUS,KC_4,    KC_5,    KC_6,    _______,
         _______, KC_QUES, _______, _______, _______,          KC_EQUAL,KC_7,    KC_8,    KC_9,   KC_SLASH,
-                          _______, _______, QK_BOOT, 
+                          _______, _______, _______, 
                                                      MS_BTN1, // key above trackball
-                                                     KC_ENT,  KC_LNG1, KC_BSPC, _______
+                                                     KC_ENT,  MO(3),   KC_BSPC, _______
     ),
 
     [2] = LAYOUT(
-     KC_EXCLAIM,  KC_DQT, KC_HASH,KC_DOLLAR,KC_PERCENT,         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-        KC_TAB, KC_QUOTE,   KC_F3,   KC_F4,   KC_AT,            KC_APP,  KC_UP,   KC_EQL,  KC_PLUS, KC_MINS,
-  LSFT(KC_TAB), KC_GRAVE,KC_TILDE, KC_PIPE,   KC_F10,           KC_LEFT, KC_DOWN, KC_RGHT, KC_DOT,  KC_SLSH,
+     KC_EXCLAIM, KC_DQT,  KC_HASH, KC_DLR,  KC_PERCENT,       KC_AMPR, KC_ASTR, KC_8,    KC_9,    KC_0,
+        KC_TAB,  KC_QUOTE,KC_F3,   KC_F4,   KC_AT,            KC_APP,  KC_UP,   KC_EQL,  KC_PLUS, KC_MINS,
+  LSFT(KC_TAB),  KC_GRAVE,KC_TILDE,KC_PIPE, KC_F10,           KC_LEFT, KC_DOWN, KC_RGHT, KC_DOT,  KC_SLSH,
                           KC_LALT, KC_LNG2, KC_SPC,  MS_BTN1, KC_ENT,  KC_LNG1, KC_BSPC, KC_BSPC
     ),
 
