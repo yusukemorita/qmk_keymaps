@@ -26,6 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define JAP KC_LANGUAGE_1
 #define ENG KC_LANGUAGE_2
 
+// for moving tabs in browser, editor etc
+#define L_TAB LCMD(KC_LCBR)
+#define R_TAB LCMD(KC_RCBR)
+
 enum custom_keycodes {
   ESC_AND_ENG = SAFE_RANGE,
 };
@@ -54,8 +58,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [1] = LAYOUT(
-        _______, _______, _______, _______, _______,          KC_0,    KC_1,    KC_2,    KC_3,    _______,
-        _______, KC_LCBR, KC_DEL,  KC_BSPC, KC_RCBR,          KC_MINUS,KC_4,    KC_5,    KC_6,    _______,
+        _______, _______, _______, L_TAB  , R_TAB  ,          KC_0    ,KC_1,    KC_2,    KC_3,    _______,
+        _______, KC_LCBR, KC_DEL , KC_BSPC, KC_RCBR,          KC_MINUS,KC_4,    KC_5,    KC_6,    _______,
         _______, KC_QUES, _______, _______, _______,          KC_EQUAL,KC_7,    KC_8,    KC_9,   KC_SLASH,
                           _______, _______, _______, 
                                                      _______, // key above trackball
