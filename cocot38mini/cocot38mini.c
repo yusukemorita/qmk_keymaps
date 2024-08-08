@@ -86,8 +86,8 @@ void pointing_device_init_kb(void) {
     pointing_device_set_cpi(cpi_array[cocot_config.cpi_idx]);
     cocot_config.raw = eeconfig_read_kb();
     eeconfig_update_kb(cocot_config.raw);
-    //set_auto_mouse_layer(4);
-    set_auto_mouse_enable(cocot_config.auto_mouse);
+    // set_auto_mouse_layer(4);
+    // set_auto_mouse_enable(cocot_config.auto_mouse);
 }
 
 
@@ -171,7 +171,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 //auto_mouse_layer_off(); // disable target layer if needed
                 cocot_config.auto_mouse ^= 1;
                 eeconfig_update_kb(cocot_config.raw);
-                set_auto_mouse_enable(cocot_config.auto_mouse);
+                // set_auto_mouse_enable(cocot_config.auto_mouse);
                 //auto_mouse_tg_off = !get_auto_mouse_enable();
             } // do nothing on key up
             return false; // prevent further processing of keycode            
@@ -216,38 +216,38 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 }
 
 
-layer_state_t layer_state_set_kb(layer_state_t state) {
-    switch(get_highest_layer(remove_auto_mouse_layer(state, true))) {
-        case 1 ... 2:
-            //rgblight_sethsv_range(HSV_YELLOW, 0, 9);
-            cocot_set_scroll_mode(true);
-            state = remove_auto_mouse_layer(state, false);
-            set_auto_mouse_enable(false);
-            break;
-        case 3 ... 7:
-            //rgblight_sethsv_range(HSV_CYAN, 0, 9);
-            cocot_set_scroll_mode(false);
-            //set_auto_mouse_enable(true);
-            break;
-        default:
-            //rgblight_sethsv_range(HSV_RED, 0, 9);
-            cocot_set_scroll_mode(false);
+// layer_state_t layer_state_set_kb(layer_state_t state) {
+//     switch(get_highest_layer(remove_auto_mouse_layer(state, true))) {
+//         case 1 ... 2:
+//             //rgblight_sethsv_range(HSV_YELLOW, 0, 9);
+//             cocot_set_scroll_mode(true);
+//             // state = remove_auto_mouse_layer(state, false);
+//             // set_auto_mouse_enable(false);
+//             break;
+//         case 3 ... 7:
+//             //rgblight_sethsv_range(HSV_CYAN, 0, 9);
+//             cocot_set_scroll_mode(false);
+//             //set_auto_mouse_enable(true);
+//             break;
+//         default:
+//             //rgblight_sethsv_range(HSV_RED, 0, 9);
+//             cocot_set_scroll_mode(false);
             
-            if (cocot_config.auto_mouse) {
-                set_auto_mouse_enable(true);
-            } else {
-                //state = remove_auto_mouse_layer(state, false);
-                set_auto_mouse_enable(false);
-            }
+//             // if (cocot_config.auto_mouse) {
+//             //     set_auto_mouse_enable(true);
+//             // } else {
+//             //     //state = remove_auto_mouse_layer(state, false);
+//             //     set_auto_mouse_enable(false);
+//             // }
             
-            //set_auto_mouse_enable(true);
-            //state = remove_auto_mouse_layer(state, false);
-            //set_auto_mouse_enable(cocot_config.auto_mouse);
-            break;
-        }
-    //rgblight_set_effect_range( 9, 36);
-  return state;
-};
+//             //set_auto_mouse_enable(true);
+//             //state = remove_auto_mouse_layer(state, false);
+//             //set_auto_mouse_enable(cocot_config.auto_mouse);
+//             break;
+//         }
+//     //rgblight_set_effect_range( 9, 36);
+//   return state;
+// };
 
 
 
