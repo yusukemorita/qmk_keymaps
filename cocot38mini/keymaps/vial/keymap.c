@@ -19,9 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include "quantum.h"
 
-#define MS_BTN1 KC_MS_BTN1
-#define MS_BTN2 KC_MS_BTN2
-#define MS_BTN3 KC_MS_BTN3
+#define LCLICK KC_MS_BTN1
+#define RCLICK KC_MS_BTN2
 
 #define JAP KC_LANGUAGE_1
 #define ENG KC_LANGUAGE_2
@@ -50,11 +49,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_Q, KC_W,         KC_E,         KC_R,         KC_T,               KC_Y,    KC_U,         KC_I,         KC_O,         KC_P,
         KC_A, LCTL_T(KC_S), LALT_T(KC_D), LCMD_T(KC_F), KC_G,               KC_H,    RCMD_T(KC_J), RALT_T(KC_K), RCTL_T(KC_L), KC_COLON,
-        KC_Z, KC_X,         KC_C,         KC_V,         KC_B,               KC_N,    KC_M,         KC_COMM,      KC_DOT,       _______,
+        KC_Z, KC_X,         KC_C,         KC_V,         KC_B,               KC_N,    KC_M,         KC_COMM,      KC_DOT,       LCLICK,
 
-                           KC_LEFT_SHIFT, MO(1),        KC_SPACE,
-                                                                  MS_BTN2, // key above trackball
-                                                                  MS_BTN1,  KC_ENT,  MO(2),   KC_RIGHT_SHIFT
+                            LCLICK, MO(1), LSFT_T(KC_SPACE),
+                                                                  RCLICK, // key above trackball
+                                                                  LCLICK,RSFT_T(KC_ENT), MO(2),   KC_RIGHT_SHIFT
     ),
 
     [1] = LAYOUT(
@@ -70,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_EXCLAIM, KC_DQT,  KC_HASH, KC_DLR,  KC_PERCENT,       KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_CIRC,
         KC_TAB,  KC_QUOTE,ENG,     JAP,     KC_AT,            KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_SCLN,
   LSFT(KC_TAB),  KC_GRAVE,KC_TILDE,KC_PIPE, _______,          KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BACKSLASH,
-                          _______, MO(1),   _______,  
+                           RCLICK, MO(1),   _______,  
                                                       _______, 
                                                       _______, KC_LNG1, KC_BSPC, KC_BSPC
     ),
@@ -79,14 +78,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
         KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_ESC,  KC_H,    KC_J,    KC_K,    KC_L,    KC_MINS,
         KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-                          KC_LALT, KC_LNG2, KC_SPC,  MS_BTN1, KC_ENT,  KC_LNG1, KC_BSPC
+                          KC_LALT, KC_LNG2, KC_SPC,  LCLICK, KC_ENT,  KC_LNG1, KC_BSPC
     ),
 
     [4] = LAYOUT(
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          MS_BTN3, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          _______, RCLICK, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MS_BTN1, SCRL_MO, XXXXXXX
+                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LCLICK, SCRL_MO, XXXXXXX
     ),
 
     [5] = LAYOUT(
