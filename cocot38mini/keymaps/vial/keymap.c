@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum custom_keycodes {
   ESC_AND_ENG = SAFE_RANGE,
+  EMOJI,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -38,6 +39,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ESC_AND_ENG:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_LANGUAGE_2));
+      }
+      break;
+
+    case EMOJI:
+      if (record->event.pressed) {
+        // ctl + cmd + space for emoji
+        SEND_STRING(SS_DOWN(X_LCTL));
+        SEND_STRING(SS_DOWN(X_LCMD));
+        SEND_STRING(SS_TAP(X_SPACE));
+        SEND_STRING(SS_UP(X_LCMD));
+        SEND_STRING(SS_UP(X_LCTL));
       }
       break;
   }
