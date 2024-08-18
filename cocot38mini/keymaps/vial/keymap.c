@@ -59,7 +59,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
-  dprintf("x: %d, y: %d\n", report.x, report.y);
+  if (report.x != 0 || report.y != 0) {
+    dprintf("x: %d, y: %d\n", report.x, report.y);
+  }
   return report;
 }
 
