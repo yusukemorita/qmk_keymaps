@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #include "quantum.h"
+#include "print.h"
 
 #define LCLICK KC_MS_BTN1
 #define RCLICK KC_MS_BTN2
@@ -55,6 +56,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   return true;
+}
+
+report_mouse_t pointing_device_task_user(report_mouse_t report) {
+  print(report);
+  return report
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
