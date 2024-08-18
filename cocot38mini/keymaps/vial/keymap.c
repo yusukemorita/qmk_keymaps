@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                             LCLICK, MO(1), LSFT_T(KC_SPACE),
                                                                   RCLICK, // key above trackball
-                                                                  LCLICK,RSFT_T(KC_ENT), MO(2),   KC_RIGHT_SHIFT
+                                                                  _______,RSFT_T(KC_ENT), MO(2),   KC_RIGHT_SHIFT
     ),
 
     [1] = LAYOUT(
