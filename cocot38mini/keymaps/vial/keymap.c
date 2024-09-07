@@ -45,25 +45,26 @@ enum custom_keycodes {
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
   // enable scroll mode when CMD(GUI) is held down
   if (get_mods() & MOD_MASK_GUI) {
+    // ref: https://docs.qmk.fm/features/pointing_device#advanced-drag-scroll
     // cocot_set_scroll_mode(true);
 
-    float scroll_horizontal = (float)mouse_report.x / SCROLL_DIVISOR_H;
-    float scroll_vertical = (float)mouse_report.y / SCROLL_DIVISOR_V;
+    float scroll_horizontal = (float)report.x / SCROLL_DIVISOR_H;
+    float scroll_vertical = (float)report.y / SCROLL_DIVISOR_V;
 
     // Calculate and accumulate scroll values based on mouse movement and divisors
     // scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
     // scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
 
     // Assign integer parts of accumulated scroll values to the mouse report
-    mouse_report.h = (int8_t)scroll_horizontal;
-    mouse_report.v = (int8_t)scroll_vertical;
+    report.h = (int8_t)scroll_horizontal;
+    report.v = (int8_t)scroll_vertical;
 
     // Update accumulated scroll values by subtracting the integer parts
     // scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
     // scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
 
-    mouse_report.x = 0;
-    mouse_report.y = 0;
+    report.x = 0;
+    report.y = 0;
   }
 
   return report;
