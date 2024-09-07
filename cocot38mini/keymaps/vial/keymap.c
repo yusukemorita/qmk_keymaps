@@ -148,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, EMAIL_2, _______, _______, SCREENSHOT_PART,  _______, _______, _______, _______, _______,
         _______, EMAIL_3, _______, _______, SCREENSHOT_WHOLE, _______, _______, _______, _______, _______,
                           _______, _______, _______, _______, _______, _______, _______, _______
-    ),
+    )
 };
 
 #if defined(ENCODER_MAP_ENABLE)

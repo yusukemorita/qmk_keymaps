@@ -4,7 +4,7 @@
 #pragma once
 
 /* VIA */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 8
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
 
 /* RGB LED */
