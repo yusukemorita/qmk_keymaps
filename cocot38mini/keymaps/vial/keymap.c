@@ -34,6 +34,39 @@ enum custom_keycodes {
   EMOJI,
 };
 
+// Modify these values to adjust the scrolling speed
+#define SCROLL_DIVISOR_H 48.0
+#define SCROLL_DIVISOR_V 48.0
+
+// Variables to store accumulated scroll values
+float scroll_accumulated_horizontal = 0;
+float scroll_accumulated_vertical = 0;
+
+report_mouse_t pointing_device_task_user(report_mouse_t report) {
+  // enable scroll mode when CMD(GUI) is held down
+  if (get_mods() & MOD_MASK_GUI) {
+    // ref: https://docs.qmk.fm/features/pointing_device#advanced-drag-scroll
+
+    // Calculate and accumulate scroll values based on mouse movement and divisors
+    // Accumulation is required to make the scroll smooth.
+    scroll_accumulated_horizontal += (float)report.x / SCROLL_DIVISOR_H;
+    scroll_accumulated_vertical += (float)report.y / SCROLL_DIVISOR_V;
+
+    // Assign integer parts of accumulated scroll values to the mouse report
+    report.h = -(int8_t)scroll_accumulated_horizontal;
+    report.v = -(int8_t)scroll_accumulated_vertical;
+
+    // Update accumulated scroll values by subtracting the integer parts
+    scroll_accumulated_horizontal -= (int8_t)scroll_accumulated_horizontal;
+    scroll_accumulated_vertical -= (int8_t)scroll_accumulated_vertical;
+
+    report.x = 0;
+    report.y = 0;
+  }
+
+  return report;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
     case ESC_AND_ENG:
