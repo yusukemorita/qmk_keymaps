@@ -34,12 +34,36 @@ enum custom_keycodes {
   EMOJI,
 };
 
+// Modify these values to adjust the scrolling speed
+#define SCROLL_DIVISOR_H 2.0
+#define SCROLL_DIVISOR_V 2.0
+
+// Variables to store accumulated scroll values
+// float scroll_accumulated_h = 0;
+// float scroll_accumulated_v = 0;
+
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
   // enable scroll mode when CMD(GUI) is held down
   if (get_mods() & MOD_MASK_GUI) {
-    cocot_set_scroll_mode(true);
-  } else {
-    cocot_set_scroll_mode(false);
+    // cocot_set_scroll_mode(true);
+
+    float scroll_horizontal = (float)mouse_report.x / SCROLL_DIVISOR_H;
+    float scroll_vertical = (float)mouse_report.y / SCROLL_DIVISOR_V;
+
+    // Calculate and accumulate scroll values based on mouse movement and divisors
+    // scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
+    // scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+
+    // Assign integer parts of accumulated scroll values to the mouse report
+    mouse_report.h = (int8_t)scroll_horizontal;
+    mouse_report.v = (int8_t)scroll_vertical;
+
+    // Update accumulated scroll values by subtracting the integer parts
+    // scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
+    // scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+
+    mouse_report.x = 0;
+    mouse_report.y = 0;
   }
 
   return report;
