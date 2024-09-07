@@ -29,9 +29,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define L_TAB LCMD(KC_LCBR)
 #define R_TAB LCMD(KC_RCBR)
 
+#define SCREENSHOT_PART LCMD(LSFT(KC_4))
+#define SCREENSHOT_WHOLE LCMD(LSFT(KC_3))
+
 enum custom_keycodes {
   ESC_AND_ENG = SAFE_RANGE,
   EMOJI,
+  EMAIL_1,
+  EMAIL_2,
+  EMAIL_3,
 };
 
 // Modify these values to adjust the scrolling speed
@@ -85,6 +91,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(SS_UP(X_LCTL));
       }
       break;
+
+    case EMAIL_1:
+      if (record->event.pressed) {
+        SEND_STRING(ENV_EMAIL_1);
+      }
+      break;
+
+    case EMAIL_2:
+      if (record->event.pressed) {
+        SEND_STRING(ENV_EMAIL_2);
+      }
+      break;
+
+    case EMAIL_3:
+      if (record->event.pressed) {
+        SEND_STRING(ENV_EMAIL_3);
+      }
+      break;
   }
 
   return true;
@@ -114,42 +138,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_EXCLAIM, KC_DQT,  KC_HASH, KC_DLR,  KC_PERCENT,       KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_CIRC,
         KC_TAB,  KC_QUOTE,ENG,     JAP,     KC_AT,            KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_SCLN,
   LSFT(KC_TAB),  KC_GRAVE,KC_TILDE,KC_PIPE, _______,          KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BACKSLASH,
-                           RCLICK, MO(1),   _______,  
+                           RCLICK, MO(3),   _______,  
                                                       _______, 
                                                       _______, KC_LNG1, KC_BSPC, KC_BSPC
     ),
 
     [3] = LAYOUT(
-        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_ESC,  KC_H,    KC_J,    KC_K,    KC_L,    KC_MINS,
-        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-                          KC_LALT, KC_LNG2, KC_SPC,  LCLICK, KC_ENT,  KC_LNG1, KC_BSPC
-    ),
-
-    [4] = LAYOUT(
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          _______, RCLICK, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LCLICK, SCRL_MO, XXXXXXX
-    ),
-
-    [5] = LAYOUT(
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX    ),
-
-    [6] = LAYOUT(
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX    ),
-
-    [7] = LAYOUT(
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX    )
+        _______, EMAIL_1, _______, _______, RGB_TOG,          _______, _______, _______, _______, _______,
+        _______, EMAIL_2, _______, _______, SCREENSHOT_PART,  _______, _______, _______, _______, _______,
+        _______, EMAIL_3, _______, _______, SCREENSHOT_WHOLE, _______, _______, _______, _______, _______,
+                          _______, _______, _______, _______, _______, _______, _______, _______
+    )
 };
 
 #if defined(ENCODER_MAP_ENABLE)
@@ -158,10 +157,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [1] =   { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
     [2] =   { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
     [3] =   { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
-    [4] =   { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
-    [5] =   { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
-    [6] =   { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
-    [7] =   { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
 };
 #endif
 
