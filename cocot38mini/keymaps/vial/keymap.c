@@ -157,10 +157,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [1] =   { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
     [2] =   { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
     [3] =   { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
-    [4] =   { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
-    [5] =   { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
-    [6] =   { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
-    [7] =   { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
 };
 #endif
 
