@@ -39,29 +39,26 @@ enum custom_keycodes {
 #define SCROLL_DIVISOR_V 8.0
 
 // Variables to store accumulated scroll values
-// float scroll_accumulated_h = 0;
-// float scroll_accumulated_v = 0;
+float scroll_accumulated_horizontal = 0;
+float scroll_accumulated_vertical = 0;
 
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
   // enable scroll mode when CMD(GUI) is held down
   if (get_mods() & MOD_MASK_GUI) {
     // ref: https://docs.qmk.fm/features/pointing_device#advanced-drag-scroll
-    // cocot_set_scroll_mode(true);
-
-    float scroll_horizontal = (float)report.x / SCROLL_DIVISOR_H;
-    float scroll_vertical = (float)report.y / SCROLL_DIVISOR_V;
 
     // Calculate and accumulate scroll values based on mouse movement and divisors
-    // scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
-    // scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+    // Accumulation is required to make the scroll smooth.
+    scroll_accumulated_horizontal += (float)report.x / SCROLL_DIVISOR_H;
+    scroll_accumulated_vertical += (float)report.y / SCROLL_DIVISOR_V;
 
     // Assign integer parts of accumulated scroll values to the mouse report
-    report.h = (int8_t)scroll_horizontal;
-    report.v = (int8_t)scroll_vertical;
+    report.h = (int8_t)scroll_accumulated_horizontal;
+    report.v = (int8_t)scroll_accumulated_vertical;
 
     // Update accumulated scroll values by subtracting the integer parts
-    // scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
-    // scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+    scroll_accumulated_horizontal -= (int8_t)scroll_accumulated_horizontal;
+    scroll_accumulated_vertical -= (int8_t)scroll_accumulated_vertical;
 
     report.x = 0;
     report.y = 0;
