@@ -35,8 +35,8 @@ enum custom_keycodes {
 };
 
 // Modify these values to adjust the scrolling speed
-#define SCROLL_DIVISOR_H 16.0
-#define SCROLL_DIVISOR_V 16.0
+#define SCROLL_DIVISOR_H 32.0
+#define SCROLL_DIVISOR_V 32.0
 
 // Variables to store accumulated scroll values
 float scroll_accumulated_horizontal = 0;
