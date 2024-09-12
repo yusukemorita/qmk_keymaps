@@ -6,5 +6,5 @@
 #define PERMISSIVE_HOLD
 
 // Adjust scrolling speed, increase to slow down
-#define SCROLL_DIVISOR_H 200.0
-#define SCROLL_DIVISOR_V 200.0
+#define SCROLL_DIVISOR_H 160.0
+#define SCROLL_DIVISOR_V 160.0
