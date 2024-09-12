@@ -40,10 +40,6 @@ enum custom_keycodes {
   EMAIL_3,
 };
 
-// Modify these values to adjust the scrolling speed
-#define SCROLL_DIVISOR_H 48.0
-#define SCROLL_DIVISOR_V 48.0
-
 // Variables to store accumulated scroll values
 float scroll_accumulated_horizontal = 0;
 float scroll_accumulated_vertical = 0;
@@ -59,7 +55,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
     scroll_accumulated_vertical += (float)report.y / SCROLL_DIVISOR_V;
 
     // Assign integer parts of accumulated scroll values to the mouse report
-    report.h = -(int8_t)scroll_accumulated_horizontal;
+    report.h = (int8_t)scroll_accumulated_horizontal;
     report.v = -(int8_t)scroll_accumulated_vertical;
 
     // Update accumulated scroll values by subtracting the integer parts
