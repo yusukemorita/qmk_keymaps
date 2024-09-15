@@ -114,11 +114,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_Q, KC_W,         KC_E,         KC_R,         KC_T,               KC_Y,    KC_U,         KC_I,         KC_O,         KC_P,
         KC_A, LCTL_T(KC_S), LALT_T(KC_D), LCMD_T(KC_F), KC_G,               KC_H,    RCMD_T(KC_J), RALT_T(KC_K), RCTL_T(KC_L), KC_COLON,
-        KC_Z, KC_X,         KC_C,         KC_V,         KC_B,               KC_N,    KC_M,         KC_COMM,      KC_DOT,       LCLICK,
+        KC_Z, KC_X,         KC_C,         KC_V,         KC_B,               KC_N,    KC_M,         KC_COMM,      KC_DOT,       CW_TOGG,
 
                             LCLICK, MO(1), LSFT_T(KC_SPACE),
-                                                                  RCLICK, // key above trackball
-                                                                  _______,RSFT_T(KC_ENT), MO(2),   KC_RIGHT_SHIFT
+                                                                  LCLICK, // key above trackball
+                                                                 _______, RSFT_T(KC_ENT), MO(2),   _______
     ),
 
     [1] = LAYOUT(
@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_LCBR, KC_DEL , KC_BSPC, KC_RCBR,          KC_MINUS,KC_4,    KC_5,    KC_6,    _______,
         _______, KC_QUES, _______, _______, _______,          KC_EQUAL,KC_7,    KC_8,    KC_9,   KC_SLASH,
                           _______, _______, _______, 
-                                                     _______, // key above trackball
+                                                      RCLICK, // key above trackball
                                                      _______, ESC_AND_ENG, MO(3), _______
     ),
 
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_QUOTE,ENG,     JAP,     KC_AT,            KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_SCLN,
   LSFT(KC_TAB),  KC_GRAVE,KC_TILDE,KC_PIPE, _______,          KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BACKSLASH,
                            RCLICK, MO(3),   _______,  
-                                                      _______, 
+                                                      RCLICK, 
                                                       _______, KC_LNG1, KC_BSPC, KC_BSPC
     ),
 
