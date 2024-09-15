@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_LCBR, KC_DEL , KC_BSPC, KC_RCBR,          KC_MINUS,KC_4,    KC_5,    KC_6,    _______,
         _______, KC_QUES, _______, _______, _______,          KC_EQUAL,KC_7,    KC_8,    KC_9,   KC_SLASH,
                           _______, _______, _______, 
-                                                     _______, // key above trackball
+                                                      RCLICK, // key above trackball
                                                      _______, ESC_AND_ENG, MO(3), _______
     ),
 
