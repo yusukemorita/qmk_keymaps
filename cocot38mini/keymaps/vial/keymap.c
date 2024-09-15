@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #include "quantum.h"
+#include "print.h"
 
 #define LCLICK KC_MS_BTN1
 #define RCLICK KC_MS_BTN2
@@ -110,6 +111,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+report_mouse_t pointing_device_task_user(report_mouse_t report) {
+  if (report.x != 0 || report.y != 0) {
+    dprintf("x: %d, y: %d\n", report.x, report.y);
+  }
+  return report;
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_Q, KC_W,         KC_E,         KC_R,         KC_T,               KC_Y,    KC_U,         KC_I,         KC_O,         KC_P,
@@ -125,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, EMOJI,   L_TAB  , R_TAB  , _______,          KC_0    ,KC_1,    KC_2,    KC_3,    _______,
         _______, KC_LCBR, KC_DEL , KC_BSPC, KC_RCBR,          KC_MINUS,KC_4,    KC_5,    KC_6,    _______,
         _______, KC_QUES, _______, _______, _______,          KC_EQUAL,KC_7,    KC_8,    KC_9,   KC_SLASH,
-                          _______, _______, _______, 
+                          DB_TOGG, _______, _______,
                                                      _______, // key above trackball
                                                      _______, ESC_AND_ENG, MO(3), _______
     ),
