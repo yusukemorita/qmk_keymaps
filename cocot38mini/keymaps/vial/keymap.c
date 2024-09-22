@@ -141,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [3] = LAYOUT(
         _______, EMAIL_1, _______, _______, RGB_TOG,          KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,
-        _______, EMAIL_2, _______, _______, SCREENSHOT_PART,  _______,KC_MS_WHLD,KC_MS_WHLU,_______,_______,
+        _______, EMAIL_2, _______, _______, SCREENSHOT_PART,  _______,KC_MS_WH_DOWN,KC_MS_WH_DOWN,_______,_______,
         _______, EMAIL_3, _______, _______, SCREENSHOT_WHOLE, _______, KC_BRID, KC_BRIU, _______, _______,
                           _______, _______, _______, _______, _______, _______, _______, _______
     )
