@@ -45,8 +45,8 @@ float scroll_accumulated_horizontal = 0;
 float scroll_accumulated_vertical = 0;
 
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
-  // enable scroll mode when CMD(GUI) is held down
-  if (get_mods() & MOD_MASK_GUI) {
+  // enable scroll mode when layer 1 is active
+  if (IS_LAYER_ON(1)) {
     // ref: https://docs.qmk.fm/features/pointing_device#advanced-drag-scroll
 
     // Calculate and accumulate scroll values based on mouse movement and divisors
