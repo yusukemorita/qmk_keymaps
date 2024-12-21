@@ -4,10 +4,9 @@
     "url": "",
     "maintainer": "Yusuke Morita",
     "usb": {
-        "vid": "0x5043",
-        "pid": "0x54A3",
-        "device_version": "0.0.1",
-        "max_power": 100
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",

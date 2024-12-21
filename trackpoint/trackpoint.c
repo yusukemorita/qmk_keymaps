@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "trackball_nano.h"
+#include "trackpoint.h"
 #include "wait.h"
 
 #ifndef OPT_DEBOUNCE
