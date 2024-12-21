@@ -1,6 +1,6 @@
 {
-    "keyboard_name": "Trackball Nano",
-    "manufacturer": "",
+    "keyboard_name": "Test Trackpoint",
+    "manufacturer": "Yusuke Morita",
     "url": "",
     "maintainer": "Yusuke Morita",
     "usb": {
