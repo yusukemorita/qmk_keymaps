@@ -1,19 +1,12 @@
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    YourName
-#define PRODUCT         TrackpointModule
+/* disable action features */
+//#define NO_ACTION_LAYER
+//#define NO_ACTION_TAPPING
+//#define NO_ACTION_ONESHOT
 
-/* PS/2 trackpoint pins */
-#define PS2_CLOCK_PIN   B5
-#define PS2_DATA_PIN    B6
+#define ADNS5050_SCLK_PIN         B7
+#define ADNS5050_SDIO_PIN         C6
+#define ADNS5050_CS_PIN           B4
 
-/* Polling interval for pointing device */
-#define POINTING_DEVICE_TASK_THROTTLE_MS 10
-
-/* Debugging options */
-#define DEBUG_MATRIX_SCAN_RATE
-#define DEBUG_POINTING_DEVICE
+#define POINTING_DEVICE_ROTATION_270

@@ -16,7 +16,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include QMK_KEYBOARD_H
 
-// Dummy
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {{{ KC_NO }}};
+#pragma once
+
+#include "quantum.h"
+
+typedef union {
+  uint32_t raw;
+  struct {
+    uint8_t dpi_config;
+  };
+} keyboard_config_t;
+
+extern keyboard_config_t keyboard_config;
+
+enum ploopy_keycodes {
+    DPI_CONFIG = QK_KB_0,
+};
+
+void cycle_dpi(void);
