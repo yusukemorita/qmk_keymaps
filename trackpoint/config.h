@@ -1,16 +1,19 @@
 #pragma once
 
-#include "config_common.h"
-#include <serial_config.h>
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x0001
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    YourName
+#define PRODUCT         TrackpointModule
 
-#define USE_I2C
-#define USE_SERIAL
+/* PS/2 trackpoint pins */
+#define PS2_CLOCK_PIN   B5
+#define PS2_DATA_PIN    B6
 
-#ifdef USE_Link_Time_Optimization
-  // LTO has issues with macros (action_get_macro) and "functions" (fn_actions),
-  //  so just disable them
-  #define NO_ACTION_MACRO
-  #define NO_ACTION_FUNCTION
+/* Polling interval for pointing device */
+#define POINTING_DEVICE_TASK_THROTTLE_MS 10
 
-  #define DISABLE_LEADER
-#endif // USE_Link_Time_Optimization
+/* Debugging options */
+#define DEBUG_MATRIX_SCAN_RATE
+#define DEBUG_POINTING_DEVICE

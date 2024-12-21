@@ -20,13 +20,13 @@ MCU = atmega32u4
 #     does not *change* the processor frequency - it should merely be updated to
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
-F_CPU = 16000000
+# F_CPU = 16000000
 
 #
 # LUFA specific
 #
 # Target architecture (see library "Board Types" documentation).
-ARCH = AVR8
+# ARCH = AVR8
 
 # Input clock frequency.
 #     This will define a symbol, F_USB, in all source code files equal to the
@@ -39,7 +39,7 @@ ARCH = AVR8
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_USB = $(F_CPU)
+# F_USB = $(F_CPU)
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
@@ -48,27 +48,40 @@ F_USB = $(F_CPU)
 # BOOTLOADER = caterina
 
 # Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
+# OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
-EXTRAKEY_ENABLE = no       # Audio control and System control(+450)
-CONSOLE_ENABLE = no         # Console for debug(+400)
-COMMAND_ENABLE = no        # Commands for debug and configuration
-NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
-MIDI_ENABLE = no            # MIDI controls
-AUDIO_ENABLE = no           # Audio output on port C6
-UNICODE_ENABLE = no         # Unicode
-BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight. 
-SUBPROJECT_rev1 = no
-USE_I2C = yes
+# BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
+# EXTRAKEY_ENABLE = no       # Audio control and System control(+450)
+# CONSOLE_ENABLE = no         # Console for debug(+400)
+# COMMAND_ENABLE = no        # Commands for debug and configuration
+# NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+# BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
+# MIDI_ENABLE = no            # MIDI controls
+# AUDIO_ENABLE = no           # Audio output on port C6
+# UNICODE_ENABLE = no         # Unicode
+# BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
+# RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight. 
+# SUBPROJECT_rev1 = no
+# USE_I2C = yes
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
+# SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 # CUSTOM_MATRIX = yes
+
+# Core settings
+KEYBOARD_SHARED_EP_ENABLE = no  # Disable shared endpoint as there are no keys
+MOUSEKEY_ENABLE = yes          # Enable mouse key support for pointing device
+POINTING_DEVICE_ENABLE = yes   # Enable pointing device (trackpoint support)
+
+# PS/2 protocol for trackpoint
+PS2_MOUSE_ENABLE = yes
+
+# Additional features (disable unnecessary ones to keep firmware minimal)
+EXTRAKEY_ENABLE = no           # Disable extra keycodes
+CONSOLE_ENABLE = yes           # Enable console for debugging
+COMMAND_ENABLE = no            # Disable QMK command
+NKRO_ENABLE = no               # Disable N-key rollover
