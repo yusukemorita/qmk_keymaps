@@ -50,7 +50,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: trackpoint-firmware
-        path: __qmk__/*.uf2
+        path: __qmk__/*.hex
 
     - name: Comment artifact url in PR
       uses: thollander/actions-comment-pull-request@v2
