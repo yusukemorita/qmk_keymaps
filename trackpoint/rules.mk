@@ -1,13 +1,3 @@
-# SRC += i2c.c
-# SRC += serial.c
-# SRC += ssd1306.c
-
-# if firmware size over limit, try this option
-# CFLAGS += -flto
-
-# MCU name
-#MCU = at90usb1287
-MCU = atmega32u4
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the

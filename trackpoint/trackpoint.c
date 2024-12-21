@@ -14,3 +14,6 @@ void matrix_scan_user(void) {
 void pointing_device_task(void) {
     // Trackpoint's movement will automatically be handled by QMK's pointing device system.
 }
+
+// dummy
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {{{ KC_NO }}};
