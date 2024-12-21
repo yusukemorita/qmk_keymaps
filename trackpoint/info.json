@@ -10,7 +10,7 @@
         "max_power": 100
     },
     "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "bootloader": "caterina",
     "debounce": 0,
      "layouts": {
         "LAYOUT": {
@@ -18,5 +18,10 @@
                 {"x": 0, "y": 0, "matrix": [0, 0]}
             ]
         }
+    },
+    "matrix_pins": {
+        "direct": [
+            [null]
+        ]
     }
 }
