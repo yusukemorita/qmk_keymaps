@@ -20,3 +20,7 @@
 
 /* Debounce time (irrelevant for trackpoint-only setup but required) */
 #define DEBOUNCE 0
+
+// define 1x1 matrix
+#define LAYOUT(L00) { { L00 } }
+#define LAYOUT_kc( L00 )  LAYOUT( KC_##L00 )
