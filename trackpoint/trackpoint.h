@@ -10,9 +10,9 @@
 #define PRODUCT         TrackpointModule
 #define DESCRIPTION     Trackpoint-only firmware
 
-/* Matrix size (0 keys, no rows or columns needed) */
-#define MATRIX_ROWS 0
-#define MATRIX_COLS 0
+/* Matrix size  */
+#define MATRIX_ROWS 1
+#define MATRIX_COLS 1
 
 /* Pointing device settings (PS/2 trackpoint) */
 #define PS2_CLOCK_PIN B5
