@@ -1,0 +1,31 @@
+{
+    "keyboard_name": "Test Trackpoint",
+    "manufacturer": "Yusuke Morita",
+    "url": "",
+    "maintainer": "Yusuke Morita",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "debounce": 0,
+    "ps2": {
+        "enabled": true,
+        "mouse_enabled": true,
+        "driver": "interrupt"
+    },
+     "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0, "y": 0, "matrix": [0, 0]}
+            ]
+        }
+    },
+    "matrix_pins": {
+        "direct": [
+            [null]
+        ]
+    }
+}
