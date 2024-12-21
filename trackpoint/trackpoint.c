@@ -20,96 +20,12 @@
 #include "trackpoint.h"
 #include "wait.h"
 
-#ifndef OPT_DEBOUNCE
-#    define OPT_DEBOUNCE 5  // (ms) 			Time between scroll events
-#endif
+// START functions necessary for custom driver
 
-#ifndef SCROLL_BUTT_DEBOUNCE
-#    define SCROLL_BUTT_DEBOUNCE 100  // (ms) 			Time between scroll events
-#endif
+// TODO: implement
+void           pointing_device_driver_init(void) {}
+report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) { return mouse_report; }
+uint16_t       pointing_device_driver_get_cpi(void) { return 0; }
+void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 
-#ifndef OPT_THRES
-#    define OPT_THRES 150  // (0-1024) 	Threshold for actication
-#endif
-
-#ifndef OPT_SCALE
-#    define OPT_SCALE 1  // Multiplier for wheel
-#endif
-
-#ifndef PLOOPY_DPI_OPTIONS
-#    define PLOOPY_DPI_OPTIONS \
-        { 375, 750, 1375 }
-#    ifndef PLOOPY_DPI_DEFAULT
-#        define PLOOPY_DPI_DEFAULT 2
-#    endif
-#endif
-
-#ifndef PLOOPY_DPI_DEFAULT
-#    define PLOOPY_DPI_DEFAULT 2
-#endif
-
-keyboard_config_t keyboard_config;
-uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
-#define DPI_OPTION_SIZE ARRAY_SIZE(dpi_array)
-
-void cycle_dpi(void) {
-  keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
-  pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
-#ifdef CONSOLE_ENABLE
-  uprintf("DPI is now %d\n", dpi_array[keyboard_config.dpi_config]);
-#endif
-}
-
-// TODO: Implement libinput profiles
-// https://wayland.freedesktop.org/libinput/doc/latest/pointer-acceleration.html
-// Compile time accel selection
-// Valid options are ACC_NONE, ACC_LINEAR, ACC_CUSTOM, ACC_QUADRATIC
-
-// Trackball State
-bool     is_scroll_clicked = false;
-bool     BurstState        = false;  // init burst state for Trackball module
-uint16_t MotionStart       = 0;      // Timer for accel, 0 is resting state
-
-void pointing_device_init_kb(void) {
-    // set the DPI.
-    pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
-}
-
-// Hardware Setup
-void keyboard_pre_init_kb(void) {
-    // debug_enable = true;
-    // debug_matrix = true;
-    // debug_mouse = true;
-    // debug_encoder = true;
-
-    /* Ground all output pins connected to ground. This provides additional
-     * pathways to ground. If you're messing with this, know this: driving ANY
-     * of these pins high will cause a short. On the MCU. Ka-blooey.
-     */
-#ifdef UNUSABLE_PINS
-    const pin_t unused_pins[] = UNUSABLE_PINS;
-
-    for (uint8_t i = 0; i < ARRAY_SIZE(unused_pins); i++) {
-        setPinOutput(unused_pins[i]);
-        writePinLow(unused_pins[i]);
-    }
-#endif
-
-    keyboard_pre_init_user();
-}
-
-void eeconfig_init_kb(void) {
-    keyboard_config.dpi_config = PLOOPY_DPI_DEFAULT;
-    eeconfig_update_kb(keyboard_config.raw);
-    eeconfig_init_user();
-}
-
-void matrix_init_kb(void) {
-    // is safe to just read DPI setting since matrix init
-    // comes before pointing device init.
-    keyboard_config.raw = eeconfig_read_kb();
-    if (keyboard_config.dpi_config > DPI_OPTION_SIZE) {
-        eeconfig_init_kb();
-    }
-    matrix_init_user();
-}
+// END functions necessary for custom driver
