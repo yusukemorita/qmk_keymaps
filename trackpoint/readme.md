@@ -9,3 +9,8 @@ Reference the steps in `.github/workflows/build_trackpoint.yml` for setting up q
 ```
 qmk compile -kb trackpoint --keymap default
 ```
+
+lint
+```
+qmk lint -kb trackpoint
+```
