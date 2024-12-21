@@ -43,7 +43,7 @@ jobs:
       run: ln -s $(pwd)/trackpoint __qmk__/keyboards/trackpoint
 
     - name: Compile trackpoint
-      run: qmk compile -kb trackpoint -j 4
+      run: qmk compile -kb trackpoint --keymap default
 
     - name: Upload firmware to artifacts
       id: firmware-upload
