@@ -11,3 +11,7 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 POINTING_DEVICE_ENABLE = no
 MOUSEKEY_ENABLE = no        # Mouse keys
+
+PS2_MOUSE_ENABLE = yes
+PS2_ENABLE = yes
+PS2_DRIVER = interrupt
