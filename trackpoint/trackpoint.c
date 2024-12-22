@@ -16,3 +16,9 @@
 
 #include "trackpoint.h"
 #include "wait.h"
+
+// void ps2_mouse_moved_user(report_mouse_t *mouse_report);
+
+void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
+    print("Moving!'\n");
+}
