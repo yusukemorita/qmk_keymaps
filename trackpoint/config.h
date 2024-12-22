@@ -18,8 +18,8 @@
 
 // Copied from https://docs.qmk.fm/features/ps2_mouse#interrupt-version-avr
 #ifdef PS2_DRIVER_INTERRUPT
-#define PS2_CLOCK_PIN   D2
-#define PS2_DATA_PIN    D5
+#define PS2_CLOCK_PIN   A1
+#define PS2_DATA_PIN    A2
 
 #define PS2_INT_INIT()  do {    \
     EICRA |= ((1<<ISC21) |      \
