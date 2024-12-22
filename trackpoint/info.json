@@ -11,14 +11,7 @@
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "debounce": 0,
-    "ps2": {
-        "enabled": true,
-        "mouse_enabled": true,
-        "driver": "interrupt",
-        "clock_pin": "F4",
-        "data_pin": "F5"
-    },
-     "layouts": {
+    "layouts": {
         "LAYOUT": {
             "layout": [
                 {"x": 0, "y": 0, "matrix": [0, 0]}
