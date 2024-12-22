@@ -14,7 +14,9 @@
     "ps2": {
         "enabled": true,
         "mouse_enabled": true,
-        "driver": "interrupt"
+        "driver": "interrupt",
+        "clock_pin": "F4",
+        "data_pin": "F5"
     },
      "layouts": {
         "LAYOUT": {
