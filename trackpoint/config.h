@@ -19,8 +19,8 @@
 // Copied from https://docs.qmk.fm/features/ps2_mouse#interrupt-version-avr
 // #ifdef PS2_DRIVER_INTERRUPT
 // pin translation: https://golem.hu/article/pro-micro-pinout/
-#define PS2_CLOCK_PIN  F4 // pin labelled A3 on pro micro
-#define PS2_DATA_PIN   F5 // pin labelled A2 on pro micro
+#define PS2_CLOCK_PIN  D2 // pin labelled RX1 on pro micro
+#define PS2_DATA_PIN   D3 // pin labelled TX0 on pro micro
 
 #define PS2_INT_INIT()  do {    \
     EICRA |= ((1<<ISC21) |      \
