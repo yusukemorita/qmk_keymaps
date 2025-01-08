@@ -27,4 +27,7 @@ void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
     uprintf("  buttons: 0x%02X\n", mouse_report->buttons);
     uprintf("  wheel: %d\n", mouse_report->h);
     uprintf("  horizontal wheel: %d\n", mouse_report->v);
+
+    // Clear the buttons field in the mouse report
+    mouse_report->buttons = 0;
 }
