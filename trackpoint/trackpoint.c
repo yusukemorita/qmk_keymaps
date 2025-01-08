@@ -24,7 +24,7 @@ void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
     // Print each field in the mouse_report structure
     // dprintf("  x: %d\n", mouse_report->x);
     // dprintf("  y: %d\n", mouse_report->y);
-    dprintf("Mouse moved! buttons: 0x%02X\n", mouse_report->buttons);
-    dprintf("  wheel: %d\n", mouse_report->h);
-    dprintf("  horizontal wheel: %d\n", mouse_report->v);
+    uprintf("Mouse moved! buttons: 0x%02X\n", mouse_report->buttons);
+    uprintf("  wheel: %d\n", mouse_report->h);
+    uprintf("  horizontal wheel: %d\n", mouse_report->v);
 }
