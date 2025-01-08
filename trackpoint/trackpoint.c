@@ -17,11 +17,9 @@
 #include "trackpoint.h"
 #include "wait.h"
 
-// void ps2_mouse_moved_user(report_mouse_t *mouse_report);
-
-void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
+// void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
     // Print a message to indicate the function is called
-    print("Mouse moved\n");
+    // print("Mouse moved\n");
 
     // Print each field in the mouse_report structure
     // dprintf("  x: %d\n", mouse_report->x);
@@ -29,4 +27,4 @@ void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
     // dprintf("  wheel: %d\n", mouse_report->h);
     // dprintf("  horizontal wheel: %d\n", mouse_report->v);
     // dprintf("  buttons: 0x%02X\n", mouse_report->buttons);
-}
+// }
