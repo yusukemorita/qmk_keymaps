@@ -21,3 +21,7 @@
 /* To debug the mouse reports */
 #define PS2_MOUSE_DEBUG_HID
 #define PS2_MOUSE_DEBUG_RAW
+
+/* disable scroll button */
+#define PS2_MOUSE_SCROLL_BTN_MASK 0
+#define PS2_MOUSE_SCROLL_BTN_SEND 0
