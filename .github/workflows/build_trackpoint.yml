@@ -31,9 +31,11 @@ jobs:
       uses: actions/checkout@v4
       with:
         path: __qmk__
-        repository: qmk/qmk_firmware
+        # repository: qmk/qmk_firmware
+        repository: yusukemorita/qmk_firmware
         submodules: recursive
-        ref: ${{ env.QMK_VERSION }}
+        # ref: ${{ env.QMK_VERSION }}
+        ref: trackpoint-debug
 
     - name: Setup QMK
       shell: bash
