@@ -16,6 +16,10 @@
 
 #pragma once
 
+#define PS2_MOUSE_USE_REMOTE_MODE
+// disable scroll
+#define PS2_MOUSE_SCROLL_BTN_MASK 0
+
 // Copied from https://docs.qmk.fm/features/ps2_mouse#interrupt-version-avr
 // #ifdef PS2_DRIVER_INTERRUPT
 // pin translation: https://golem.hu/article/pro-micro-pinout/

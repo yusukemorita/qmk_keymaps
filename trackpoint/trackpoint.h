@@ -22,5 +22,3 @@
 #define PS2_MOUSE_DEBUG_HID
 #define PS2_MOUSE_DEBUG_RAW
 
-// disable scroll
-#define PS2_MOUSE_SCROLL_BTN_MASK 0
