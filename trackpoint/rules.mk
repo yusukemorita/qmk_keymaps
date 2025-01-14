@@ -9,11 +9,8 @@ NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-# POINTING_DEVICE_ENABLE = no
+POINTING_DEVICE_ENABLE = no
 MOUSEKEY_ENABLE = no        # Mouse keys
-
-POINTING_DEVICE_ENABLE = yes
-POINTING_DEVICE_DRIVER = ps2
 
 PS2_MOUSE_ENABLE = yes
 PS2_ENABLE = yes
