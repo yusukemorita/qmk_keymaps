@@ -16,7 +16,7 @@
 
 #pragma once
 
-// #define PS2_MOUSE_USE_REMOTE_MODE
+#define PS2_MOUSE_USE_REMOTE_MODE
 // disable scroll
 #define PS2_MOUSE_SCROLL_BTN_MASK 0
 
