@@ -13,7 +13,7 @@ AUDIO_ENABLE = no           # Audio output
 MOUSEKEY_ENABLE = no        # Mouse keys
 
 POINTING_DEVICE_ENABLE = yes
-POINTING_DEVICE_DRIVER = ps2
+# POINTING_DEVICE_DRIVER = ps2
 
 PS2_MOUSE_ENABLE = yes
 PS2_ENABLE = yes
