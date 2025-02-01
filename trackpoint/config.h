@@ -15,38 +15,3 @@
  */
 
 #pragma once
-
-// The default streaming mode is flaky and doesn't always work. This setting doesn't seem to affect performance.
-#define PS2_MOUSE_USE_REMOTE_MODE
-
-// Serial uses PIO0, change PS2 to PIO1.
-#define PS2_PIO_USE_PIO1
-
-// Copied from https://docs.qmk.fm/features/ps2_mouse#interrupt-version-avr
-// #ifdef PS2_DRIVER_INTERRUPT
-// pin translation: https://golem.hu/article/pro-micro-pinout/
-
-// pin labelled RX1 on pro micro
-// #define PS2_DATA_PIN D2
-
-// pin labelled TX0 on pro micro
-// #define PS2_CLOCK_PIN D3
-
-// pin labelled 2 on pro micro
-#define PS2_DATA_PIN D1
-
-// pin labelled # on pro micro
-#define PS2_CLOCK_PIN D0
-
-#define PS2_INT_INIT()  do {    \
-    EICRA |= ((1<<ISC21) |      \
-              (0<<ISC20));      \
-} while (0)
-#define PS2_INT_ON()  do {      \
-    EIMSK |= (1<<INT2);         \
-} while (0)
-#define PS2_INT_OFF() do {      \
-    EIMSK &= ~(1<<INT2);        \
-} while (0)
-#define PS2_INT_VECT   INT2_vect
-// #endif
