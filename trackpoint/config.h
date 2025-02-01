@@ -15,3 +15,22 @@
  */
 
 #pragma once
+
+#define PS2_MOUSE_USE_REMOTE_MODE
+
+// Serial uses PIO0, change PS2 to PIO1.
+#define PS2_PIO_USE_PIO1
+
+#define PS2_MOUSE_INVERT_X
+#define PS2_MOUSE_INVERT_Y
+
+// #define PS2_DATA_PIN    GP2
+// #define PS2_CLOCK_PIN   GP3
+
+// pin labelled 2 on pro micro
+#define PS2_DATA_PIN D1
+// pin labelled 3 on pro micro
+#define PS2_CLOCK_PIN D0
+
+// Start faster when keyboard resets.
+#define PS2_MOUSE_INIT_DELAY 500
