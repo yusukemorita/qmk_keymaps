@@ -16,15 +16,23 @@
 
 #pragma once
 
+// The default streaming mode is flaky and doesn't always work. This setting doesn't seem to affect performance.
 #define PS2_MOUSE_USE_REMOTE_MODE
-// disable scroll
-#define PS2_MOUSE_SCROLL_BTN_MASK 0
+
+// Serial uses PIO0, change PS2 to PIO1.
+#define PS2_PIO_USE_PIO1
 
 // Copied from https://docs.qmk.fm/features/ps2_mouse#interrupt-version-avr
 // #ifdef PS2_DRIVER_INTERRUPT
 // pin translation: https://golem.hu/article/pro-micro-pinout/
-#define PS2_CLOCK_PIN  D2 // pin labelled RX1 on pro micro
-#define PS2_DATA_PIN   D3 // pin labelled TX0 on pro micro
+
+// pin labelled RX1 on pro micro
+// pin labelled 017 on Supermini NRF52840
+#define PS2_DATA_PIN D2
+
+// pin labelled TX0 on pro micro
+// pin labelled 020 on Supermini NRF52840
+#define PS2_CLOCK_PIN D3
 
 #define PS2_INT_INIT()  do {    \
     EICRA |= ((1<<ISC21) |      \
