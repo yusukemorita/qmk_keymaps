@@ -34,6 +34,9 @@ jobs:
         repository: idank/qmk_firmware
         ref: holykeebs-master
         submodules: recursive
+    
+    - name: install required python dependencies
+      run: /usr/bin/python3 -m pip install -r /__w/qmk_keymaps/qmk_keymaps/__qmk__/requirements.txt
 
     - name: Setup QMK
       shell: bash
