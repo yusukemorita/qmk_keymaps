@@ -5,6 +5,7 @@ on:
     paths:
       - cocot38mini/**
       - .github/workflows/build_cocot38mini.yml
+  workflow_dispatch:
 
 jobs:
   build:
@@ -55,8 +56,11 @@ jobs:
         name: cocot38mini-firmware
         path: __qmk__/*.uf2
 
+    - run: echo "${{ github.event_name }}"
+
     - name: Comment artifact url in PR
       uses: thollander/actions-comment-pull-request@v2
+      if: ${{ github.event_name == 'pull_request' }}
       with:
         message: |
           Compiled cocot38mini firmware download URL
