@@ -5,6 +5,7 @@ on:
     paths:
       - trackpoint/**
       - .github/workflows/build_trackpoint.yml
+  workflow_dispatch:
 
 jobs:
   build:
@@ -54,6 +55,7 @@ jobs:
 
     - name: Comment artifact url in PR
       uses: thollander/actions-comment-pull-request@v2
+      if: ${{ github.event_name == 'pull_request' }}
       with:
         message: |
           Compiled trackpoint firmware download URL
