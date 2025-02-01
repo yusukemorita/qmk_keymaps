@@ -27,12 +27,16 @@
 // pin translation: https://golem.hu/article/pro-micro-pinout/
 
 // pin labelled RX1 on pro micro
-// pin labelled 017 on Supermini NRF52840
-#define PS2_DATA_PIN D2
+// #define PS2_DATA_PIN D2
 
 // pin labelled TX0 on pro micro
-// pin labelled 020 on Supermini NRF52840
-#define PS2_CLOCK_PIN D3
+// #define PS2_CLOCK_PIN D3
+
+// pin labelled 2 on pro micro
+#define PS2_DATA_PIN D1
+
+// pin labelled # on pro micro
+#define PS2_CLOCK_PIN D0
 
 #define PS2_INT_INIT()  do {    \
     EICRA |= ((1<<ISC21) |      \
