@@ -43,6 +43,9 @@ jobs:
     - name: Install symbolic link
       run: ln -s $(pwd)/trackpoint __qmk__/keyboards/trackpoint
 
+    - name: Install python dependencies
+      run: /usr/bin/python3 -m pip install -r /__w/qmk_keymaps/qmk_keymaps/__qmk__/requirements.txt
+
     - name: Compile trackpoint
       run: qmk compile -kb trackpoint --keymap default
 
