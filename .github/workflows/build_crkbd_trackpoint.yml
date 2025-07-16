@@ -45,7 +45,8 @@ jobs:
       run: /usr/bin/python3 -m pip install -r /__w/qmk_keymaps/qmk_keymaps/__qmk__/requirements.txt
 
     - name: Compile trackpoint
-      run: make crkbd/rev1:via -e USER_NAME=holykeebs -e POINTING_DEVICE=trackpoint -e POINTING_DEVICE_POSITION=left
+      # run: make crkbd/rev1:via -e USER_NAME=holykeebs -e POINTING_DEVICE=trackpoint -e POINTING_DEVICE_POSITION=left
+      run: make crkbd/rev1:via -e USER_NAME=holykeebs 
       working-directory: __qmk__
 
     - name: Upload firmware to artifacts
