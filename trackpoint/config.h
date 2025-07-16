@@ -16,21 +16,21 @@
 
 #pragma once
 
-// Copied from https://docs.qmk.fm/features/ps2_mouse#interrupt-version-avr
-#ifdef PS2_DRIVER_INTERRUPT
-// pin translation: https://golem.hu/article/pro-micro-pinout/
-#define PS2_CLOCK_PIN  F4 // pin labelled A3 on pro micro
-#define PS2_DATA_PIN   F5 // pin labelled A2 on pro micro
+#define PS2_MOUSE_USE_REMOTE_MODE
 
-#define PS2_INT_INIT()  do {    \
-    EICRA |= ((1<<ISC21) |      \
-              (0<<ISC20));      \
-} while (0)
-#define PS2_INT_ON()  do {      \
-    EIMSK |= (1<<INT2);         \
-} while (0)
-#define PS2_INT_OFF() do {      \
-    EIMSK &= ~(1<<INT2);        \
-} while (0)
-#define PS2_INT_VECT   INT2_vect
-#endif
+// Serial uses PIO0, change PS2 to PIO1.
+#define PS2_PIO_USE_PIO1
+
+#define PS2_MOUSE_INVERT_X
+#define PS2_MOUSE_INVERT_Y
+
+// #define PS2_DATA_PIN    GP2
+// #define PS2_CLOCK_PIN   GP3
+
+// pin labelled 2 on pro micro
+#define PS2_DATA_PIN D1
+// pin labelled 3 on pro micro
+#define PS2_CLOCK_PIN D0
+
+// Start faster when keyboard resets.
+#define PS2_MOUSE_INIT_DELAY 500
