@@ -45,4 +45,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // default firmware provided by holykeebs seems to only register
 // keys when they're held down long?
-#define DEBOUNCE 5
+#define DEBOUNCE 3
