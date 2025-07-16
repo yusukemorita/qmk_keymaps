@@ -1,0 +1,67 @@
+name: build crkbd trackpoint
+
+on:
+  pull_request:
+    paths:
+      - crkbd-trackpoint/**
+      - .github/workflows/build_crkbd_trackpoint.yml
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    permissions:
+      pull-requests: write # required for thollander/actions-comment-pull-request@v2
+    env:
+      QMK_VERSION: '0.27.1'
+    container:
+      image: ghcr.io/qmk/qmk_cli:latest
+
+    steps:
+    # - name: Checkout yusukemorita/qmk_keymaps
+    #   uses: actions/checkout@v4
+
+    # - name: Cache qmk repository
+    #   id: cache-qmk-repository
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: __qmk__
+    #     key: qmk-${{ env.QMK_VERSION }}
+
+    - name: Checkout qmk/qmk_firmware
+      uses: actions/checkout@v4
+      with:
+        repository: holykeebs/qmk_firmware
+        submodules: recursive
+        ref: ce1df7cc236fcc6ce16d0d323cfe94a8c9315d86
+
+    - name: Setup QMK
+      shell: bash
+      run: qmk setup --home ./__qmk__ --yes
+
+    # - name: Install symbolic link
+    #   run: ln -s $(pwd)/crkbd-trackpoint __qmk__/keyboards/crkbd-trackpoint
+
+    - name: Install python dependencies
+      run: /usr/bin/python3 -m pip install -r /__w/qmk_keymaps/qmk_keymaps/__qmk__/requirements.txt
+
+    - name: Compile trackpoint
+      run: make crkbd/rev1:via -e USER_NAME=holykeebs -e POINTING_DEVICE=trackpoint -e POINTING_DEVICE_POSITION=left
+
+    - name: Upload firmware to artifacts
+      id: firmware-upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: crkbd-trackpoint-firmware
+        path: __qmk__/*.hex
+
+    - name: Comment artifact url in PR
+      uses: thollander/actions-comment-pull-request@v2
+      if: ${{ github.event_name == 'pull_request' }}
+      with:
+        message: |
+          Compiled crkbd-trackpoint firmware download URL
+          ${{ steps.firmware-upload.outputs.artifact-url }}
+
+          Build URL
+          ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
