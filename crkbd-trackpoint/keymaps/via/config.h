@@ -43,6 +43,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 
-// default firmware provided by holykeebs seems to only register
-// keys when they're held down long?
-#define DEBOUNCE 3
+#define DEBOUNCE 5

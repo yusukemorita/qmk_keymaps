@@ -44,7 +44,7 @@ jobs:
     - name: Install python dependencies
       run: /usr/bin/python3 -m pip install -r /__w/qmk_keymaps/qmk_keymaps/__qmk__/requirements.txt
 
-    - name: Compile trackpoint
+    - name: Compile crkbd-trackpoint
       # run: make crkbd/rev1:via -e USER_NAME=holykeebs -e POINTING_DEVICE=trackpoint -e POINTING_DEVICE_POSITION=left
       run: make crkbd/rev1:via -e USER_NAME=holykeebs 
       working-directory: __qmk__
