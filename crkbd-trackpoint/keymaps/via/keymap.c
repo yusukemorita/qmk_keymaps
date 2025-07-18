@@ -18,53 +18,134 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
+// aliases
+
+#define JAP KC_LANGUAGE_1
+#define ENG KC_LANGUAGE_2
+
+#define LCLICK KC_MS_BTN1
+#define RCLICK KC_MS_BTN2
+
+#define SCREENSHOT_PART LCMD(LSFT(KC_4))
+#define SCREENSHOT_WHOLE LCMD(LSFT(KC_3))
+
+// for moving tabs in browser, editor etc
+#define L_TAB LCMD(KC_LCBR)
+#define R_TAB LCMD(KC_RCBR)
+
+// macro
+
+enum custom_keycodes {
+  ESC_AND_ENG = SAFE_RANGE,
+  HOLD_QK_BOOT,
+  EMOJI,
+  EMAIL_1,
+  EMAIL_2,
+  EMAIL_3,
+};
+
+
+// keymap
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ESC,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, TL_LOWR,  KC_SPC,     KC_ENT, TL_UPPR, KC_RALT
-                                      //`--------------------------'  `--------------------------'
+
+      _______,    KC_Q,        KC_W,       KC_E,         KC_R,      KC_T,                               KC_Y,        KC_U,        KC_I,        KC_O,     KC_P,  _______,
+
+      _______,    KC_A,LCTL_T(KC_S),LALT_T(KC_D),LCMD_T(KC_F),      KC_G,                               KC_H,RCMD_T(KC_J),RALT_T(KC_K),RCTL_T(KC_L), KC_COLON,  _______,
+
+      _______,    KC_Z,        KC_X,        KC_C,        KC_V,      KC_B,                               KC_N,        KC_M,     KC_COMM,      KC_DOT,  CW_TOGG,  _______,
+
+                                         KC_LGUI,       MO(1),     LSFT_T(KC_SPACE),          RSFT_T(KC_ENT),       MO(2),      LCLICK
 
   ),
 
+  // (mostly) numbers and shortcuts
   [1] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT
-                                      //`--------------------------'  `--------------------------'
+    _______   , _______   , EMOJI     , L_TAB     , R_TAB     , _______   ,                          KC_0     , KC_1     , KC_2     , KC_3     , _______  , _______,
+
+    _______   , _______   , KC_LCBR   , KC_DEL    , KC_BSPC   , KC_RCBR   ,                          KC_MINUS , KC_4     , KC_5     , KC_6     , _______  , _______,
+
+    _______   , _______   , KC_QUES   , _______   , _______   , _______   ,                          KC_EQUAL , KC_7     , KC_8     , KC_9     , KC_SLASH , _______,
+
+                                        _______   , _______   , HOLD_QK_BOOT,                     ESC_AND_ENG , MO(3)    , _______
   ),
 
+  // symbols
   [2] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT
-                                      //`--------------------------'  `--------------------------'
+    _______   , KC_EXCLAIM, KC_DQT    , KC_HASH  , KC_DOLLAR , KC_PERCENT ,                           KC_AMPR   , KC_ASTR   , KC_LPRN   , KC_RPRN   , KC_CIRC   , _______,
+
+    _______   , KC_TAB    , KC_QUOTE  , ENG      , JAP       , KC_AT      ,                           KC_LEFT   , KC_DOWN   , KC_UP     , KC_RIGHT  , KC_SCLN   , _______,
+
+    _______ , LSFT(KC_TAB), KC_GRAVE  , KC_TILDE , KC_PIPE   , _______    ,                           KC_UNDERSCORE, KC_PLUS, KC_LBRC   , KC_RBRC   , KC_BACKSLASH,_______,
+
+                                        RCLICK   , MO(3)     , _______    ,                         HOLD_QK_BOOT, _______   , _______
   ),
 
+  // shortcuts
   [3] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT
-                                      //`--------------------------'  `--------------------------'
+    _______   , _______   , EMAIL_1   , _______   , _______   , _______   ,                           KC_MUTE   , KC_VOLD   , KC_VOLU   , _______   , _______   , _______,
+
+    _______   , _______   , EMAIL_2   , _______   , _______   , SCREENSHOT_PART,                      _______   , KC_BRID   , KC_BRIU   , _______   , _______   , _______,
+
+    _______   , _______   , EMAIL_3   , _______   , _______   , SCREENSHOT_WHOLE,                     _______   , _______   , _______   , _______   , _______   , _______,
+
+                                        _______   , _______   , _______   ,                           _______   , _______   , _______ 
   )
 };
+
+// see https://github.com/qmk/qmk_firmware/blob/master/quantum/send_string/send_string_keycodes.h
+// for all `X_*` keycodes
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  static uint16_t qk_boot_timer;
+
+  switch(keycode) {
+    case ESC_AND_ENG:
+      if (record->event.pressed) {
+        SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_LANGUAGE_2));
+      }
+      break;
+
+    case HOLD_QK_BOOT:
+      if (record->event.pressed) {
+        qk_boot_timer = timer_read();
+      } else {
+        // trigger boot mode if held down for 0.5 seconds
+        if (timer_elapsed(qk_boot_timer) > 500) {
+          bootloader_jump();
+        }
+      }
+      break;
+
+    case EMOJI:
+      if (record->event.pressed) {
+        // ctl + cmd + space for emoji
+        SEND_STRING(SS_DOWN(X_LCTL));
+        SEND_STRING(SS_DOWN(X_LCMD));
+        SEND_STRING(SS_TAP(X_SPACE));
+        SEND_STRING(SS_UP(X_LCMD));
+        SEND_STRING(SS_UP(X_LCTL));
+      }
+      break;
+
+    case EMAIL_1:
+      if (record->event.pressed) {
+        SEND_STRING(ENV_EMAIL_1);
+      }
+      break;
+
+    case EMAIL_2:
+      if (record->event.pressed) {
+        SEND_STRING(ENV_EMAIL_2);
+      }
+      break;
+
+    case EMAIL_3:
+      if (record->event.pressed) {
+        SEND_STRING(ENV_EMAIL_3);
+      }
+      break;
+  }
+
+  return true;
+}
