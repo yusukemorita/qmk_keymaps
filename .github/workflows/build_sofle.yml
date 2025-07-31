@@ -14,7 +14,7 @@ jobs:
     container:
       image: ghcr.io/qmk/qmk_cli:latest
     env:
-      QMK_VERSION: '0.25.17'
+      QMK_VERSION: '0.29.11'
 
     steps:
     - name: Checkout yusukemorita/qmk_keymaps
