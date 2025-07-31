@@ -44,7 +44,7 @@ jobs:
       run: /usr/bin/python3 -m pip install -r /__w/qmk_keymaps/qmk_keymaps/__qmk__/requirements.txt
 
     - name: Compile sofle
-      run: qmk compile -kb sofle/rev1 -km default; ls -al
+      run: qmk compile -kb sofle/rev1 -km default -e CONVERT_TO=promicro_rp2040; ls -al
       working-directory: __qmk__
 
     - name: Upload firmware to artifacts
