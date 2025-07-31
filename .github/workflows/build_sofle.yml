@@ -44,7 +44,7 @@ jobs:
       run: /usr/bin/python3 -m pip install -r /__w/qmk_keymaps/qmk_keymaps/__qmk__/requirements.txt
 
     - name: Compile sofle
-      run: qmk compile -kb sofle/rev1 -km default
+      run: qmk compile -kb sofle/rev1 -km default; ls -al
       working-directory: __qmk__
 
     - name: Upload firmware to artifacts
@@ -52,7 +52,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: sofle-firmware
-        path: __qmk__/*.hex
+        path: __qmk__/*.uf2
 
     - name: Comment artifact url in PR
       uses: thollander/actions-comment-pull-request@v2
