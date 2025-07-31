@@ -32,13 +32,12 @@ jobs:
       shell: bash
       run: qmk setup --home ./__qmk__ --yes
 
-    # - name: Overwrite default keymap directory
-    #   run: |
-    #     rm -rf __qmk__/keyboards/crkbd/keymaps/via
-    #     cp -r crkbd-trackpoint/keymaps/via __qmk__/keyboards/crkbd/keymaps/
+    - name: Overwrite qmk sofle directory
+      run: |
+        rm -rf __qmk__/keyboards/sofle
 
-    # - name: Install symbolic link
-    #   run: ln -s $(pwd)/crkbd-trackpoint __qmk__/keyboards/crkbd-trackpoint
+    - name: Install symbolic link
+      run: ln -s $(pwd)/sofle __qmk__/keyboards/sofle
 
     - name: Install python dependencies
       run: /usr/bin/python3 -m pip install -r /__w/qmk_keymaps/qmk_keymaps/__qmk__/requirements.txt
