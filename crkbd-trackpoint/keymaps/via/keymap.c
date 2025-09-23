@@ -96,56 +96,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // see https://github.com/qmk/qmk_firmware/blob/master/quantum/send_string/send_string_keycodes.h
 // for all `X_*` keycodes
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  static uint16_t qk_boot_timer;
+// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+//   static uint16_t qk_boot_timer;
 
-  switch(keycode) {
-    case ESC_AND_ENG:
-      if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_LANGUAGE_2));
-      }
-      break;
+//   switch(keycode) {
+//     case ESC_AND_ENG:
+//       if (record->event.pressed) {
+//         SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_LANGUAGE_2));
+//       }
+//       break;
 
-    case HOLD_QK_BOOT:
-      if (record->event.pressed) {
-        qk_boot_timer = timer_read();
-      } else {
-        // trigger boot mode if held down for 0.5 seconds
-        if (timer_elapsed(qk_boot_timer) > 500) {
-          bootloader_jump();
-        }
-      }
-      break;
+//     case HOLD_QK_BOOT:
+//       if (record->event.pressed) {
+//         qk_boot_timer = timer_read();
+//       } else {
+//         // trigger boot mode if held down for 0.5 seconds
+//         if (timer_elapsed(qk_boot_timer) > 500) {
+//           bootloader_jump();
+//         }
+//       }
+//       break;
 
-    case EMOJI:
-      if (record->event.pressed) {
-        // ctl + cmd + space for emoji
-        SEND_STRING(SS_DOWN(X_LCTL));
-        SEND_STRING(SS_DOWN(X_LCMD));
-        SEND_STRING(SS_TAP(X_SPACE));
-        SEND_STRING(SS_UP(X_LCMD));
-        SEND_STRING(SS_UP(X_LCTL));
-      }
-      break;
+//     case EMOJI:
+//       if (record->event.pressed) {
+//         // ctl + cmd + space for emoji
+//         SEND_STRING(SS_DOWN(X_LCTL));
+//         SEND_STRING(SS_DOWN(X_LCMD));
+//         SEND_STRING(SS_TAP(X_SPACE));
+//         SEND_STRING(SS_UP(X_LCMD));
+//         SEND_STRING(SS_UP(X_LCTL));
+//       }
+//       break;
 
-    case EMAIL_1:
-      if (record->event.pressed) {
-        SEND_STRING(ENV_EMAIL_1);
-      }
-      break;
+//     case EMAIL_1:
+//       if (record->event.pressed) {
+//         SEND_STRING(ENV_EMAIL_1);
+//       }
+//       break;
 
-    case EMAIL_2:
-      if (record->event.pressed) {
-        SEND_STRING(ENV_EMAIL_2);
-      }
-      break;
+//     case EMAIL_2:
+//       if (record->event.pressed) {
+//         SEND_STRING(ENV_EMAIL_2);
+//       }
+//       break;
 
-    case EMAIL_3:
-      if (record->event.pressed) {
-        SEND_STRING(ENV_EMAIL_3);
-      }
-      break;
-  }
+//     case EMAIL_3:
+//       if (record->event.pressed) {
+//         SEND_STRING(ENV_EMAIL_3);
+//       }
+//       break;
+//   }
 
-  return true;
-}
+//   return true;
+// }
