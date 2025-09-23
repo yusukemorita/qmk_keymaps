@@ -38,6 +38,9 @@ jobs:
       shell: bash
       run: qmk setup --home ./__qmk__ --yes
 
+    - name: debug
+      run: cat crkbd-trackpoint/keymaps/via/keymap.c
+
     - name: Overwrite default keymaps and users directory
       run: |
         rm -rf __qmk__/keyboards/crkbd/keymaps/via
