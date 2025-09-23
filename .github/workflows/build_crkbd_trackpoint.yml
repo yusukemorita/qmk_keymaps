@@ -35,10 +35,13 @@ jobs:
       shell: bash
       run: qmk setup --home ./__qmk__ --yes
 
-    - name: Overwrite default keymap directory
+    - name: Overwrite default keymaps and users directory
       run: |
         rm -rf __qmk__/keyboards/crkbd/keymaps/via
         cp -r crkbd-trackpoint/keymaps/via __qmk__/keyboards/crkbd/keymaps/
+
+        rm -rf __qmk/users/holykeebs
+        cp -r crkbd-trackpoint/users/holykeebs __qmk__/users/
 
     - name: Install python dependencies
       run: /usr/bin/python3 -m pip install -r /__w/qmk_keymaps/qmk_keymaps/__qmk__/requirements.txt
