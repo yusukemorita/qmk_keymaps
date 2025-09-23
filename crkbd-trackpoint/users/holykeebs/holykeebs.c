@@ -65,12 +65,12 @@ static void serialize_state_to_eeconfig(hk_eeprom_config_t* config) {
     config->pointing.peripheral_scroll_buffer_size = g_hk_state.peripheral.pointer_scroll_buffer_size;
 }
 
-static void write_eeconfig(void) {
-    serialize_state_to_eeconfig(&hk_eeprom_config);
-    eeconfig_update_user_datablock(&hk_eeprom_config, 0, sizeof(hk_eeprom_config_t));
+// static void write_eeconfig(void) {
+//     serialize_state_to_eeconfig(&hk_eeprom_config);
+//     eeconfig_update_user_datablock(&hk_eeprom_config, 0, sizeof(hk_eeprom_config_t));
 
-    printf("write_eeconfig: eeprom data written\n");
-}
+//     printf("write_eeconfig: eeprom data written\n");
+// }
 
 static void hk_configure_tps65_common(hk_pointer_state_t* state) {
     state->pointer_default_multiplier = 1.25;
@@ -251,13 +251,13 @@ static hk_state_t init_state(void) {
     return state;
 }
 
-static bool has_shift_mod(void) {
-#        ifdef NO_ACTION_ONESHOT
-    return mod_config(get_mods()) & MOD_MASK_SHIFT;
-#        else
-    return mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
-#        endif // NO_ACTION_ONESHOT
-}
+// static bool has_shift_mod(void) {
+// #        ifdef NO_ACTION_ONESHOT
+//     return mod_config(get_mods()) & MOD_MASK_SHIFT;
+// #        else
+//     return mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
+// #        endif // NO_ACTION_ONESHOT
+// }
 
 __attribute__((weak)) report_mouse_t pointing_device_task_keymap(report_mouse_t mouse_report) {
     return mouse_report;
@@ -319,30 +319,30 @@ void hk_process_scroll(const hk_pointer_state_t* pointer_state, report_mouse_t* 
     }
 }
 
-static hk_cursor_mode hk_get_cursor_mode(bool side_peripheral) {
-    return side_peripheral ? g_hk_state.peripheral.cursor_mode : g_hk_state.main.cursor_mode;
-}
+// static hk_cursor_mode hk_get_cursor_mode(bool side_peripheral) {
+//     return side_peripheral ? g_hk_state.peripheral.cursor_mode : g_hk_state.main.cursor_mode;
+// }
 
-static hk_cursor_mode hk_get_dragscroll(bool side_peripheral) {
-    return side_peripheral ? g_hk_state.peripheral.drag_scroll : g_hk_state.main.drag_scroll;
-}
+// static hk_cursor_mode hk_get_dragscroll(bool side_peripheral) {
+//     return side_peripheral ? g_hk_state.peripheral.drag_scroll : g_hk_state.main.drag_scroll;
+// }
 
-static void hk_set_cursor_mode(hk_cursor_mode target_mode, bool enabled, bool side_peripheral) {
-    hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
-    if (enabled) {
-        state->cursor_mode = target_mode;
-    } else {
-        state->cursor_mode = CURSOR_MODE_DEFAULT;
-    }
+// static void hk_set_cursor_mode(hk_cursor_mode target_mode, bool enabled, bool side_peripheral) {
+//     hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
+//     if (enabled) {
+//         state->cursor_mode = target_mode;
+//     } else {
+//         state->cursor_mode = CURSOR_MODE_DEFAULT;
+//     }
 
-    g_hk_state.dirty = true;
-}
+//     g_hk_state.dirty = true;
+// }
 
-static void hk_set_dragscroll(bool enabled, bool side_peripheral) {
-    hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
-    state->drag_scroll = enabled;
-    g_hk_state.dirty = true;
-}
+// static void hk_set_dragscroll(bool enabled, bool side_peripheral) {
+//     hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
+//     state->drag_scroll = enabled;
+//     g_hk_state.dirty = true;
+// }
 
 static float scale_movement(const hk_pointer_state_t* state, int32_t amount) {
     float multiplier = 1;
@@ -358,69 +358,69 @@ static float scale_movement(const hk_pointer_state_t* state, int32_t amount) {
     return amount * multiplier;
 }
 
-static float hk_pointer_scale_step(const hk_pointer_state_t* state) {
-    switch (state->pointer_kind) {
-        case POINTER_KIND_PIMORONI_TRACKBALL:
-            return .1;
-        case POINTER_KIND_TRACKPOINT:
-            return .1;
-        case POINTER_KIND_CIRQUE35:
-            return .1;
-        case POINTER_KIND_CIRQUE40:
-            return .1;
-        case POINTER_KIND_TPS43:
-        case POINTER_KIND_TPS65:
-            return .1;
-        default:
-            // Should never happen
-            return 0;
-    }
-}
+// static float hk_pointer_scale_step(const hk_pointer_state_t* state) {
+//     switch (state->pointer_kind) {
+//         case POINTER_KIND_PIMORONI_TRACKBALL:
+//             return .1;
+//         case POINTER_KIND_TRACKPOINT:
+//             return .1;
+//         case POINTER_KIND_CIRQUE35:
+//             return .1;
+//         case POINTER_KIND_CIRQUE40:
+//             return .1;
+//         case POINTER_KIND_TPS43:
+//         case POINTER_KIND_TPS65:
+//             return .1;
+//         default:
+//             // Should never happen
+//             return 0;
+//     }
+// }
 
-static void hk_cycle_pointer_default_multiplier(bool forward, bool side_peripheral) {
-    hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
-    float step = hk_pointer_scale_step(state);
-    float new_value = forward ? state->pointer_default_multiplier + step : state->pointer_default_multiplier - step;
-    if (new_value > 0) {
-        state->pointer_default_multiplier = new_value;
-        g_hk_state.dirty = true;
-    }
-}
+// static void hk_cycle_pointer_default_multiplier(bool forward, bool side_peripheral) {
+//     hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
+//     float step = hk_pointer_scale_step(state);
+//     float new_value = forward ? state->pointer_default_multiplier + step : state->pointer_default_multiplier - step;
+//     if (new_value > 0) {
+//         state->pointer_default_multiplier = new_value;
+//         g_hk_state.dirty = true;
+//     }
+// }
 
-static void hk_cycle_pointer_sniping_multiplier(bool forward, bool side_peripheral) {
-    hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
-    float step = hk_pointer_scale_step(state);
-    float new_value = forward ? state->pointer_sniping_multiplier + step : state->pointer_sniping_multiplier - step;
-    if (new_value > 0) {
-        state->pointer_sniping_multiplier = new_value;
-        g_hk_state.dirty = true;
-    }
-}
+// static void hk_cycle_pointer_sniping_multiplier(bool forward, bool side_peripheral) {
+//     hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
+//     float step = hk_pointer_scale_step(state);
+//     float new_value = forward ? state->pointer_sniping_multiplier + step : state->pointer_sniping_multiplier - step;
+//     if (new_value > 0) {
+//         state->pointer_sniping_multiplier = new_value;
+//         g_hk_state.dirty = true;
+//     }
+// }
 
-static void hk_cycle_pointer_scroll_buffer(bool forward, bool side_peripheral) {
-    hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
-    uint8_t new_value = forward ? state->pointer_scroll_buffer_size + 1 : state->pointer_scroll_buffer_size - 1;
-    if (new_value >= 0) {
-        state->pointer_scroll_buffer_size = new_value;
-        g_hk_state.dirty = true;
-    }
-}
+// static void hk_cycle_pointer_scroll_buffer(bool forward, bool side_peripheral) {
+//     hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
+//     uint8_t new_value = forward ? state->pointer_scroll_buffer_size + 1 : state->pointer_scroll_buffer_size - 1;
+//     if (new_value >= 0) {
+//         state->pointer_scroll_buffer_size = new_value;
+//         g_hk_state.dirty = true;
+//     }
+// }
 
-static void hk_cycle_scroll_mode(bool side_peripheral) {
-    hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
-    hk_scroll_lock new_mode = state->scroll_lock + 1;
-    if (new_mode > SCROLL_LOCK_VERTICAL) {
-        new_mode = SCROLL_LOCK_OFF;
-    }
-    state->scroll_lock = new_mode;
-    g_hk_state.dirty = true;
-}
+// static void hk_cycle_scroll_mode(bool side_peripheral) {
+//     hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
+//     hk_scroll_lock new_mode = state->scroll_lock + 1;
+//     if (new_mode > SCROLL_LOCK_VERTICAL) {
+//         new_mode = SCROLL_LOCK_OFF;
+//     }
+//     state->scroll_lock = new_mode;
+//     g_hk_state.dirty = true;
+// }
 
-static void hk_invert_scroll_direction(bool side_peripheral) {
-    hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
-    state->scroll_direction_inverted = !state->scroll_direction_inverted;
-    g_hk_state.dirty = true;
-}
+// static void hk_invert_scroll_direction(bool side_peripheral) {
+//     hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
+//     state->scroll_direction_inverted = !state->scroll_direction_inverted;
+//     g_hk_state.dirty = true;
+// }
 
 void hk_process_mouse_report(const hk_pointer_state_t* pointer_state, report_mouse_t* mouse_report) {
     #ifdef ENABLE_DRIFT_DETECTION
@@ -521,26 +521,26 @@ const char PROGMEM code_to_name[] = {
 };
 // clang-format on
 
-static void pressing_keys_update(uint16_t keycode, keyrecord_t *record) {
-    // Process only valid keycodes.
-    if (keycode >= 4 && keycode < 57) {
-        char value = pgm_read_byte(code_to_name + keycode - 4);
-        char where = BL;
-        if (!record->event.pressed) {
-            // Swap `value` and `where` when releasing.
-            where = value;
-            value = BL;
-        }
-        // Rewrite the last `where` of pressing_keys to `value` .
-        for (int i = 0; i < HK_OLED_MAX_PRESSING_KEYCODES; i++) {
-            if (g_hk_state.display.pressing_keys[i] == where) {
-                g_hk_state.display.pressing_keys[i] = value;
-                break;
-            }
-        }
-    }
-    g_hk_state.dirty = true;
-}
+// static void pressing_keys_update(uint16_t keycode, keyrecord_t *record) {
+//     // Process only valid keycodes.
+//     if (keycode >= 4 && keycode < 57) {
+//         char value = pgm_read_byte(code_to_name + keycode - 4);
+//         char where = BL;
+//         if (!record->event.pressed) {
+//             // Swap `value` and `where` when releasing.
+//             where = value;
+//             value = BL;
+//         }
+//         // Rewrite the last `where` of pressing_keys to `value` .
+//         for (int i = 0; i < HK_OLED_MAX_PRESSING_KEYCODES; i++) {
+//             if (g_hk_state.display.pressing_keys[i] == where) {
+//                 g_hk_state.display.pressing_keys[i] = value;
+//                 break;
+//             }
+//         }
+//     }
+//     g_hk_state.dirty = true;
+// }
 
 // NOTE: process_record_user is commented out by Yusuke Morita to allow a separate process_record_user
 // to be defined in crkbd-trackpoint/keymaps/via/keymap.c 
