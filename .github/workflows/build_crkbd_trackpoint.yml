@@ -40,15 +40,11 @@ jobs:
         rm -rf __qmk__/keyboards/crkbd/keymaps/via
         cp -r crkbd-trackpoint/keymaps/via __qmk__/keyboards/crkbd/keymaps/
 
-    # - name: Install symbolic link
-    #   run: ln -s $(pwd)/crkbd-trackpoint __qmk__/keyboards/crkbd-trackpoint
-
     - name: Install python dependencies
       run: /usr/bin/python3 -m pip install -r /__w/qmk_keymaps/qmk_keymaps/__qmk__/requirements.txt
 
     - name: Compile crkbd-trackpoint
-      # run: make crkbd/rev1:via -e USER_NAME=holykeebs -e POINTING_DEVICE=trackpoint -e POINTING_DEVICE_POSITION=left
-      run: make crkbd/rev1:via -e USER_NAME=holykeebs 
+      run: make crkbd/rev1:via -e USER_NAME=holykeebs -e POINTING_DEVICE=trackpoint -e POINTING_DEVICE_POSITION=right
       working-directory: __qmk__
 
     - name: Upload firmware to artifacts
