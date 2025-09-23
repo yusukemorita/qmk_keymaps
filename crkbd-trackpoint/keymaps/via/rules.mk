@@ -3,7 +3,6 @@ VIA_ENABLE       = no    # Enable VIA
 CONSOLE_ENABLE   = yes   # Console for debug
 CAPS_WORD_ENABLE = yes   # required for enabling CW_TOGG key
 
-
 # `PERSONAL_EMAIL`, `PERSONAL_EMAIL_DEV`, `WORK_EMAIL`
 # should be defined as env variables at compile time
 EXTRAFLAGS += -DENV_EMAIL_1=\"$(PERSONAL_EMAIL)\"

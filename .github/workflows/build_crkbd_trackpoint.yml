@@ -13,12 +13,9 @@ jobs:
     permissions:
       pull-requests: write # required for thollander/actions-comment-pull-request@v2
     env:
-      PERSONAL_EMAIL: ${{ github.sha }}
-      PERSONAL_EMAIL_DEV: ${{ github.sha }}
-      WORK_EMAIL: ${{ github.sha }}
-      # PERSONAL_EMAIL: ${{ secrets.PERSONAL_EMAIL }}
-      # PERSONAL_EMAIL_DEV: ${{ secrets.PERSONAL_EMAIL_DEV }}
-      # WORK_EMAIL: ${{ secrets.WORK_EMAIL }}
+      PERSONAL_EMAIL: ${{ secrets.PERSONAL_EMAIL }}
+      PERSONAL_EMAIL_DEV: ${{ secrets.PERSONAL_EMAIL_DEV }}
+      WORK_EMAIL: ${{ secrets.WORK_EMAIL }}
     container:
       image: ghcr.io/qmk/qmk_cli:latest
 
@@ -37,9 +34,6 @@ jobs:
     - name: Setup QMK
       shell: bash
       run: qmk setup --home ./__qmk__ --yes
-
-    - name: debug
-      run: cat crkbd-trackpoint/keymaps/via/keymap.c
 
     - name: Overwrite default keymaps and users directory
       run: |
