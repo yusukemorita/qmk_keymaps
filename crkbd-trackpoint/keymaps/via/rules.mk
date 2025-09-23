@@ -1,5 +1,5 @@
 MOUSEKEY_ENABLE  = yes   # Mouse keys
-VIA_ENABLE       = yes   # Enable VIA
+VIA_ENABLE       = no    # Enable VIA
 CONSOLE_ENABLE   = yes   # Console for debug
 CAPS_WORD_ENABLE = yes   # required for enabling CW_TOGG key
 
