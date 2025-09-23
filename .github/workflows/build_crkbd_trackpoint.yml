@@ -50,12 +50,16 @@ jobs:
       run: make crkbd/rev1:via -e USER_NAME=holykeebs -e POINTING_DEVICE=trackpoint -e POINTING_DEVICE_POSITION=right
       working-directory: __qmk__
 
+    - name: rename uf2 file
+      run: mv __qmk__/crkbd_rev1_via.uf2 __qmk__/crkbd_rev1_via_${{ github.sha }}.uf2
+
     - name: Upload firmware to artifacts
       id: firmware-upload
       uses: actions/upload-artifact@v4
       with:
         name: crkbd-trackpoint-firmware
         path: __qmk__/*.uf2
+        if-no-files-found: error
 
     - name: Comment artifact url in PR
       uses: thollander/actions-comment-pull-request@v2
