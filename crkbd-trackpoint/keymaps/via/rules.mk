@@ -1,6 +1,7 @@
-MOUSEKEY_ENABLE = no     # Mouse keys
-VIA_ENABLE      = yes    # Enable VIA
-CONSOLE_ENABLE  = yes    # Console for debug
+MOUSEKEY_ENABLE  = yes   # Mouse keys
+VIA_ENABLE       = no    # Enable VIA
+CONSOLE_ENABLE   = yes   # Console for debug
+CAPS_WORD_ENABLE = yes   # required for enabling CW_TOGG key
 
 # `PERSONAL_EMAIL`, `PERSONAL_EMAIL_DEV`, `WORK_EMAIL`
 # should be defined as env variables at compile time
