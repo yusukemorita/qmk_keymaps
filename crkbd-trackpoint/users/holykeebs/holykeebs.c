@@ -521,26 +521,26 @@ const char PROGMEM code_to_name[] = {
 };
 // clang-format on
 
-// static void pressing_keys_update(uint16_t keycode, keyrecord_t *record) {
-//     // Process only valid keycodes.
-//     if (keycode >= 4 && keycode < 57) {
-//         char value = pgm_read_byte(code_to_name + keycode - 4);
-//         char where = BL;
-//         if (!record->event.pressed) {
-//             // Swap `value` and `where` when releasing.
-//             where = value;
-//             value = BL;
-//         }
-//         // Rewrite the last `where` of pressing_keys to `value` .
-//         for (int i = 0; i < HK_OLED_MAX_PRESSING_KEYCODES; i++) {
-//             if (g_hk_state.display.pressing_keys[i] == where) {
-//                 g_hk_state.display.pressing_keys[i] = value;
-//                 break;
-//             }
-//         }
-//     }
-//     g_hk_state.dirty = true;
-// }
+static void pressing_keys_update(uint16_t keycode, keyrecord_t *record) {
+    // Process only valid keycodes.
+    if (keycode >= 4 && keycode < 57) {
+        char value = pgm_read_byte(code_to_name + keycode - 4);
+        char where = BL;
+        if (!record->event.pressed) {
+            // Swap `value` and `where` when releasing.
+            where = value;
+            value = BL;
+        }
+        // Rewrite the last `where` of pressing_keys to `value` .
+        for (int i = 0; i < HK_OLED_MAX_PRESSING_KEYCODES; i++) {
+            if (g_hk_state.display.pressing_keys[i] == where) {
+                g_hk_state.display.pressing_keys[i] = value;
+                break;
+            }
+        }
+    }
+    g_hk_state.dirty = true;
+}
 
 // NOTE: process_record_user is commented out by Yusuke Morita to allow a separate process_record_user
 // to be defined in crkbd-trackpoint/keymaps/via/keymap.c 
