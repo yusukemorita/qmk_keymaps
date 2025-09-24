@@ -65,12 +65,12 @@ static void serialize_state_to_eeconfig(hk_eeprom_config_t* config) {
     config->pointing.peripheral_scroll_buffer_size = g_hk_state.peripheral.pointer_scroll_buffer_size;
 }
 
-// static void write_eeconfig(void) {
-//     serialize_state_to_eeconfig(&hk_eeprom_config);
-//     eeconfig_update_user_datablock(&hk_eeprom_config, 0, sizeof(hk_eeprom_config_t));
+static void write_eeconfig(void) {
+    serialize_state_to_eeconfig(&hk_eeprom_config);
+    eeconfig_update_user_datablock(&hk_eeprom_config, 0, sizeof(hk_eeprom_config_t));
 
-//     printf("write_eeconfig: eeprom data written\n");
-// }
+    printf("write_eeconfig: eeprom data written\n");
+}
 
 static void hk_configure_tps65_common(hk_pointer_state_t* state) {
     state->pointer_default_multiplier = 1.25;
@@ -251,13 +251,13 @@ static hk_state_t init_state(void) {
     return state;
 }
 
-// static bool has_shift_mod(void) {
-// #        ifdef NO_ACTION_ONESHOT
-//     return mod_config(get_mods()) & MOD_MASK_SHIFT;
-// #        else
-//     return mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
-// #        endif // NO_ACTION_ONESHOT
-// }
+static bool has_shift_mod(void) {
+#        ifdef NO_ACTION_ONESHOT
+    return mod_config(get_mods()) & MOD_MASK_SHIFT;
+#        else
+    return mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
+#        endif // NO_ACTION_ONESHOT
+}
 
 __attribute__((weak)) report_mouse_t pointing_device_task_keymap(report_mouse_t mouse_report) {
     return mouse_report;
@@ -319,24 +319,24 @@ void hk_process_scroll(const hk_pointer_state_t* pointer_state, report_mouse_t* 
     }
 }
 
-// static hk_cursor_mode hk_get_cursor_mode(bool side_peripheral) {
-//     return side_peripheral ? g_hk_state.peripheral.cursor_mode : g_hk_state.main.cursor_mode;
-// }
+static hk_cursor_mode hk_get_cursor_mode(bool side_peripheral) {
+    return side_peripheral ? g_hk_state.peripheral.cursor_mode : g_hk_state.main.cursor_mode;
+}
 
-// static hk_cursor_mode hk_get_dragscroll(bool side_peripheral) {
-//     return side_peripheral ? g_hk_state.peripheral.drag_scroll : g_hk_state.main.drag_scroll;
-// }
+static hk_cursor_mode hk_get_dragscroll(bool side_peripheral) {
+    return side_peripheral ? g_hk_state.peripheral.drag_scroll : g_hk_state.main.drag_scroll;
+}
 
-// static void hk_set_cursor_mode(hk_cursor_mode target_mode, bool enabled, bool side_peripheral) {
-//     hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
-//     if (enabled) {
-//         state->cursor_mode = target_mode;
-//     } else {
-//         state->cursor_mode = CURSOR_MODE_DEFAULT;
-//     }
+static void hk_set_cursor_mode(hk_cursor_mode target_mode, bool enabled, bool side_peripheral) {
+    hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
+    if (enabled) {
+        state->cursor_mode = target_mode;
+    } else {
+        state->cursor_mode = CURSOR_MODE_DEFAULT;
+    }
 
-//     g_hk_state.dirty = true;
-// }
+    g_hk_state.dirty = true;
+}
 
 void hk_set_dragscroll(bool enabled, bool side_peripheral) {
     hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
@@ -358,69 +358,69 @@ static float scale_movement(const hk_pointer_state_t* state, int32_t amount) {
     return amount * multiplier;
 }
 
-// static float hk_pointer_scale_step(const hk_pointer_state_t* state) {
-//     switch (state->pointer_kind) {
-//         case POINTER_KIND_PIMORONI_TRACKBALL:
-//             return .1;
-//         case POINTER_KIND_TRACKPOINT:
-//             return .1;
-//         case POINTER_KIND_CIRQUE35:
-//             return .1;
-//         case POINTER_KIND_CIRQUE40:
-//             return .1;
-//         case POINTER_KIND_TPS43:
-//         case POINTER_KIND_TPS65:
-//             return .1;
-//         default:
-//             // Should never happen
-//             return 0;
-//     }
-// }
+static float hk_pointer_scale_step(const hk_pointer_state_t* state) {
+    switch (state->pointer_kind) {
+        case POINTER_KIND_PIMORONI_TRACKBALL:
+            return .1;
+        case POINTER_KIND_TRACKPOINT:
+            return .1;
+        case POINTER_KIND_CIRQUE35:
+            return .1;
+        case POINTER_KIND_CIRQUE40:
+            return .1;
+        case POINTER_KIND_TPS43:
+        case POINTER_KIND_TPS65:
+            return .1;
+        default:
+            // Should never happen
+            return 0;
+    }
+}
 
-// static void hk_cycle_pointer_default_multiplier(bool forward, bool side_peripheral) {
-//     hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
-//     float step = hk_pointer_scale_step(state);
-//     float new_value = forward ? state->pointer_default_multiplier + step : state->pointer_default_multiplier - step;
-//     if (new_value > 0) {
-//         state->pointer_default_multiplier = new_value;
-//         g_hk_state.dirty = true;
-//     }
-// }
+static void hk_cycle_pointer_default_multiplier(bool forward, bool side_peripheral) {
+    hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
+    float step = hk_pointer_scale_step(state);
+    float new_value = forward ? state->pointer_default_multiplier + step : state->pointer_default_multiplier - step;
+    if (new_value > 0) {
+        state->pointer_default_multiplier = new_value;
+        g_hk_state.dirty = true;
+    }
+}
 
-// static void hk_cycle_pointer_sniping_multiplier(bool forward, bool side_peripheral) {
-//     hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
-//     float step = hk_pointer_scale_step(state);
-//     float new_value = forward ? state->pointer_sniping_multiplier + step : state->pointer_sniping_multiplier - step;
-//     if (new_value > 0) {
-//         state->pointer_sniping_multiplier = new_value;
-//         g_hk_state.dirty = true;
-//     }
-// }
+static void hk_cycle_pointer_sniping_multiplier(bool forward, bool side_peripheral) {
+    hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
+    float step = hk_pointer_scale_step(state);
+    float new_value = forward ? state->pointer_sniping_multiplier + step : state->pointer_sniping_multiplier - step;
+    if (new_value > 0) {
+        state->pointer_sniping_multiplier = new_value;
+        g_hk_state.dirty = true;
+    }
+}
 
-// static void hk_cycle_pointer_scroll_buffer(bool forward, bool side_peripheral) {
-//     hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
-//     uint8_t new_value = forward ? state->pointer_scroll_buffer_size + 1 : state->pointer_scroll_buffer_size - 1;
-//     if (new_value >= 0) {
-//         state->pointer_scroll_buffer_size = new_value;
-//         g_hk_state.dirty = true;
-//     }
-// }
+static void hk_cycle_pointer_scroll_buffer(bool forward, bool side_peripheral) {
+    hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
+    uint8_t new_value = forward ? state->pointer_scroll_buffer_size + 1 : state->pointer_scroll_buffer_size - 1;
+    if (new_value >= 0) {
+        state->pointer_scroll_buffer_size = new_value;
+        g_hk_state.dirty = true;
+    }
+}
 
-// static void hk_cycle_scroll_mode(bool side_peripheral) {
-//     hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
-//     hk_scroll_lock new_mode = state->scroll_lock + 1;
-//     if (new_mode > SCROLL_LOCK_VERTICAL) {
-//         new_mode = SCROLL_LOCK_OFF;
-//     }
-//     state->scroll_lock = new_mode;
-//     g_hk_state.dirty = true;
-// }
+static void hk_cycle_scroll_mode(bool side_peripheral) {
+    hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
+    hk_scroll_lock new_mode = state->scroll_lock + 1;
+    if (new_mode > SCROLL_LOCK_VERTICAL) {
+        new_mode = SCROLL_LOCK_OFF;
+    }
+    state->scroll_lock = new_mode;
+    g_hk_state.dirty = true;
+}
 
-// static void hk_invert_scroll_direction(bool side_peripheral) {
-//     hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
-//     state->scroll_direction_inverted = !state->scroll_direction_inverted;
-//     g_hk_state.dirty = true;
-// }
+static void hk_invert_scroll_direction(bool side_peripheral) {
+    hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
+    state->scroll_direction_inverted = !state->scroll_direction_inverted;
+    g_hk_state.dirty = true;
+}
 
 void hk_process_mouse_report(const hk_pointer_state_t* pointer_state, report_mouse_t* mouse_report) {
     #ifdef ENABLE_DRIFT_DETECTION
@@ -545,113 +545,166 @@ const char PROGMEM code_to_name[] = {
 // NOTE: process_record_user is commented out by Yusuke Morita to allow a separate process_record_user
 // to be defined in crkbd-trackpoint/keymaps/via/keymap.c 
 
-// bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-//     if (!g_hk_state.is_main_side) {
-//         return process_record_keymap(keycode, record);
-//     }
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    if (!g_hk_state.is_main_side) {
+        return process_record_keymap(keycode, record);
+    }
 
-//     g_hk_state.dirty = true;
-//     g_hk_state.display.last_kc = keycode;
-//     g_hk_state.display.last_pos = record->event.key;
-//     pressing_keys_update(keycode, record);
+    g_hk_state.dirty = true;
+    g_hk_state.display.last_kc = keycode;
+    g_hk_state.display.last_pos = record->event.key;
+    pressing_keys_update(keycode, record);
 
-//     if (!process_record_keymap(keycode, record)) {
-//         return false;
-//     }
+    if (!process_record_keymap(keycode, record)) {
+        return false;
+    }
 
-//     bool propagate_event = true;
-//     bool state_changed = false;
+    bool propagate_event = true;
+    bool state_changed = false;
 
-//     switch (keycode) {
-//         case HK_SAVE_SETTINGS:
-//             if (record->event.pressed) {
-//                 write_eeconfig();
-//             }
-//             break;
-//         case HK_RESET_SETTINGS:
-//             if (record->event.pressed) {
-//                 g_hk_state = init_state();
-//                 write_eeconfig();
-//             }
-//             break;
-//         case HK_DUMP_SETTINGS:
-//             if (record->event.pressed) {
-//                 debug_hk_state_to_console(&g_hk_state);
-//             }
-//             break;
-//         case KC_UP:
-//         case KC_DOWN:
-//             if (!g_hk_state.setting_default_scale && !g_hk_state.setting_sniping_scale && !g_hk_state.setting_scroll_buffer) {
-//                 break;
-//             }
-//             if (record->event.pressed) {
-//                 if (g_hk_state.setting_default_scale) {
-//                     hk_cycle_pointer_default_multiplier(/*forward=*/keycode == KC_UP, /*side_peripheral=*/has_shift_mod());
-//                 }
-//                 else if (g_hk_state.setting_sniping_scale) {
-//                     hk_cycle_pointer_sniping_multiplier(/*forward=*/keycode == KC_UP, /*side_peripheral=*/has_shift_mod());
-//                 }
-//                 else if (g_hk_state.setting_scroll_buffer) {
-//                     hk_cycle_pointer_scroll_buffer(/*forward=*/keycode == KC_UP, /*side_peripheral=*/has_shift_mod());
-//                 }
-//                 propagate_event = false;
-//                 state_changed = true;
-//             }
-//             break;
-//         case HK_POINTER_SET_DEFAULT_SCALER:
-//             g_hk_state.setting_default_scale = record->event.pressed;
-//             // state_changed = true;
-//             break;
-//         case HK_POINTER_SET_SNIPING_SCALER:
-//             g_hk_state.setting_sniping_scale = record->event.pressed;
-//             // state_changed = true;
-//             break;
-//         case HK_POINTER_SET_SCROLL_BUFFER:
-//             g_hk_state.setting_scroll_buffer = record->event.pressed;
-//             // state_changed = true;
-//             break;
-//         case HK_SNIPING_MODE:
-//             hk_set_cursor_mode(/*mode=*/CURSOR_MODE_SNIPING, /*enabled=*/record->event.pressed, /*side_peripheral=*/has_shift_mod());
-//             state_changed = true;
-//             break;
-//         case HK_SNIPING_MODE_TOGGLE:
-//             if (record->event.pressed) {
-//                 bool is_on = hk_get_cursor_mode(/*side_peripheral=*/has_shift_mod()) == CURSOR_MODE_SNIPING;
-//                 hk_set_cursor_mode(/*mode=*/CURSOR_MODE_SNIPING, /*enabled=*/!is_on, /*side_peripheral=*/has_shift_mod());
-//                 state_changed = true;
-//             }
-//             break;
-//         case HK_DRAGSCROLL_MODE:
-//             hk_set_dragscroll(/*enabled=*/record->event.pressed, /*side_peripheral=*/has_shift_mod());
-//             state_changed = true;
-//             break;
-//         case HK_DRAGSCROLL_MODE_TOGGLE:
-//             if (record->event.pressed) {
-//                 bool is_on = hk_get_dragscroll(/*side_peripheral=*/has_shift_mod());
-//                 hk_set_dragscroll(/*enabled=*/!is_on, /*side_peripheral=*/has_shift_mod());
-//                 state_changed = true;
-//             }
-//             break;
-//         case HK_CYCLE_SCROLL_LOCK:
-//             if (record->event.pressed) {
-//                 hk_cycle_scroll_mode(/*side_peripheral=*/has_shift_mod());
-//                 state_changed = true;
-//             }
-//             break;
-//         case HK_INVERT_SCROLL_DIRECTION:
-//             if (record->event.pressed) {
-//                 hk_invert_scroll_direction(/*side_peripheral=*/has_shift_mod());
-//                 state_changed = true;
-//             }
-//             break;
+    static uint16_t qk_boot_timer;
 
-//     }
-//     if (state_changed) {
-//         debug_hk_state_to_console(&g_hk_state);
-//         // write_eeconfig();
-//     }
-//     return propagate_event;
-// }
+    switch (keycode) {
+        case HK_SAVE_SETTINGS:
+            if (record->event.pressed) {
+                write_eeconfig();
+            }
+            break;
+        case HK_RESET_SETTINGS:
+            if (record->event.pressed) {
+                g_hk_state = init_state();
+                write_eeconfig();
+            }
+            break;
+        case HK_DUMP_SETTINGS:
+            if (record->event.pressed) {
+                debug_hk_state_to_console(&g_hk_state);
+            }
+            break;
+        case KC_UP:
+        case KC_DOWN:
+            if (!g_hk_state.setting_default_scale && !g_hk_state.setting_sniping_scale && !g_hk_state.setting_scroll_buffer) {
+                break;
+            }
+            if (record->event.pressed) {
+                if (g_hk_state.setting_default_scale) {
+                    hk_cycle_pointer_default_multiplier(/*forward=*/keycode == KC_UP, /*side_peripheral=*/has_shift_mod());
+                }
+                else if (g_hk_state.setting_sniping_scale) {
+                    hk_cycle_pointer_sniping_multiplier(/*forward=*/keycode == KC_UP, /*side_peripheral=*/has_shift_mod());
+                }
+                else if (g_hk_state.setting_scroll_buffer) {
+                    hk_cycle_pointer_scroll_buffer(/*forward=*/keycode == KC_UP, /*side_peripheral=*/has_shift_mod());
+                }
+                propagate_event = false;
+                state_changed = true;
+            }
+            break;
+        case HK_POINTER_SET_DEFAULT_SCALER:
+            g_hk_state.setting_default_scale = record->event.pressed;
+            // state_changed = true;
+            break;
+        case HK_POINTER_SET_SNIPING_SCALER:
+            g_hk_state.setting_sniping_scale = record->event.pressed;
+            // state_changed = true;
+            break;
+        case HK_POINTER_SET_SCROLL_BUFFER:
+            g_hk_state.setting_scroll_buffer = record->event.pressed;
+            // state_changed = true;
+            break;
+        case HK_SNIPING_MODE:
+            hk_set_cursor_mode(/*mode=*/CURSOR_MODE_SNIPING, /*enabled=*/record->event.pressed, /*side_peripheral=*/has_shift_mod());
+            state_changed = true;
+            break;
+        case HK_SNIPING_MODE_TOGGLE:
+            if (record->event.pressed) {
+                bool is_on = hk_get_cursor_mode(/*side_peripheral=*/has_shift_mod()) == CURSOR_MODE_SNIPING;
+                hk_set_cursor_mode(/*mode=*/CURSOR_MODE_SNIPING, /*enabled=*/!is_on, /*side_peripheral=*/has_shift_mod());
+                state_changed = true;
+            }
+            break;
+        case HK_DRAGSCROLL_MODE:
+            hk_set_dragscroll(/*enabled=*/record->event.pressed, /*side_peripheral=*/has_shift_mod());
+            state_changed = true;
+            break;
+        case HK_DRAGSCROLL_MODE_TOGGLE:
+            if (record->event.pressed) {
+                bool is_on = hk_get_dragscroll(/*side_peripheral=*/has_shift_mod());
+                hk_set_dragscroll(/*enabled=*/!is_on, /*side_peripheral=*/has_shift_mod());
+                state_changed = true;
+            }
+            break;
+        case HK_CYCLE_SCROLL_LOCK:
+            if (record->event.pressed) {
+                hk_cycle_scroll_mode(/*side_peripheral=*/has_shift_mod());
+                state_changed = true;
+            }
+            break;
+        case HK_INVERT_SCROLL_DIRECTION:
+            if (record->event.pressed) {
+                hk_invert_scroll_direction(/*side_peripheral=*/has_shift_mod());
+                state_changed = true;
+            }
+            break;
+
+        // below are case clauses added by Yusuke Morita
+        case ESC_AND_ENG:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_LANGUAGE_2));
+            }
+            break;
+
+        case HOLD_QK_BOOT:
+            if (record->event.pressed) {
+                qk_boot_timer = timer_read();
+            } else {
+                // trigger boot mode if held down for 0.5 seconds
+                if (timer_elapsed(qk_boot_timer) > 500) {
+                bootloader_jump();
+                }
+            }
+            break;
+
+        case EMOJI:
+            if (record->event.pressed) {
+                // ctl + cmd + space for emoji
+                SEND_STRING(SS_DOWN(X_LCTL));
+                SEND_STRING(SS_DOWN(X_LCMD));
+                SEND_STRING(SS_TAP(X_SPACE));
+                SEND_STRING(SS_UP(X_LCMD));
+                SEND_STRING(SS_UP(X_LCTL));
+            }
+            break;
+
+        case EMAIL_1:
+            if (record->event.pressed) {
+                SEND_STRING(ENV_EMAIL_1);
+            }
+            break;
+
+        case EMAIL_2:
+            if (record->event.pressed) {
+                SEND_STRING(ENV_EMAIL_2);
+            }
+            break;
+
+        case EMAIL_3:
+            if (record->event.pressed) {
+                SEND_STRING(ENV_EMAIL_3);
+            }
+            break;
+
+        // enable scroll with trackpoint while layer 2 is pressed
+        case MO(2):
+            hk_set_dragscroll(/*enabled=*/record->event.pressed, /*side_peripheral=*/has_shift_mod());
+            break;
+    }
+    if (state_changed) {
+        debug_hk_state_to_console(&g_hk_state);
+        // write_eeconfig();
+    }
+    return propagate_event;
+}
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 

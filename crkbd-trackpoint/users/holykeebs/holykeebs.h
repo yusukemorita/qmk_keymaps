@@ -50,6 +50,15 @@ enum hk_keycodes {
     HK_INVERT_SCROLL_DIRECTION, // 0x7E0B
 };
 
+enum yusuke_keycodes {
+  ESC_AND_ENG = SAFE_RANGE,
+  HOLD_QK_BOOT,
+  EMOJI,
+  EMAIL_1,
+  EMAIL_2,
+  EMAIL_3,
+};
+
 #define HK_SAVE      HK_SAVE_SETTINGS
 #define HK_RESET     HK_RESET_SETTINGS
 #define HK_DUMP      HK_DUMP_SETTINGS
