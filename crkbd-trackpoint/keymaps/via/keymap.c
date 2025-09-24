@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-#include "holykeebs.h"
-
 // aliases
 
 #define JAP KC_LANGUAGE_1
