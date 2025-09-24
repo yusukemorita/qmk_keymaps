@@ -145,6 +145,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(ENV_EMAIL_3);
       }
       break;
+
+    // enable scroll with trackpoint while layer 2 is pressed
+    case MO(2):
+      hk_set_dragscroll(/*enabled=*/record->event.pressed, /*side_peripheral=*/has_shift_mod());
+      break;
+
   }
 
   return true;
