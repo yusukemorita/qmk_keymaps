@@ -355,6 +355,11 @@ static float scale_movement(const hk_pointer_state_t* state, int32_t amount) {
             break;
     }
 
+    // Added by Yusuke: slow down scroll
+    if (state->drag_scroll) {
+        multiplier = 0.25;
+    }
+
     return amount * multiplier;
 }
 
