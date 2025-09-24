@@ -338,7 +338,7 @@ void hk_process_scroll(const hk_pointer_state_t* pointer_state, report_mouse_t* 
 //     g_hk_state.dirty = true;
 // }
 
-static void hk_set_dragscroll(bool enabled, bool side_peripheral) {
+void hk_set_dragscroll(bool enabled, bool side_peripheral) {
     hk_pointer_state_t* state = side_peripheral ? &g_hk_state.peripheral : &g_hk_state.main;
     state->drag_scroll = enabled;
     g_hk_state.dirty = true;

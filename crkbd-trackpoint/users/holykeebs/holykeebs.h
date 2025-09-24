@@ -2,6 +2,8 @@
 
 #include QMK_KEYBOARD_H
 
+void hk_set_dragscroll(bool enabled, bool side_peripheral) // prototype
+
 enum hk_keycodes {
     // Saves the HK configuration to EEPROM. By default any changes to the HK configuration are not saved to EEPROM, so
     // use this if you want your changes to persist.
