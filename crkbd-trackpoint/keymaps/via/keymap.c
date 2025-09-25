@@ -35,18 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define L_TAB LCMD(KC_LCBR)
 #define R_TAB LCMD(KC_RCBR)
 
-// macro
-
-// enum custom_keycodes {
-//   ESC_AND_ENG = SAFE_RANGE,
-//   HOLD_QK_BOOT,
-//   EMOJI,
-//   EMAIL_1,
-//   EMAIL_2,
-//   EMAIL_3,
-// };
-
-
 // keymap
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -58,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       _______,    KC_Z,        KC_X,        KC_C,        KC_V,      KC_B,                               KC_N,        KC_M,     KC_COMM,      KC_DOT,  CW_TOGG,  _______,
 
-                                      LCLICK,       MO(1),     LSFT_T(KC_SPACE),          RSFT_T(KC_ENT),       MO(2),      LCLICK
+                                LCLICK,       MO(1),     LSFT_T(KC_SPACE),                    RSFT_T(KC_ENT),       MO(2),      LCLICK
 
   ),
 
@@ -95,6 +83,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______   , _______   , _______   ,                           _______   , _______   , _______ 
   )
 };
-
-// see https://github.com/qmk/qmk_firmware/blob/master/quantum/send_string/send_string_keycodes.h
-// for all `X_*` keycodes
