@@ -47,7 +47,6 @@ enum custom_keycodes {
 };
 
 // trigger by holding down a key
-bool switch_desktop_with_trackball = false;
 int switch_desktop_x_threshold = 160;
 int switch_desktop_y_threshold = 400;
 
@@ -56,7 +55,7 @@ int y_movement_sum = 0;
 
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
   // trigger desktop operations with left layer key or control
-  if (switch_desktop_with_trackball || (get_mods() & MOD_MASK_CTRL)) {
+  if (IS_LAYER_ON(1) || (get_mods() & MOD_MASK_CTRL)) {
     x_movement_sum += report.x;
     y_movement_sum += report.y;
 
@@ -84,6 +83,9 @@ report_mouse_t pointing_device_task_user(report_mouse_t report) {
     // prevent cursor movement
     report.x = 0;
     report.y = 0;
+  } else {
+    x_movement_sum = 0;
+    y_movement_sum = 0;
   }
 
   // enable scroll mode when CMD(GUI) is held down
@@ -105,16 +107,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ESC_AND_ENG:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_LANGUAGE_2));
-      }
-      break;
-
-    // for switching desktops with trackball
-    case MO(1):
-      if (record->event.pressed) {
-        switch_desktop_with_trackball = true;
-      } else {
-        switch_desktop_with_trackball = false;
-        x_movement_sum = 0;
       }
       break;
 
