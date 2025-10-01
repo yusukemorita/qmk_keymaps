@@ -60,22 +60,6 @@ ifeq ($(strip $(POINTING_DEVICE)), trackpoint)
 	MSG_POINTING_DEVICE = trackpoint
 endif
 
-ifeq ($(strip $(POINTING_DEVICE)), trackpoint_trackpoint)
-    OPT_DEFS += -DHK_POINTING_DEVICE_LEFT_TRACKPOINT
-    OPT_DEFS += -DHK_POINTING_DEVICE_RIGHT_TRACKPOINT
-
-    POINTING_DEVICE_ENABLE = yes
-    OPT_DEFS += -DSPLIT_POINTING_ENABLE
-    OPT_DEFS += -DPOINTING_DEVICE_COMBINED
-
-	PS2_ENABLE = yes
-	PS2_DRIVER = vendor
-	POINTING_DEVICE_DRIVER = ps2
-
-	MSG_POINTING_DEVICE = trackpoint (left), trackpoint (right)
-	MASTER_SIDE = right
-endif
-
 ifeq ($(strip $(MASTER_SIDE)), left)
 	MSG_MASTER_SIDE = left
 	OPT_DEFS += -DHK_MASTER_LEFT
