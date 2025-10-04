@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-22.04
     permissions:
       pull-requests: write # required for thollander/actions-comment-pull-request@v2
-    env:
-      QMK_VERSION: '0.27.1'
+    # env:
+    #   QMK_VERSION: '0.27.1'
     container:
       image: ghcr.io/qmk/qmk_cli:latest
 
@@ -21,20 +21,23 @@ jobs:
     - name: Checkout yusukemorita/qmk_keymaps
       uses: actions/checkout@v4
 
-    - name: Cache qmk repository
-      id: cache-qmk-repository
-      uses: actions/cache@v4
-      with:
-        path: __qmk__
-        key: qmk-${{ env.QMK_VERSION }}
+    # - name: Cache qmk repository
+    #   id: cache-qmk-repository
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: __qmk__
+    #     key: qmk-${{ env.QMK_VERSION }}
 
     - name: Checkout qmk/qmk_firmware
       uses: actions/checkout@v4
       with:
         path: __qmk__
-        repository: qmk/qmk_firmware
+        repository: idank/qmk_firmware
+        ref: holykeebs-master
         submodules: recursive
-        ref: ${{ env.QMK_VERSION }}
+    
+    - name: install required python dependencies
+      run: /usr/bin/python3 -m pip install -r /__w/qmk_keymaps/qmk_keymaps/__qmk__/requirements.txt
 
     - name: Setup QMK
       shell: bash
