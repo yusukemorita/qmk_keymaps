@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     _______   , _______   , EMAIL_2   , _______   , _______   , SCREENSHOT_PART,                      _______   , KC_BRID   , KC_BRIU   , _______   , _______   , _______,
 
-    _______   , _______   , EMAIL_3   , HK_DUMP   , _______   , SCREENSHOT_WHOLE,                     _______   , _______   , _______   , _______   , _______   , _______,
+    _______   , _______   , EMAIL_3   , HK_DUMP   , HK_SAVE   , SCREENSHOT_WHOLE,                     _______   , _______   , _______   , _______   , _______   , _______,
 
                                         _______   , _______   , _______   ,                           _______   , _______   , _______ 
   )
