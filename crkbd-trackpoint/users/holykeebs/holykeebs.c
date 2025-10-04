@@ -171,12 +171,12 @@ static hk_state_t init_state(void) {
     #endif
 
     // TPS65 is only supported for unibody keyboards, so check that to know if we have a split keyboard.
-    if (state.main.pointer_kind != POINTER_KIND_TPS65 && is_keyboard_left()) {
-        printf("init_state: left hand, swapping main and peripheral pointers\n");
-        hk_pointer_kind temp = state.main.pointer_kind;
-        state.main.pointer_kind = state.peripheral.pointer_kind;
-        state.peripheral.pointer_kind = temp;
-    }
+    // if (state.main.pointer_kind != POINTER_KIND_TPS65 && is_keyboard_left()) {
+    //     printf("init_state: left hand, swapping main and peripheral pointers\n");
+    //     hk_pointer_kind temp = state.main.pointer_kind;
+    //     state.main.pointer_kind = state.peripheral.pointer_kind;
+    //     state.peripheral.pointer_kind = temp;
+    // }
 
     switch (state.main.pointer_kind) {
         case POINTER_KIND_TRACKPOINT:
@@ -194,6 +194,9 @@ static hk_state_t init_state(void) {
             break;
         case POINTER_KIND_PIMORONI_TRACKBALL:
             hk_configure_pimoroni_common(&state.main);
+            break;
+        case POINTER_KIND_NONE:
+            printf("init_state: main has POINTER_KIND_NONE, skipping\n");
             break;
         default:
             printf("init_state: unknown main pointer kind\n");
@@ -217,6 +220,7 @@ static hk_state_t init_state(void) {
     if (state.peripheral.pointer_kind != POINTER_KIND_NONE) {
         switch (state.peripheral.pointer_kind) {
             case POINTER_KIND_TRACKPOINT:
+                printf("init_state: configuring peripheral trackpoint\n");
                 hk_configure_trackpoint_common(&state.peripheral);
                 break;
             case POINTER_KIND_CIRQUE35:
