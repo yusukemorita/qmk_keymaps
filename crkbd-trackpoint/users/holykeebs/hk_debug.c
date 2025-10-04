@@ -30,6 +30,8 @@ const char* hk_pointer_kind_to_string(hk_pointer_kind kind) {
     switch (kind) {
         case POINTER_KIND_NONE:
             return "none";
+        case POINTER_KIND_PIMORONI_TRACKBALL:
+            return "pimoroni_trackball";
         case POINTER_KIND_TRACKPOINT:
             return "trackpoint";
         case POINTER_KIND_CIRQUE35:

@@ -18,7 +18,7 @@ EXTRAKEY_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 
 ifdef POINTING_DEVICE
-	SRC += $(USER_PATH)/holykeebs.c $(USER_PATH)/hk_debug.c $(USER_PATH)/rpc.c $(USER_PATH)/trackpoint.c
+	SRC += $(USER_PATH)/holykeebs.c $(USER_PATH)/hk_debug.c $(USER_PATH)/rpc.c $(USER_PATH)/pimoroni.c $(USER_PATH)/trackpoint.c
 endif
 
 MSG_POINTING_DEVICE = none
@@ -43,6 +43,20 @@ else ifeq ($(strip $(POINTING_DEVICE_POSITION)), thumb_outer)
 else ifeq ($(strip $(POINTING_DEVICE_POSITION)), middle)
 	OPT_DEFS += -DPOINTING_DEVICE_POSITION_MIDDLE
 	MASTER_SIDE = middle
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), trackball)
+	ifeq ($(strip $(POINTING_DEVICE_POSITION)), right)
+		OPT_DEFS += -DHK_POINTING_DEVICE_RIGHT_PIMORONI
+	else ifeq ($(strip $(POINTING_DEVICE_POSITION)), left)
+		OPT_DEFS += -DHK_POINTING_DEVICE_LEFT_PIMORONI
+	endif
+
+
+	POINTING_DEVICE_ENABLE = yes
+	POINTING_DEVICE_DRIVER = pimoroni_trackball
+
+	MSG_POINTING_DEVICE = trackball
 endif
 
 ifeq ($(strip $(POINTING_DEVICE)), cirque35)
@@ -155,6 +169,133 @@ ifeq ($(strip $(POINTING_DEVICE)), cirque40_cirque40)
 	MASTER_SIDE = right
 endif
 
+ifeq ($(strip $(POINTING_DEVICE)), trackball_trackball)
+	OPT_DEFS += -DSPLIT_POINTING_ENABLE
+	OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+	OPT_DEFS += -DHK_POINTING_DEVICE_LEFT_PIMORONI
+	OPT_DEFS += -DHK_POINTING_DEVICE_RIGHT_PIMORONI
+
+	POINTING_DEVICE_ENABLE = yes
+	POINTING_DEVICE_DRIVER = pimoroni_trackball
+
+	MSG_POINTING_DEVICE = trackball (left), trackball (right); built for side = $(SIDE)
+	MASTER_SIDE = right
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), trackball_cirque35)
+	OPT_DEFS += -DHK_POINTING_DEVICE_LEFT_PIMORONI
+	OPT_DEFS += -DHK_POINTING_DEVICE_RIGHT_CIRQUE35
+
+	OPT_DEFS += -DSPLIT_POINTING_ENABLE
+	OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+	POINTING_DEVICE_ENABLE = yes
+
+	ifeq ($(strip $(SIDE)), left)
+		POINTING_DEVICE_DRIVER = pimoroni_trackball
+	endif
+	ifeq ($(strip $(SIDE)), right)
+		POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
+	endif
+
+	MSG_POINTING_DEVICE = trackball (left), cirque35 touchpad (right); built for side = $(SIDE)
+	MASTER_SIDE = right
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), cirque35_trackball)
+	OPT_DEFS += -DHK_POINTING_DEVICE_LEFT_CIRQUE35
+	OPT_DEFS += -DHK_POINTING_DEVICE_RIGHT_PIMORONI
+
+	OPT_DEFS += -DSPLIT_POINTING_ENABLE
+	OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+	POINTING_DEVICE_ENABLE = yes
+
+	ifeq ($(strip $(SIDE)), right)
+		POINTING_DEVICE_DRIVER = pimoroni_trackball
+	endif
+	ifeq ($(strip $(SIDE)), left)
+		POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
+	endif
+
+	MSG_POINTING_DEVICE = cirque35 touchpad (left), trackball (right); built for side = $(SIDE)
+	MASTER_SIDE = left
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), trackball_cirque40)
+	OPT_DEFS += -DHK_POINTING_DEVICE_LEFT_PIMORONI
+	OPT_DEFS += -DHK_POINTING_DEVICE_RIGHT_CIRQUE40
+
+	OPT_DEFS += -DSPLIT_POINTING_ENABLE
+	OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+	POINTING_DEVICE_ENABLE = yes
+
+	ifeq ($(strip $(SIDE)), left)
+		POINTING_DEVICE_DRIVER = pimoroni_trackball
+	endif
+	ifeq ($(strip $(SIDE)), right)
+		POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
+	endif
+
+	MSG_POINTING_DEVICE = trackball (left), cirque40 touchpad (right); built for side = $(SIDE)
+	MASTER_SIDE = right
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), cirque40_trackball)
+	OPT_DEFS += -DHK_POINTING_DEVICE_LEFT_CIRQUE40
+	OPT_DEFS += -DHK_POINTING_DEVICE_RIGHT_PIMORONI
+
+	OPT_DEFS += -DSPLIT_POINTING_ENABLE
+	OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+	POINTING_DEVICE_ENABLE = yes
+
+	ifeq ($(strip $(SIDE)), right)
+		POINTING_DEVICE_DRIVER = pimoroni_trackball
+	endif
+	ifeq ($(strip $(SIDE)), left)
+		POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
+	endif
+
+	MSG_POINTING_DEVICE = cirque40 touchpad (left), trackball (right); built for side = $(SIDE)
+	MASTER_SIDE = left
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), trackball_tps43)
+	OPT_DEFS += -DHK_POINTING_DEVICE_LEFT_PIMORONI
+	OPT_DEFS += -DHK_POINTING_DEVICE_RIGHT_TPS43
+
+	OPT_DEFS += -DSPLIT_POINTING_ENABLE
+	OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+	POINTING_DEVICE_ENABLE = yes
+
+	ifeq ($(strip $(SIDE)), left)
+		POINTING_DEVICE_DRIVER = pimoroni_trackball
+	endif
+	ifeq ($(strip $(SIDE)), right)
+		POINTING_DEVICE_DRIVER = azoteq_iqs5xx
+	endif
+
+	MSG_POINTING_DEVICE = trackball (left), TPS43 touchpad (right); built for side = $(SIDE)
+	MASTER_SIDE = right
+endif
+
+ifeq ($(strip $(POINTING_DEVICE)), tps43_trackball)
+	OPT_DEFS += -DHK_POINTING_DEVICE_LEFT_TPS43
+	OPT_DEFS += -DHK_POINTING_DEVICE_RIGHT_PIMORONI
+
+	OPT_DEFS += -DSPLIT_POINTING_ENABLE
+	OPT_DEFS += -DPOINTING_DEVICE_COMBINED
+	POINTING_DEVICE_ENABLE = yes
+
+	ifeq ($(strip $(SIDE)), right)
+		POINTING_DEVICE_DRIVER = pimoroni_trackball
+	endif
+	ifeq ($(strip $(SIDE)), left)
+		POINTING_DEVICE_DRIVER = azoteq_iqs5xx
+	endif
+
+	MSG_POINTING_DEVICE = TPS43 touchpad (left), trackball (right); built for side = $(SIDE)
+	MASTER_SIDE = left
+endif
+
 ifeq ($(strip $(POINTING_DEVICE)), tps43_cirque35)
     OPT_DEFS += -DHK_POINTING_DEVICE_LEFT_TPS43
     OPT_DEFS += -DHK_POINTING_DEVICE_RIGHT_CIRQUE35
@@ -249,7 +390,7 @@ endif
 
 ifeq ($(strip $(POINTING_DEVICE)), trackpoint_trackball)
     OPT_DEFS += -DHK_POINTING_DEVICE_LEFT_TRACKPOINT
-    OPT_DEFS += -DHK_POINTING_DEVICE_RIGHT_IMORONI
+    OPT_DEFS += -DHK_POINTING_DEVICE_RIGHT_PIMORONI
 
     POINTING_DEVICE_ENABLE = yes
     OPT_DEFS += -DSPLIT_POINTING_ENABLE
@@ -445,6 +586,11 @@ endif
 ifeq ($(strip $(OLED_FLIP)), yes)
 	OPT_DEFS += -DOLED_FLIP
 	MSG_OLED_FLIPPED = (flipped)
+endif
+
+ifeq ($(strip $(TRACKBALL_RGB_RAINBOW)), yes)
+	OPT_DEFS += -DHK_PIMORONI_TRACKBALL_RGB_RAINBOW
+	SRC += quantum/color.c
 endif
 
 print-summary: cpfirmware
