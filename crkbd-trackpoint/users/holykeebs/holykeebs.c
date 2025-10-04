@@ -146,29 +146,29 @@ static hk_state_t init_state(void) {
         state.main.pointer_kind = POINTER_KIND_TPS65;
     #endif
 
-    #ifdef HK_POINTING_DEVICE_RIGHT_PIMORONI
-        state.main.pointer_kind = POINTER_KIND_PIMORONI_TRACKBALL;
-    #elif defined(HK_POINTING_DEVICE_RIGHT_TRACKPOINT)
-        state.main.pointer_kind = POINTER_KIND_TRACKPOINT;
-    #elif defined(HK_POINTING_DEVICE_RIGHT_CIRQUE35)
-        state.main.pointer_kind = POINTER_KIND_CIRQUE35;
-    #elif defined(HK_POINTING_DEVICE_RIGHT_CIRQUE40)
-        state.main.pointer_kind = POINTER_KIND_CIRQUE40;
-    #elif defined(HK_POINTING_DEVICE_RIGHT_TPS43)
-        state.main.pointer_kind = POINTER_KIND_TPS43;
-    #endif
+    // #ifdef HK_POINTING_DEVICE_RIGHT_PIMORONI
+    //     state.main.pointer_kind = POINTER_KIND_PIMORONI_TRACKBALL;
+    // #elif defined(HK_POINTING_DEVICE_RIGHT_TRACKPOINT)
+    state.peripheral.pointer_kind = POINTER_KIND_TRACKPOINT;
+    // #elif defined(HK_POINTING_DEVICE_RIGHT_CIRQUE35)
+    //     state.main.pointer_kind = POINTER_KIND_CIRQUE35;
+    // #elif defined(HK_POINTING_DEVICE_RIGHT_CIRQUE40)
+    //     state.main.pointer_kind = POINTER_KIND_CIRQUE40;
+    // #elif defined(HK_POINTING_DEVICE_RIGHT_TPS43)
+    //     state.main.pointer_kind = POINTER_KIND_TPS43;
+    // #endif
 
-    #ifdef HK_POINTING_DEVICE_LEFT_PIMORONI
-        state.peripheral.pointer_kind = POINTER_KIND_PIMORONI_TRACKBALL;
-    #elif defined(HK_POINTING_DEVICE_LEFT_TRACKPOINT)
-        state.peripheral.pointer_kind = POINTER_KIND_TRACKPOINT;
-    #elif defined(HK_POINTING_DEVICE_LEFT_CIRQUE35)
-        state.peripheral.pointer_kind = POINTER_KIND_CIRQUE35;
-    #elif defined(HK_POINTING_DEVICE_LEFT_CIRQUE40)
-        state.peripheral.pointer_kind = POINTER_KIND_CIRQUE40;
-    #elif defined(HK_POINTING_DEVICE_LEFT_TPS43)
-        state.peripheral.pointer_kind = POINTER_KIND_TPS43;
-    #endif
+    // #ifdef HK_POINTING_DEVICE_LEFT_PIMORONI
+    //     state.peripheral.pointer_kind = POINTER_KIND_PIMORONI_TRACKBALL;
+    // #elif defined(HK_POINTING_DEVICE_LEFT_TRACKPOINT)
+    //     state.peripheral.pointer_kind = POINTER_KIND_TRACKPOINT;
+    // #elif defined(HK_POINTING_DEVICE_LEFT_CIRQUE35)
+    //     state.peripheral.pointer_kind = POINTER_KIND_CIRQUE35;
+    // #elif defined(HK_POINTING_DEVICE_LEFT_CIRQUE40)
+    //     state.peripheral.pointer_kind = POINTER_KIND_CIRQUE40;
+    // #elif defined(HK_POINTING_DEVICE_LEFT_TPS43)
+    //     state.peripheral.pointer_kind = POINTER_KIND_TPS43;
+    // #endif
 
     // TPS65 is only supported for unibody keyboards, so check that to know if we have a split keyboard.
     // if (state.main.pointer_kind != POINTER_KIND_TPS65 && is_keyboard_left()) {
