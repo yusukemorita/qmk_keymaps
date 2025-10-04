@@ -6,8 +6,6 @@ static const char* pointer_kind_to_string(hk_pointer_kind kind) {
     switch (kind) {
         case POINTER_KIND_NONE:
             return "NONE \xB1";
-        case POINTER_KIND_PIMORONI_TRACKBALL:
-            return "PIM  \xB1";
         case POINTER_KIND_TRACKPOINT:
             return "TP   \xB1";
         case POINTER_KIND_CIRQUE35:

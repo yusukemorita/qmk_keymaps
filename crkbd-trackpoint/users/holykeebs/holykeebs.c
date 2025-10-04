@@ -10,7 +10,6 @@
 #include "color.h"
 
 #include "pointing.h"
-#include "pimoroni.h"
 #include "trackpoint.h"
 #include "hk_debug.h"
 #include "eeprom_config.h"
@@ -84,14 +83,8 @@ static void hk_configure_tps43_common(hk_pointer_state_t* state) {
     state->pointer_scroll_buffer_size = 5;
 }
 
-static void hk_configure_pimoroni_common(hk_pointer_state_t* state) {
-    state->pointer_default_multiplier = 1.5;
-    state->pointer_sniping_multiplier = 1.0;
-    state->pointer_scroll_buffer_size = 1;
-}
-
 static void hk_configure_trackpoint_common(hk_pointer_state_t* state) {
-    state->pointer_default_multiplier = 3.5;
+    state->pointer_default_multiplier = 3.2;
     state->pointer_sniping_multiplier = 1.0;
     state->pointer_scroll_buffer_size = 5;
 }
@@ -146,9 +139,7 @@ static hk_state_t init_state(void) {
         state.main.pointer_kind = POINTER_KIND_TPS65;
     #endif
 
-    #ifdef HK_POINTING_DEVICE_RIGHT_PIMORONI
-        state.main.pointer_kind = POINTER_KIND_PIMORONI_TRACKBALL;
-    #elif defined(HK_POINTING_DEVICE_RIGHT_TRACKPOINT)
+    #ifdef(HK_POINTING_DEVICE_RIGHT_TRACKPOINT)
         state.main.pointer_kind = POINTER_KIND_TRACKPOINT;
     #elif defined(HK_POINTING_DEVICE_RIGHT_CIRQUE35)
         state.main.pointer_kind = POINTER_KIND_CIRQUE35;
@@ -158,9 +149,7 @@ static hk_state_t init_state(void) {
         state.main.pointer_kind = POINTER_KIND_TPS43;
     #endif
 
-    #ifdef HK_POINTING_DEVICE_LEFT_PIMORONI
-        state.peripheral.pointer_kind = POINTER_KIND_PIMORONI_TRACKBALL;
-    #elif defined(HK_POINTING_DEVICE_LEFT_TRACKPOINT)
+    #ifdef HK_POINTING_DEVICE_LEFT_TRACKPOINT
         state.peripheral.pointer_kind = POINTER_KIND_TRACKPOINT;
     #elif defined(HK_POINTING_DEVICE_LEFT_CIRQUE35)
         state.peripheral.pointer_kind = POINTER_KIND_CIRQUE35;
@@ -192,9 +181,6 @@ static hk_state_t init_state(void) {
         case POINTER_KIND_TPS65:
             hk_configure_tps65_common(&state.main);
             break;
-        case POINTER_KIND_PIMORONI_TRACKBALL:
-            hk_configure_pimoroni_common(&state.main);
-            break;
         default:
             printf("init_state: unknown main pointer kind\n");
             break;
@@ -225,10 +211,6 @@ static hk_state_t init_state(void) {
                 break;
             case POINTER_KIND_TPS43:
                 hk_configure_tps43_common(&state.peripheral);
-                break;
-            case POINTER_KIND_PIMORONI_TRACKBALL:
-                hk_configure_pimoroni_common(&state.peripheral);
-                state.peripheral.drag_scroll = true;
                 break;
             default:
                 printf("init_state: unknown peripheral pointer kind\n");
@@ -365,8 +347,6 @@ static float scale_movement(const hk_pointer_state_t* state, int32_t amount) {
 
 static float hk_pointer_scale_step(const hk_pointer_state_t* state) {
     switch (state->pointer_kind) {
-        case POINTER_KIND_PIMORONI_TRACKBALL:
-            return .1;
         case POINTER_KIND_TRACKPOINT:
             return .1;
         case POINTER_KIND_CIRQUE35:
@@ -434,14 +414,6 @@ void hk_process_mouse_report(const hk_pointer_state_t* pointer_state, report_mou
         #endif
 
         drift_detection(&mouse_report);
-    #endif
-
-    #ifdef ENABLE_PIMORONI_ADAPTIVE_MOTION
-        #ifndef POINTING_DEVICE_CONFIGURATION_TRACKBALL
-            #error "cannot use ENABLE_PIMORONI_ADAPTIVE_MOTION without a pimoroni trackball"
-        #endif
-
-        pimoroni_adaptive_motion(&mouse_report);
     #endif
 
     // rounding carry to recycle dropped floats from int mouse reports, to smoothen low speed movements (credit
@@ -728,37 +700,6 @@ void housekeeping_task_user(void) {
     }
 #endif
 
-
-#if defined(HK_PIMORONI_TRACKBALL_RGB_RAINBOW) && defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
-    bool run_animation = false;
-
-    // With two trackballs, always run the animation.
-    #if defined(HK_POINTING_DEVICE_LEFT_PIMORONI) && defined(HK_POINTING_DEVICE_RIGHT_PIMORONI)
-        run_animation = true;
-    #elif defined(HK_POINTING_DEVICE_LEFT_PIMORONI)
-        run_animation = is_keyboard_left();
-    #elif defined(HK_POINTING_DEVICE_RIGHT_PIMORONI)
-        run_animation = !is_keyboard_left();
-    #else
-        #error "HK_PIMORONI_TRACKBALL_RGB_RAINBOW requires a pimoroni on either sides."
-    #endif
-
-    if (run_animation) {
-        static uint32_t timer = 0;
-        static HSV color = { .h = 0, .s = 255, .v = 255 };
-
-        if (timer_elapsed32(timer) < 400)
-            return;
-
-        timer = timer_read32();
-
-        // increase hue -> change color
-        color.h++;
-
-        RGB rgb = hsv_to_rgb(color);
-        pimoroni_trackball_set_rgbw(rgb.r, rgb.g, rgb.b, 0);
-    }
-#endif
 }
 
 void keyboard_post_init_user(void) {

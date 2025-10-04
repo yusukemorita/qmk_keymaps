@@ -35,44 +35,6 @@
     #define SPLIT_WATCHDOG_TIMEOUT 3000
 #endif
 
-#ifdef HK_POINTING_DEVICE_RIGHT_PIMORONI
-    #ifdef POINTING_DEVICE_COMBINED
-        #define POINTING_DEVICE_ROTATION_90_RIGHT
-    #else
-        #define POINTING_DEVICE_ROTATION_90
-    #endif
-
-    // Not needed due to the block below, but it's untested for Cirque since they've been retired.
-    // #if defined(HK_POINTING_DEVICE_LEFT_CIRQUE40) || defined(HK_POINTING_DEVICE_LEFT_CIRQUE35)
-    //     // The pimoroni needs frequest updates, set a value so the Cirque configs don't set it to 10ms.
-    //     #define POINTING_DEVICE_TASK_THROTTLE_MS 1
-    // #endif
-#endif
-#ifdef HK_POINTING_DEVICE_LEFT_PIMORONI
-    #define POINTING_DEVICE_ROTATION_270
-
-    // Not needed due to the block below, but it's untested for Cirque since they've been retired.
-    // #if defined(HK_POINTING_DEVICE_RIGHT_CIRQUE40) || defined(HK_POINTING_DEVICE_RIGHT_CIRQUE35)
-    //     // The pimoroni needs frequest updates, set a value so the Cirque configs don't set it to 10ms.
-    //     #define POINTING_DEVICE_TASK_THROTTLE_MS 1
-    // #endif
-#endif
-
-#if defined(HK_POINTING_DEVICE_RIGHT_PIMORONI) || defined(HK_POINTING_DEVICE_LEFT_PIMORONI)
-    // Check if we also have an Azoteq or Cirque, since those throttle.
-    //
-    // Checking these defines as opposed to the HK_ ones since there are on only when the side with the pointing device is
-    // flashed. We don't want to set the define below for the pimoroni/trackpoint side.
-    #if defined(POINTING_DEVICE_DRIVER_azoteq_iqs5xx) || defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c)
-        // This tells the pointing device implementation to throttle the call to get_report, instead of throttling the task.
-        //
-        // This is needed because some pointing devices don't like being polled too often (Cirque/TPS) and throttling
-        // the task causes the peripheral pointing device to also be throttled, which is detrimental to some pointing
-        // devices like the pimoroni and trackpoint.
-        #define POINTING_DEVICE_TASK_THROTTLE_MS 1
-    #endif
-#endif
-
 #ifdef HK_POINTING_DEVICE_LEFT_CIRQUE40
     #define POINTING_DEVICE_ROTATION_180
 #endif
