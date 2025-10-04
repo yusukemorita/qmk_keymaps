@@ -37,6 +37,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // keymap
 
+// holykeebs trackpoint module specific keycodes: https://docs.holykeebs.com/firmware/#usage
+// - HK_SAVE		  Saves the current config, making it persist across keyboard restart
+// - HK_DUMP		  Dumps the current config to the console (needs CONSOLE_ENABLE=yes)
+// - HK_P_SET_D		When held*, tapping up/down increases/decreases the default profile's scale
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
 
