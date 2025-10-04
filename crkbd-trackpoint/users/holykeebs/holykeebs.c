@@ -72,35 +72,6 @@ static void write_eeconfig(void) {
     printf("write_eeconfig: eeprom data written\n");
 }
 
-static void hk_configure_tps65_common(hk_pointer_state_t* state) {
-    state->pointer_default_multiplier = 1.25;
-    state->pointer_sniping_multiplier = 1.0;
-    state->pointer_scroll_buffer_size = 5;
-}
-
-static void hk_configure_tps43_common(hk_pointer_state_t* state) {
-    state->pointer_default_multiplier = 1.25;
-    state->pointer_sniping_multiplier = 1.0;
-    state->pointer_scroll_buffer_size = 5;
-}
-
-static void hk_configure_pimoroni_common(hk_pointer_state_t* state) {
-    state->pointer_default_multiplier = 1.5;
-    state->pointer_sniping_multiplier = 1.0;
-    state->pointer_scroll_buffer_size = 1;
-}
-
-static void hk_configure_trackpoint_common(hk_pointer_state_t* state) {
-    state->pointer_default_multiplier = 3.5;
-    state->pointer_sniping_multiplier = 1.0;
-    state->pointer_scroll_buffer_size = 5;
-}
-
-static void hk_configure_cirque_common(hk_pointer_state_t* state) {
-    state->pointer_default_multiplier = 1.0;
-    state->pointer_sniping_multiplier = 1.0;
-}
-
 static hk_state_t init_state(void) {
     printf("init_state\n");
     hk_state_t state = {
@@ -121,14 +92,14 @@ static hk_state_t init_state(void) {
             .pointer_scroll_buffer_size = 0,
         },
         .peripheral = {
-            .pointer_kind = POINTER_KIND_NONE,
+            .pointer_kind = POINTER_KIND_TRACKPOINT,
             .cursor_mode = CURSOR_MODE_DEFAULT,
             .drag_scroll = false,
             .scroll_lock = SCROLL_LOCK_OFF,
             .scroll_direction_inverted = false,
-            .pointer_default_multiplier = 0,
-            .pointer_sniping_multiplier = 0,
-            .pointer_scroll_buffer_size = 0,
+            .pointer_default_multiplier = 3.5,
+            .pointer_sniping_multiplier = 1.0,
+            .pointer_scroll_buffer_size = 5,
         },
         .display = {
             .last_kc = KC_NO,
@@ -138,18 +109,18 @@ static hk_state_t init_state(void) {
         },
     };
 
-    if (!state.is_main_side) {
-        return state;
-    }
+    // if (!state.is_main_side) {
+    //     return state;
+    // }
 
-    #if defined(HK_POINTING_DEVICE_MIDDLE_TPS65)
-        state.main.pointer_kind = POINTER_KIND_TPS65;
-    #endif
+    // #if defined(HK_POINTING_DEVICE_MIDDLE_TPS65)
+    //     state.main.pointer_kind = POINTER_KIND_TPS65;
+    // #endif
 
     // #ifdef HK_POINTING_DEVICE_RIGHT_PIMORONI
     //     state.main.pointer_kind = POINTER_KIND_PIMORONI_TRACKBALL;
     // #elif defined(HK_POINTING_DEVICE_RIGHT_TRACKPOINT)
-    state.peripheral.pointer_kind = POINTER_KIND_TRACKPOINT;
+    //     state.peripheral.pointer_kind = POINTER_KIND_TRACKPOINT;
     // #elif defined(HK_POINTING_DEVICE_RIGHT_CIRQUE35)
     //     state.main.pointer_kind = POINTER_KIND_CIRQUE35;
     // #elif defined(HK_POINTING_DEVICE_RIGHT_CIRQUE40)
@@ -178,79 +149,79 @@ static hk_state_t init_state(void) {
     //     state.peripheral.pointer_kind = temp;
     // }
 
-    switch (state.main.pointer_kind) {
-        case POINTER_KIND_TRACKPOINT:
-            hk_configure_trackpoint_common(&state.main);
-            break;
-        case POINTER_KIND_CIRQUE35:
-        case POINTER_KIND_CIRQUE40:
-            hk_configure_cirque_common(&state.main);
-            break;
-        case POINTER_KIND_TPS43:
-            hk_configure_tps43_common(&state.main);
-            break;
-        case POINTER_KIND_TPS65:
-            hk_configure_tps65_common(&state.main);
-            break;
-        case POINTER_KIND_PIMORONI_TRACKBALL:
-            hk_configure_pimoroni_common(&state.main);
-            break;
-        case POINTER_KIND_NONE:
-            printf("init_state: main has POINTER_KIND_NONE, skipping\n");
-            break;
-        default:
-            printf("init_state: unknown main pointer kind\n");
-            break;
-    }
+    // switch (state.main.pointer_kind) {
+    //     case POINTER_KIND_TRACKPOINT:
+    //         hk_configure_trackpoint_common(&state.main);
+    //         break;
+    //     case POINTER_KIND_CIRQUE35:
+    //     case POINTER_KIND_CIRQUE40:
+    //         hk_configure_cirque_common(&state.main);
+    //         break;
+    //     case POINTER_KIND_TPS43:
+    //         hk_configure_tps43_common(&state.main);
+    //         break;
+    //     case POINTER_KIND_TPS65:
+    //         hk_configure_tps65_common(&state.main);
+    //         break;
+    //     case POINTER_KIND_PIMORONI_TRACKBALL:
+    //         hk_configure_pimoroni_common(&state.main);
+    //         break;
+    //     case POINTER_KIND_NONE:
+    //         printf("init_state: main has POINTER_KIND_NONE, skipping\n");
+    //         break;
+    //     default:
+    //         printf("init_state: unknown main pointer kind\n");
+    //         break;
+    // }
 
-    // Overrides the defaults for the case where the desired value is already known by the user. This only gets set
-    // if there's nothing saved in eeprom.
-    if (state.main.pointer_kind) {
-        #ifdef HK_MAIN_DEFAULT_POINTER_DEFAULT_MULTIPLIER
-            state.main.pointer_default_multiplier = HK_MAIN_DEFAULT_POINTER_DEFAULT_MULTIPLIER;
-        #endif
-        #ifdef HK_MAIN_DEFAULT_POINTER_SNIPING_MULTIPLIER
-            state.main.pointer_sniping_multiplier = HK_MAIN_DEFAULT_POINTER_SNIPING_MULTIPLIER;
-        #endif
-        #ifdef HK_MAIN_DEFAULT_POINTER_SCROLL_BUFFER_SIZE
-            state.main.pointer_scroll_buffer_size = HK_MAIN_DEFAULT_POINTER_SCROLL_BUFFER_SIZE;
-        #endif
-    }
+    // // Overrides the defaults for the case where the desired value is already known by the user. This only gets set
+    // // if there's nothing saved in eeprom.
+    // if (state.main.pointer_kind) {
+    //     #ifdef HK_MAIN_DEFAULT_POINTER_DEFAULT_MULTIPLIER
+    //         state.main.pointer_default_multiplier = HK_MAIN_DEFAULT_POINTER_DEFAULT_MULTIPLIER;
+    //     #endif
+    //     #ifdef HK_MAIN_DEFAULT_POINTER_SNIPING_MULTIPLIER
+    //         state.main.pointer_sniping_multiplier = HK_MAIN_DEFAULT_POINTER_SNIPING_MULTIPLIER;
+    //     #endif
+    //     #ifdef HK_MAIN_DEFAULT_POINTER_SCROLL_BUFFER_SIZE
+    //         state.main.pointer_scroll_buffer_size = HK_MAIN_DEFAULT_POINTER_SCROLL_BUFFER_SIZE;
+    //     #endif
+    // }
 
-    if (state.peripheral.pointer_kind != POINTER_KIND_NONE) {
-        switch (state.peripheral.pointer_kind) {
-            case POINTER_KIND_TRACKPOINT:
-                printf("init_state: configuring peripheral trackpoint\n");
-                hk_configure_trackpoint_common(&state.peripheral);
-                break;
-            case POINTER_KIND_CIRQUE35:
-            case POINTER_KIND_CIRQUE40:
-                hk_configure_cirque_common(&state.peripheral);
-                break;
-            case POINTER_KIND_TPS43:
-                hk_configure_tps43_common(&state.peripheral);
-                break;
-            case POINTER_KIND_PIMORONI_TRACKBALL:
-                hk_configure_pimoroni_common(&state.peripheral);
-                state.peripheral.drag_scroll = true;
-                break;
-            default:
-                printf("init_state: unknown peripheral pointer kind\n");
-                break;
-        }
+    // if (state.peripheral.pointer_kind != POINTER_KIND_NONE) {
+    //     switch (state.peripheral.pointer_kind) {
+    //         case POINTER_KIND_TRACKPOINT:
+    //             printf("init_state: configuring peripheral trackpoint\n");
+    //             hk_configure_trackpoint_common(&state.peripheral);
+    //             break;
+    //         case POINTER_KIND_CIRQUE35:
+    //         case POINTER_KIND_CIRQUE40:
+    //             hk_configure_cirque_common(&state.peripheral);
+    //             break;
+    //         case POINTER_KIND_TPS43:
+    //             hk_configure_tps43_common(&state.peripheral);
+    //             break;
+    //         case POINTER_KIND_PIMORONI_TRACKBALL:
+    //             hk_configure_pimoroni_common(&state.peripheral);
+    //             state.peripheral.drag_scroll = true;
+    //             break;
+    //         default:
+    //             printf("init_state: unknown peripheral pointer kind\n");
+    //             break;
+    //     }
 
-        // Overrides the defaults for the case where the desired value is already known by the user. This only gets set
-        // if there's nothing saved in eeprom.
-        #ifdef HK_PERIPHERAL_DEFAULT_POINTER_DEFAULT_MULTIPLIER
-            state.peripheral.pointer_default_multiplier = HK_PERIPHERAL_DEFAULT_POINTER_DEFAULT_MULTIPLIER;
-        #endif
-        #ifdef HK_PERIPHERAL_DEFAULT_POINTER_SNIPING_MULTIPLIER
-            state.peripheral.pointer_sniping_multiplier = HK_PERIPHERAL_DEFAULT_POINTER_SNIPING_MULTIPLIER;
-        #endif
-        #ifdef HK_PERIPHERAL_DEFAULT_POINTER_SCROLL_BUFFER_SIZE
-            state.peripheral.pointer_scroll_buffer_size = HK_PERIPHERAL_DEFAULT_POINTER_SCROLL_BUFFER_SIZE;
-        #endif
-    }
+    //     // Overrides the defaults for the case where the desired value is already known by the user. This only gets set
+    //     // if there's nothing saved in eeprom.
+    //     #ifdef HK_PERIPHERAL_DEFAULT_POINTER_DEFAULT_MULTIPLIER
+    //         state.peripheral.pointer_default_multiplier = HK_PERIPHERAL_DEFAULT_POINTER_DEFAULT_MULTIPLIER;
+    //     #endif
+    //     #ifdef HK_PERIPHERAL_DEFAULT_POINTER_SNIPING_MULTIPLIER
+    //         state.peripheral.pointer_sniping_multiplier = HK_PERIPHERAL_DEFAULT_POINTER_SNIPING_MULTIPLIER;
+    //     #endif
+    //     #ifdef HK_PERIPHERAL_DEFAULT_POINTER_SCROLL_BUFFER_SIZE
+    //         state.peripheral.pointer_scroll_buffer_size = HK_PERIPHERAL_DEFAULT_POINTER_SCROLL_BUFFER_SIZE;
+    //     #endif
+    // }
 
     return state;
 }
