@@ -37,6 +37,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // keymap
 
+// holykeebs trackpoint module specific keycodes: https://docs.holykeebs.com/firmware/#usage
+// - HK_SAVE		  Saves the current config, making it persist across keyboard restart
+// - HK_DUMP		  Dumps the current config to the console (needs CONSOLE_ENABLE=yes)
+// - HK_P_SET_D		When held*, tapping up/down increases/decreases the default profile's scale
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
 
@@ -56,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     _______   , _______   , KC_LCBR   , KC_DEL    , KC_BSPC   , KC_RCBR   ,                          KC_MINUS , KC_4     , KC_5     , KC_6     , _______  , _______,
 
-    _______   , _______   , KC_QUES   , _______   , _______   , _______   ,                          KC_EQUAL , KC_7     , KC_8     , KC_9     , KC_SLASH , _______,
+    _______   , _______   , KC_QUES   , MS_WHLU   , MS_WHLD   , _______   ,                          KC_EQUAL , KC_7     , KC_8     , KC_9     , KC_SLASH , _______,
 
                                         _______   , _______   , HOLD_QK_BOOT,                     ESC_AND_ENG , MO(3)    , _______
   ),
@@ -67,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     _______   , KC_TAB    , KC_QUOTE  , ENG      , JAP       , KC_AT      ,                           KC_LEFT   , KC_DOWN   , KC_UP     , KC_RIGHT  , KC_SCLN   , _______,
 
-    _______ , LSFT(KC_TAB), KC_GRAVE  , KC_TILDE , KC_PIPE   , _______    ,                           KC_UNDERSCORE, KC_PLUS, KC_LBRC   , KC_RBRC   , KC_BACKSLASH,_______,
+    _______ , LSFT(KC_TAB), KC_GRAVE  , KC_TILDE , KC_PIPE   , HK_P_SET_D ,                           KC_UNDERSCORE, KC_PLUS, KC_LBRC   , KC_RBRC   , KC_BACKSLASH,_______,
 
                                         RCLICK   , MO(3)     , _______    ,                         HOLD_QK_BOOT, _______   , _______
   ),
@@ -78,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     _______   , _______   , EMAIL_2   , _______   , _______   , SCREENSHOT_PART,                      _______   , KC_BRID   , KC_BRIU   , _______   , _______   , _______,
 
-    _______   , _______   , EMAIL_3   , _______   , _______   , SCREENSHOT_WHOLE,                     _______   , _______   , _______   , _______   , _______   , _______,
+    _______   , _______   , EMAIL_3   , HK_DUMP   , HK_SAVE   , SCREENSHOT_WHOLE,                     _______   , _______   , _______   , _______   , _______   , _______,
 
                                         _______   , _______   , _______   ,                           _______   , _______   , _______ 
   )
