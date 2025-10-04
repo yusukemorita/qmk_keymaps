@@ -29,23 +29,23 @@ static const char BL = '\xB0'; // Blank indicator character
 hk_state_t g_hk_state = {0};
 hk_eeprom_config_t hk_eeprom_config;
 
-static void deserialize_eeconfig_to_state(const hk_eeprom_config_t* config) {
-    g_hk_state.main.cursor_mode = config->pointing.main_cursor_mode;
-    g_hk_state.main.drag_scroll = config->pointing.main_drag_scroll;
-    g_hk_state.main.scroll_lock = config->pointing.main_scroll_lock;
-    g_hk_state.main.scroll_direction_inverted = config->pointing.main_scroll_direction_inverted;
-    g_hk_state.main.pointer_default_multiplier = config->pointing.main_default_multiplier / 100.0;
-    g_hk_state.main.pointer_sniping_multiplier = config->pointing.main_sniping_multiplier / 100.0;
-    g_hk_state.main.pointer_scroll_buffer_size = config->pointing.main_scroll_buffer_size;
+// static void deserialize_eeconfig_to_state(const hk_eeprom_config_t* config) {
+//     g_hk_state.main.cursor_mode = config->pointing.main_cursor_mode;
+//     g_hk_state.main.drag_scroll = config->pointing.main_drag_scroll;
+//     g_hk_state.main.scroll_lock = config->pointing.main_scroll_lock;
+//     g_hk_state.main.scroll_direction_inverted = config->pointing.main_scroll_direction_inverted;
+//     g_hk_state.main.pointer_default_multiplier = config->pointing.main_default_multiplier / 100.0;
+//     g_hk_state.main.pointer_sniping_multiplier = config->pointing.main_sniping_multiplier / 100.0;
+//     g_hk_state.main.pointer_scroll_buffer_size = config->pointing.main_scroll_buffer_size;
 
-    g_hk_state.peripheral.cursor_mode = config->pointing.peripheral_cursor_mode;
-    g_hk_state.peripheral.drag_scroll = config->pointing.peripheral_drag_scroll;
-    g_hk_state.peripheral.scroll_lock = config->pointing.peripheral_scroll_lock;
-    g_hk_state.peripheral.scroll_direction_inverted = config->pointing.peripheral_scroll_direction_inverted;
-    g_hk_state.peripheral.pointer_default_multiplier = config->pointing.peripheral_default_multiplier / 100.0;
-    g_hk_state.peripheral.pointer_sniping_multiplier = config->pointing.peripheral_sniping_multiplier / 100.0;
-    g_hk_state.peripheral.pointer_scroll_buffer_size = config->pointing.peripheral_scroll_buffer_size;
-}
+//     g_hk_state.peripheral.cursor_mode = config->pointing.peripheral_cursor_mode;
+//     g_hk_state.peripheral.drag_scroll = config->pointing.peripheral_drag_scroll;
+//     g_hk_state.peripheral.scroll_lock = config->pointing.peripheral_scroll_lock;
+//     g_hk_state.peripheral.scroll_direction_inverted = config->pointing.peripheral_scroll_direction_inverted;
+//     g_hk_state.peripheral.pointer_default_multiplier = config->pointing.peripheral_default_multiplier / 100.0;
+//     g_hk_state.peripheral.pointer_sniping_multiplier = config->pointing.peripheral_sniping_multiplier / 100.0;
+//     g_hk_state.peripheral.pointer_scroll_buffer_size = config->pointing.peripheral_scroll_buffer_size;
+// }
 
 static void serialize_state_to_eeconfig(hk_eeprom_config_t* config) {
     config->pointing.main_cursor_mode = g_hk_state.main.cursor_mode;
@@ -478,9 +478,9 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     // pointing_device_task_* is entered only on the main side, ensure that.
-    if (!g_hk_state.is_main_side) {
-        return pointing_device_task_keymap(mouse_report);
-    }
+    // if (!g_hk_state.is_main_side) {
+    //     return pointing_device_task_keymap(mouse_report);
+    // }
 
     hk_process_mouse_report(&g_hk_state.main, &mouse_report);
     g_hk_state.display.last_mouse = mouse_report;
@@ -760,7 +760,7 @@ void keyboard_post_init_user(void) {
         eeconfig_init_user();
     } else {
         g_hk_state = init_state();
-        deserialize_eeconfig_to_state(&hk_eeprom_config);
+        // deserialize_eeconfig_to_state(&hk_eeprom_config);
         debug_hk_state_to_console(&g_hk_state);
     }
 
