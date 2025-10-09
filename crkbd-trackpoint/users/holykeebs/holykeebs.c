@@ -72,33 +72,10 @@ static void write_eeconfig(void) {
     printf("write_eeconfig: eeprom data written\n");
 }
 
-static void hk_configure_tps65_common(hk_pointer_state_t* state) {
-    state->pointer_default_multiplier = 1.25;
-    state->pointer_sniping_multiplier = 1.0;
-    state->pointer_scroll_buffer_size = 5;
-}
-
-static void hk_configure_tps43_common(hk_pointer_state_t* state) {
-    state->pointer_default_multiplier = 1.25;
-    state->pointer_sniping_multiplier = 1.0;
-    state->pointer_scroll_buffer_size = 5;
-}
-
-static void hk_configure_pimoroni_common(hk_pointer_state_t* state) {
-    state->pointer_default_multiplier = 1.5;
-    state->pointer_sniping_multiplier = 1.0;
-    state->pointer_scroll_buffer_size = 1;
-}
-
 static void hk_configure_trackpoint_common(hk_pointer_state_t* state) {
     state->pointer_default_multiplier = 3.7;
     state->pointer_sniping_multiplier = 1.0;
     state->pointer_scroll_buffer_size = 5;
-}
-
-static void hk_configure_cirque_common(hk_pointer_state_t* state) {
-    state->pointer_default_multiplier = 1.0;
-    state->pointer_sniping_multiplier = 1.0;
 }
 
 static hk_state_t init_state(void) {
@@ -182,19 +159,6 @@ static hk_state_t init_state(void) {
         case POINTER_KIND_TRACKPOINT:
             hk_configure_trackpoint_common(&state.main);
             break;
-        case POINTER_KIND_CIRQUE35:
-        case POINTER_KIND_CIRQUE40:
-            hk_configure_cirque_common(&state.main);
-            break;
-        case POINTER_KIND_TPS43:
-            hk_configure_tps43_common(&state.main);
-            break;
-        case POINTER_KIND_TPS65:
-            hk_configure_tps65_common(&state.main);
-            break;
-        case POINTER_KIND_PIMORONI_TRACKBALL:
-            hk_configure_pimoroni_common(&state.main);
-            break;
         default:
             printf("init_state: unknown main pointer kind\n");
             break;
@@ -218,17 +182,6 @@ static hk_state_t init_state(void) {
         switch (state.peripheral.pointer_kind) {
             case POINTER_KIND_TRACKPOINT:
                 hk_configure_trackpoint_common(&state.peripheral);
-                break;
-            case POINTER_KIND_CIRQUE35:
-            case POINTER_KIND_CIRQUE40:
-                hk_configure_cirque_common(&state.peripheral);
-                break;
-            case POINTER_KIND_TPS43:
-                hk_configure_tps43_common(&state.peripheral);
-                break;
-            case POINTER_KIND_PIMORONI_TRACKBALL:
-                hk_configure_pimoroni_common(&state.peripheral);
-                state.peripheral.drag_scroll = true;
                 break;
             default:
                 printf("init_state: unknown peripheral pointer kind\n");
