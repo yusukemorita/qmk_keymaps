@@ -91,7 +91,7 @@ static void hk_configure_pimoroni_common(hk_pointer_state_t* state) {
 }
 
 static void hk_configure_trackpoint_common(hk_pointer_state_t* state) {
-    state->pointer_default_multiplier = 3.5;
+    state->pointer_default_multiplier = 3.7;
     state->pointer_sniping_multiplier = 1.0;
     state->pointer_scroll_buffer_size = 5;
 }
@@ -357,7 +357,7 @@ static float scale_movement(const hk_pointer_state_t* state, int32_t amount) {
 
     // Added by Yusuke: slow down scroll
     if (state->drag_scroll) {
-        multiplier = 0.1;
+        multiplier = 0.2;
     }
 
     return amount * multiplier;

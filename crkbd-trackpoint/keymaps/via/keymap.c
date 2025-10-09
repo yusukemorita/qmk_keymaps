@@ -49,9 +49,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       _______,    KC_A,LCTL_T(KC_S),LALT_T(KC_D),LCMD_T(KC_F),      KC_G,                               KC_H,RCMD_T(KC_J),RALT_T(KC_K),RCTL_T(KC_L), KC_COLON,  _______,
 
-      _______,    KC_Z,        KC_X,        KC_C,        KC_V,      KC_B,                               KC_N,        KC_M,     KC_COMM,      KC_DOT,  CW_TOGG,  _______,
+      _______,    KC_Z,        KC_X,        KC_C,        KC_V,      KC_B,                               KC_N,        KC_M,     KC_COMM,      KC_DOT,   LCLICK,  _______,
 
-                                LCLICK,       MO(1),     LSFT_T(KC_SPACE),                    RSFT_T(KC_ENT),       MO(2),      LCLICK
+                               LCLICK,       MO(1),     LSFT_T(KC_SPACE),                     RSFT_T(KC_ENT),       MO(2),     CW_TOGG
 
   ),
 
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     _______   , _______   , KC_LCBR   , KC_DEL    , KC_BSPC   , KC_RCBR   ,                          KC_MINUS , KC_4     , KC_5     , KC_6     , _______  , _______,
 
-    _______   , _______   , KC_QUES   , MS_WHLU   , MS_WHLD   , _______   ,                          KC_EQUAL , KC_7     , KC_8     , KC_9     , KC_SLASH , _______,
+    _______   , _______   , KC_QUES   , MS_WHLD   , MS_WHLU   , _______   ,                          KC_EQUAL , KC_7     , KC_8     , KC_9     , KC_SLASH , _______,
 
                                         _______   , _______   , HOLD_QK_BOOT,                     ESC_AND_ENG , MO(3)    , _______
   ),
