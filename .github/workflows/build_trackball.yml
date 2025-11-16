@@ -48,13 +48,12 @@ jobs:
 
     - name: Compile trackball
       run: qmk compile -kb trackball_minimal --keymap default
-      # -e CONVERT_TO=promicro_rp2040
     - name: Upload firmware to artifacts
       id: firmware-upload
       uses: actions/upload-artifact@v4
       with:
         name: trackball-firmware
-        path: __qmk__/*.hex
+        path: __qmk__/*.uf2
 
     - name: Comment artifact url in PR
       uses: thollander/actions-comment-pull-request@v2
