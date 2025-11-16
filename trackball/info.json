@@ -28,5 +28,6 @@
         "cols": [
             "GP1"
         ]
-    }
+    },
+    "diode_direction": "COL2ROW"
 }
