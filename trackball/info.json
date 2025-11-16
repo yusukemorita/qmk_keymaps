@@ -1,0 +1,35 @@
+{
+    "keyboard_name": "Test Trackball",
+    "manufacturer": "Yusuke Morita",
+    "url": "",
+    "maintainer": "Yusuke Morita",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3389",
+        "device_version": "0.0.1"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "debounce": 0,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {
+                    "label": "K00",
+                    "x": 0,
+                    "y": 0,
+                    "matrix": [0, 0]
+                }
+            ]
+        }
+    },
+    "matrix_pins": {
+        "rows": [
+            "GP0"
+        ],
+        "cols": [
+            "GP1"
+        ]
+    },
+    "diode_direction": "COL2ROW"
+}
