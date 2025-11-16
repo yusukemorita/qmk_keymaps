@@ -16,3 +16,18 @@
 
 #include "trackpoint.h"
 #include "wait.h"
+
+void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
+    // Print a message to indicate the function is called
+    print("Mouse moved\n");
+
+    // Print each field in the mouse_report structure
+    uprintf("  x: %d\n", mouse_report->x);
+    uprintf("  y: %d\n", mouse_report->y);
+    uprintf("  buttons: 0x%02X\n", mouse_report->buttons);
+    uprintf("  wheel: %d\n", mouse_report->h);
+    uprintf("  horizontal wheel: %d\n", mouse_report->v);
+
+    // Clear the buttons field in the mouse report
+    mouse_report->buttons = 0;
+}
