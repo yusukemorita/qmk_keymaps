@@ -13,7 +13,7 @@ jobs:
     permissions:
       pull-requests: write # required for thollander/actions-comment-pull-request@v2
     env:
-      QMK_VERSION: '0.30.10'
+      QMK_VERSION: '0.27.1'
     container:
       image: ghcr.io/qmk/qmk_cli:latest
 
