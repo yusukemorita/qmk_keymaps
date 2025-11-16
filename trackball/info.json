@@ -8,8 +8,6 @@
         "pid": "0x3389",
         "device_version": "0.0.1"
     },
-    "processor": "RP2040",
-    "bootloader": "rp2040",
     "debounce": 0,
     "layouts": {
         "LAYOUT": {
