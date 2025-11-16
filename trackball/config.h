@@ -33,4 +33,4 @@
 #define PMW33XX_CS_PIN GP21         // Pro Micro pin "21" wired to NCS/SS
 
 // Optional: motion interrupt, if you wired MOT -> Pro Micro pin "19"
-#define POINTING_DEVICE_MOTION_PIN GP19
+// #define POINTING_DEVICE_MOTION_PIN GP19
