@@ -5,27 +5,30 @@
     "maintainer": "Yusuke Morita",
     "usb": {
         "vid": "0xFEED",
-        "pid": "0x0000",
+        "pid": "0x3389",
         "device_version": "0.0.1"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
     "debounce": 0,
-    "ps2": {
-        "enabled": true,
-        "mouse_enabled": true,
-        "driver": "interrupt"
-    },
-     "layouts": {
+    "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x": 0, "y": 0, "matrix": [0, 0]}
+                {
+                    "label": "K00",
+                    "x": 0,
+                    "y": 0,
+                    "matrix": [0, 0]
+                }
             ]
         }
     },
     "matrix_pins": {
-        "direct": [
-            [null]
+        "rows": [
+            "GP0"
+        ],
+        "cols": [
+            "GP1"
         ]
     }
 }
