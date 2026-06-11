@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       pull-requests: write # required for thollander/actions-comment-pull-request@v2
     env:
@@ -18,26 +18,34 @@ jobs:
       PERSONAL_EMAIL_DEV: ${{ secrets.PERSONAL_EMAIL_DEV }}
       WORK_EMAIL: ${{ secrets.WORK_EMAIL }}
     container:
-      image: ghcr.io/qmk/qmk_cli:latest
+      image: ghcr.io/qmk/qmk_cli@sha256:2dc05fc9f32efebd6b05c2b8676ee548358bc7e151e9dbf4dac6b6eed4513b07
 
     steps:
     - name: Checkout yusukemorita/qmk_keymaps
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
-    - name: Cache qmk repository
-      id: cache-qmk-repository
-      uses: actions/cache@v4
+    - name: Restore cached qmk repo
+      id: restore-cache
+      uses: actions/cache/restore@v5
       with:
         path: __qmk__
         key: qmk-${{ env.QMK_VERSION }}
 
     - name: Checkout qmk/qmk_firmware
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
+      if: steps.restore-cache.outputs.cache-hit != 'true'
       with:
         path: __qmk__
         repository: qmk/qmk_firmware
         submodules: recursive
         ref: ${{ env.QMK_VERSION }}
+
+    - name: Cache qmk repo
+      uses: actions/cache/save@v5
+      if: steps.restore-cache.outputs.cache-hit != 'true'
+      with:
+        path: __qmk__
+        key: qmk-${{ env.QMK_VERSION }}
 
     - name: Setup QMK
       shell: bash
@@ -54,7 +62,7 @@ jobs:
 
     - name: Upload firmware to artifacts
       id: firmware-upload
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: keyball44-firmware
         path: __qmk__/*.hex
