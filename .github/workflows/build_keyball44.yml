@@ -18,7 +18,7 @@ jobs:
       PERSONAL_EMAIL_DEV: ${{ secrets.PERSONAL_EMAIL_DEV }}
       WORK_EMAIL: ${{ secrets.WORK_EMAIL }}
     container:
-      image: ghcr.io/qmk/qmk_cli:latest
+      image: ghcr.io/qmk/qmk_cli@sha256:2dc05fc9f32efebd6b05c2b8676ee548358bc7e151e9dbf4dac6b6eed4513b07
 
     steps:
     - name: Checkout yusukemorita/qmk_keymaps
