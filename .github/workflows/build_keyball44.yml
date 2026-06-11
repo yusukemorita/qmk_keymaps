@@ -13,7 +13,7 @@ jobs:
     permissions:
       pull-requests: write # required for thollander/actions-comment-pull-request@v2
     env:
-      QMK_VERSION: '0.23.9'
+      QMK_VERSION: '0.22.14'
       PERSONAL_EMAIL: ${{ secrets.PERSONAL_EMAIL }}
       PERSONAL_EMAIL_DEV: ${{ secrets.PERSONAL_EMAIL_DEV }}
       WORK_EMAIL: ${{ secrets.WORK_EMAIL }}
@@ -39,6 +39,10 @@ jobs:
         submodules: recursive
         ref: ${{ env.QMK_VERSION }}
 
+    - uses: actions/setup-python@v6
+      with:
+        python-version: '3.10' 
+
     - name: Setup QMK
       shell: bash
       run: qmk setup --home ./__qmk__ --yes
@@ -47,7 +51,7 @@ jobs:
       run: ln -s $(pwd)/keyball __qmk__/keyboards/keyball
 
     - name: Install python dependencies
-      run: /opt/uv/tools/qmk/bin/python3 -m pip install -r /__w/qmk_keymaps/qmk_keymaps/__qmk__/requirements.txt
+      run: /usr/bin/python3 -m pip install -r /__w/qmk_keymaps/qmk_keymaps/__qmk__/requirements.txt
 
     - name: Compile keyball44
       run: qmk compile -kb keyball/keyball44 -km default -j 4
