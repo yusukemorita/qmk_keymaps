@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       pull-requests: write # required for thollander/actions-comment-pull-request@v2
     env:
@@ -17,8 +17,6 @@ jobs:
       PERSONAL_EMAIL: ${{ secrets.PERSONAL_EMAIL }}
       PERSONAL_EMAIL_DEV: ${{ secrets.PERSONAL_EMAIL_DEV }}
       WORK_EMAIL: ${{ secrets.WORK_EMAIL }}
-    container:
-      image: ghcr.io/qmk/qmk_cli:latest
 
     steps:
     - name: Checkout yusukemorita/qmk_keymaps
@@ -26,7 +24,7 @@ jobs:
 
     - name: Cache qmk repository
       id: cache-qmk-repository
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: __qmk__
         key: qmk-${{ env.QMK_VERSION }}
