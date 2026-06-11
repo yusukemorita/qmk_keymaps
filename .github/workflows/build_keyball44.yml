@@ -20,22 +20,34 @@ jobs:
 
     steps:
     - name: Checkout yusukemorita/qmk_keymaps
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
-    - name: Cache qmk repository
-      id: cache-qmk-repository
-      uses: actions/cache@v5
+    - name: Restore cached qmk repo
+      uses: actions/cache/restore@v5
       with:
         path: __qmk__
         key: qmk-${{ env.QMK_VERSION }}
 
+    # - name: Cache qmk repository
+    #   id: cache-qmk-repository
+    #   uses: actions/cache@v5
+    #   with:
+    #     path: __qmk__
+    #     key: qmk-${{ env.QMK_VERSION }}
+
     - name: Checkout qmk/qmk_firmware
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         path: __qmk__
         repository: qmk/qmk_firmware
         submodules: recursive
         ref: ${{ env.QMK_VERSION }}
+
+    - name: cache qmk repo
+      uses: actions/cache/save@v5
+      with:
+        path: __qmk__
+        key: qmk-${{ env.QMK_VERSION }}
 
     # - uses: actions/setup-python@v6
     #   with:
@@ -51,9 +63,10 @@ jobs:
     - name: compile using docker
       run: | 
         docker run --rm \
-        -v __qmk__:/qmk_firmware \
+        -v "$(pwd)":/qmk_firmware \
         qmkfm/qmk_cli \
         qmk compile -kb my_keyboard -km my_keymap
+      working-directory: __qmk__
 
     # - name: Install python dependencies
     #   run: /usr/bin/python3 -m pip install -r /__w/qmk_keymaps/qmk_keymaps/__qmk__/requirements.txt
