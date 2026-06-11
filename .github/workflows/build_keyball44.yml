@@ -25,6 +25,7 @@ jobs:
       uses: actions/checkout@v6
 
     - name: Restore cached qmk repo
+      id: restore-cache
       uses: actions/cache/restore@v5
       with:
         path: __qmk__
@@ -32,6 +33,7 @@ jobs:
 
     - name: Checkout qmk/qmk_firmware
       uses: actions/checkout@v6
+      if: steps.restore-cache.outputs.cache-hit != 'true'
       with:
         path: __qmk__
         repository: qmk/qmk_firmware
@@ -40,6 +42,7 @@ jobs:
 
     - name: Cache qmk repo
       uses: actions/cache/save@v5
+      if: steps.restore-cache.outputs.cache-hit != 'true'
       with:
         path: __qmk__
         key: qmk-${{ env.QMK_VERSION }}
