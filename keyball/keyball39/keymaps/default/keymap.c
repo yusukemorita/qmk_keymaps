@@ -26,9 +26,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LCLICK KC_MS_BTN1
 #define RCLICK KC_MS_BTN2
 
+#define SCREENSHOT_PART LCMD(LSFT(KC_4))
+#define SCREENSHOT_WHOLE LCMD(LSFT(KC_3))
+
 // for moving tabs in browser, editor etc
 #define L_TAB LCMD(KC_LCBR)
 #define R_TAB LCMD(KC_RCBR)
+
+enum custom_keycodes {
+  ESC_AND_ENG = SAFE_RANGE,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch(keycode) {
+    case ESC_AND_ENG:
+      if (record->event.pressed) {
+        SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_LANGUAGE_2));
+      }
+      break;
+  }
+
+  return true;
+}
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -41,10 +60,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [1] = LAYOUT_universal(
-    _______  , _______  , L_TAB    , R_TAB    , _______  ,                            KC_0    ,  KC_1     , KC_2     , KC_3     , _______  ,
-    _______  , KC_LCBR  , KC_DEL   , KC_BSPC  , KC_RCBR  ,                           S(KC_INT1), KC_4     , KC_5     , KC_6     , _______  ,
-    _______  , KC_QUES  , _______  , _______  , _______  ,                            KC_LBRC  , KC_7     , KC_8     , KC_9     , _______  ,
-    _______  , _______  , _______  , _______  , _______  , _______  ,      TO(2)    , MO(3)    , _______  , KC_RALT  , KC_RGUI  , _______
+    _______  , _______  , L_TAB    , R_TAB    , _______  ,                            KC_0     , KC_1     , KC_2     , KC_3     , _______  ,
+    _______  , KC_LCBR  , KC_DEL   , KC_BSPC  , KC_RCBR  ,                            KC_MINUS , KC_4     , KC_5     , KC_6     , _______  ,
+    _______  , KC_QUES  , _______  , _______  , _______  ,                            KC_EQUAL , KC_7     , KC_8     , KC_9     , _______  ,
+    _______  , _______  , _______  , _______  , _______  , _______  ,   ESC_AND_ENG , MO(3)    , _______  , _______  , _______  , _______
   ),
 
   [2] = LAYOUT_universal(
@@ -56,8 +75,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [3] = LAYOUT_universal(
     _______  , _______  , _______  , _______  , _______  ,                            KC_MUTE  , KC_VOLD  , KC_VOLU  , _______  , _______  ,
-    _______  , _______  , _______  , _______  , _______  ,                            _______  , KC_BRID  , KC_BRIU  , _______  , _______  ,
-    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , SCREENSHOT_PART,                      _______  , KC_BRID  , KC_BRIU  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , SCREENSHOT_WHOLE,                     _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______
   ),
 };
