@@ -37,6 +37,17 @@ enum custom_keycodes {
   ESC_AND_ENG = SAFE_RANGE,
 };
 
+report_mouse_t pointing_device_task_user(report_mouse_t report) {
+  // enable scroll mode when CMD(GUI) is held down
+  if (get_mods() & MOD_MASK_GUI) {
+    keyball_set_scroll_mode(true);
+  } else {
+    keyball_set_scroll_mode(false);
+  }
+
+  return report;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
     case ESC_AND_ENG:
@@ -70,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_EXCLAIM, KC_DQT   , KC_HASH  , KC_DOLLAR,KC_PERCENT,                            KC_AMPR  , KC_ASTR  , KC_LPRN  , KC_RPRN  , KC_CIRC  ,
     KC_TAB   , KC_QUOTE , ENG      , JAP      , KC_AT    ,                            KC_LEFT  , KC_DOWN  , KC_UP    , KC_RIGHT , KC_SCLN  ,
    LSFT(KC_TAB),KC_GRAVE, KC_TILDE , KC_PIPE  , _______  ,                        KC_UNDERSCORE, KC_PLUS  , KC_LBRC  , KC_RBRC  , KC_BACKSLASH,
-    _______  , _______  , RCLICK   , MO(3)    , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______
+    _______  , _______  , _______  , RCLICK   , MO(3)    , _______  ,      _______  , _______  , _______  , _______  , _______  , _______
   ),
 
   [3] = LAYOUT_universal(
