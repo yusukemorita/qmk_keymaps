@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_universal(
     _______  , _______  , L_TAB    , R_TAB    , _______  ,                            KC_0     , KC_1     , KC_2     , KC_3     , _______  ,
     _______  , KC_LCBR  , _______  , _______  , KC_RCBR  ,                            KC_MINUS , KC_4     , KC_5     , KC_6     , _______  ,
-    _______  , KC_QUES  , _______  , _______  , _______  ,                            KC_EQUAL , KC_7     , KC_8     , KC_9     , _______  ,
+    _______  , KC_QUES  , _______  , _______  , _______  ,                            KC_EQUAL , KC_7     , KC_8     , KC_9     , KC_SLASH ,
     _______  , KC_DEL   , _______  , _______  , _______  , _______  ,   ESC_AND_ENG , MO(3)    , _______  , _______  , _______  , _______
   ),
 
