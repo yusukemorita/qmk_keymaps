@@ -65,23 +65,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default
   [0] = LAYOUT_universal(
     KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
-    KC_A   ,LCTL_T(KC_S),LALT_T(KC_D),LCMD_T(KC_F),KC_G  ,                            KC_H   ,RCMD_T(KC_J),RALT_T(KC_K),RCTL_T(KC_L),KC_COLON,
+ LSFT_T(KC_A),LCTL_T(KC_S),LALT_T(KC_D),LCMD_T(KC_F),KC_G,                            KC_H   ,RCMD_T(KC_J),RALT_T(KC_K),RCTL_T(KC_L),RSFT_T(KC_COLON),
     KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_COMM  , KC_DOT   , LCLICK   ,
-    KC_RSFT  , KC_BSPC  , CW_TOGG  , LCLICK   , MO(1)    , KC_SPACE,        KC_ENT,   MO(2)    , _______  , _______  , _______  , KC_RSFT
+    _______  , _______  , CW_TOGG  , KC_BSPC  , MO(1)    , KC_SPACE,        KC_ENT,   MO(2)    , _______  , _______  , _______  , _______
   ),
 
   [1] = LAYOUT_universal(
     _______  , _______  , L_TAB    , R_TAB    , _______  ,                            KC_0     , KC_1     , KC_2     , KC_3     , _______  ,
     _______  , KC_LCBR  , _______  , _______  , KC_RCBR  ,                            KC_MINUS , KC_4     , KC_5     , KC_6     , _______  ,
     _______  , KC_QUES  , _______  , _______  , _______  ,                            KC_EQUAL , KC_7     , KC_8     , KC_9     , KC_SLASH ,
-    _______  , KC_DEL   , _______  , _______  , _______  , _______  ,   ESC_AND_ENG , MO(3)    , _______  , _______  , _______  , _______
+    _______  , _______  , _______  , _______  , _______  , _______  ,   ESC_AND_ENG , MO(3)    , _______  , _______  , _______  , _______
   ),
 
   [2] = LAYOUT_universal(
    KC_EXCLAIM, KC_DQT   , KC_HASH  , KC_DOLLAR,KC_PERCENT,                            KC_AMPR  , KC_ASTR  , KC_LPRN  , KC_RPRN  , KC_CIRC  ,
     KC_TAB   , KC_QUOTE , ENG      , JAP      , KC_AT    ,                            KC_LEFT  , KC_DOWN  , KC_UP    , KC_RIGHT , KC_SCLN  ,
    LSFT(KC_TAB),KC_GRAVE, KC_TILDE , KC_PIPE  , _______  ,                        KC_UNDERSCORE, KC_PLUS  , KC_LBRC  , KC_RBRC  , KC_BACKSLASH,
-    _______  , _______  , _______  , RCLICK   , MO(3)    , _______  ,      _______  , _______  , _______  , _______  , _______  , _______
+    _______  , _______  , _______  , KC_DEL   , MO(3)    , _______  ,      _______  , _______  , _______  , _______  , _______  , _______
   ),
 
   [3] = LAYOUT_universal(
