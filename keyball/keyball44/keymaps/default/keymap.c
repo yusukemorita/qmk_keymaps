@@ -150,11 +150,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_STRING(ENV_EMAIL_2);
       }
-      break;
+     break;
 
     case EMAIL_3:
       if (record->event.pressed) {
         SEND_STRING(ENV_EMAIL_3);
+      }
+      break;
+
+    // mod tap keys (RSFT_T) can only send basic keycodes, and KC_COLON is LSFT(KC_SCLN),
+    // so it drops the shift and sends KC_SCLN on tap.
+    // overwrite it here to send KC_CLN
+    case RSFT_T(KC_COLON):
+      if (record->tap.count && record->event.pressed) {
+        tap_code16(KC_COLON);
+        return false;
       }
       break;
   }
@@ -167,15 +177,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default
   [0] = LAYOUT_universal(
     XXXXXXX   , KC_Q      , KC_W      , KC_E      , KC_R      , KC_T      ,                          KC_Y      , KC_U      , KC_I      , KC_O      , KC_P      , XXXXXXX   ,
-    XXXXXXX   , KC_A      ,LCTL_T(KC_S),LALT_T(KC_D),LCMD_T(KC_F), KC_G   ,                          KC_H     ,RCMD_T(KC_J),RALT_T(KC_K),RCTL_T(KC_L),KC_COLON , XXXXXXX   ,
+    XXXXXXX  ,LSFT_T(KC_A),LCTL_T(KC_S),LALT_T(KC_D),LCMD_T(KC_F), KC_G   ,                          KC_H     ,RCMD_T(KC_J),RALT_T(KC_K),RCTL_T(KC_L),RSFT_T(KC_COLON),XXXXXXX,
     XXXXXXX   , KC_Z      , KC_X      , KC_C      , KC_V      , KC_B      ,                          KC_N      , KC_M      , KC_COMM   , KC_DOT    , LCLICK    , XXXXXXX   ,
-    XXXXXXX   , _______   ,             LCLICK    , MO(1)     , LSFT_T(KC_SPACE),                    RSFT_T(KC_ENT), MO(2) ,             _______   , _______   , _______
+    XXXXXXX   , _______   ,             KC_BSPC   , MO(1)     , KC_SPACE  ,                          KC_ENT    , MO(2)     ,             _______   , _______   , RCLICK
   ),
 
   // (mostly) numbers and shortcuts
   [1] = LAYOUT_universal(
     XXXXXXX   , _______   , EMOJI     , L_TAB     , R_TAB     , _______   ,                          KC_0     , KC_1     , KC_2     , KC_3     , _______  , XXXXXXX,
-    XXXXXXX   , _______   , KC_LCBR   , KC_DEL    , KC_BSPC   , KC_RCBR   ,                          KC_MINUS , KC_4     , KC_5     , KC_6     , _______  , XXXXXXX,
+    XXXXXXX   , _______   , KC_LCBR   , _______   , CW_TOGG   , KC_RCBR   ,                          KC_MINUS , KC_4     , KC_5     , KC_6     , _______  , XXXXXXX,
     XXXXXXX   , _______   , KC_QUES   , _______   , _______   , _______   ,                          KC_EQUAL , KC_7     , KC_8     , KC_9     , KC_SLASH , XXXXXXX,
     XXXXXXX   , _______   ,             _______   , _______   , HOLD_QK_BOOT,                     ESC_AND_ENG , MO(3)    ,            _______  , _______  , _______
   ),
@@ -185,7 +195,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX   , KC_EXCLAIM, KC_DQT    , KC_HASH  , KC_DOLLAR , KC_PERCENT ,                           KC_AMPR   , KC_ASTR   , KC_LPRN   , KC_RPRN   , KC_CIRC   , XXXXXXX,
     XXXXXXX   , KC_TAB    , KC_QUOTE  , ENG      , JAP       , KC_AT      ,                           KC_LEFT   , KC_DOWN   , KC_UP     , KC_RIGHT  , KC_SCLN   , XXXXXXX,
     XXXXXXX , LSFT(KC_TAB), KC_GRAVE  , KC_TILDE , KC_PIPE   , _______    ,                           KC_UNDERSCORE, KC_PLUS, KC_LBRC   , KC_RBRC   , KC_BACKSLASH,XXXXXXX,
-    XXXXXXX   , _______   ,             RCLICK   , MO(3)     , _______    ,                         HOLD_QK_BOOT, _______   ,             _______   , _______   , XXXXXXX
+    XXXXXXX   , _______   ,             KC_DEL   , MO(3)     , _______    ,                         HOLD_QK_BOOT, _______   ,             _______   , _______   , XXXXXXX
   ),
 
   // shortcuts
