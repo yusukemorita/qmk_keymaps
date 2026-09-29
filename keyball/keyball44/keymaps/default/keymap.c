@@ -157,6 +157,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(ENV_EMAIL_3);
       }
       break;
+
+    // mod tap keys (RSFT_T) can only send basic keycodes, and KC_COLON is LSFT(KC_SCLN),
+    // so it drops the shift and sends KC_SCLN on tap.
+    // overwrite it here to send KC_CLN
+    case RSFT_T(KC_COLON):
+      if (record->tap.count && record->event.pressed) {
+        tap_code16(KC_COLON);
+        return false;
+      }
+      break;
   }
 
   return true;
