@@ -37,7 +37,46 @@ enum custom_keycodes {
   ESC_AND_ENG = SAFE_RANGE,
 };
 
+// trigger by holding down a key
+bool switch_desktop_with_trackball = false;
+int switch_desktop_x_threshold = 160;
+int switch_desktop_y_threshold = 400;
+
+int x_movement_sum = 0;
+int y_movement_sum = 0;
+
 report_mouse_t pointing_device_task_user(report_mouse_t report) {
+  // trigger desktop operations with left layer key or control
+  if (switch_desktop_with_trackball || (get_mods() & MOD_MASK_CTRL)) {
+    x_movement_sum += report.x;
+    y_movement_sum += report.y;
+
+    // when sum has reached threshold, trigger switch
+    if (x_movement_sum > switch_desktop_x_threshold) {
+      // move to left desktop
+      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(1) SS_TAP(X_LEFT) SS_DELAY(1) SS_UP(X_LCTL));
+      x_movement_sum -= switch_desktop_x_threshold;
+    } else if (x_movement_sum < -switch_desktop_x_threshold) {
+      // move to right desktop
+      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(1) SS_TAP(X_RIGHT) SS_DELAY(1) SS_UP(X_LCTL));
+      x_movement_sum += switch_desktop_x_threshold;
+    }
+
+    if (y_movement_sum < -switch_desktop_y_threshold) {
+      // mission control
+      SEND_STRING(SS_DOWN(X_LCTL) SS_DELAY(1) SS_TAP(X_UP) SS_DELAY(1) SS_UP(X_LCTL));
+      y_movement_sum = 0; // set to zero to prevent triggering multiple times
+    } else if (y_movement_sum > switch_desktop_y_threshold) {
+      // show desktop
+      SEND_STRING(SS_TAP(X_F11));
+      y_movement_sum = 0;
+    }
+
+    // prevent cursor movement
+    report.x = 0;
+    report.y = 0;
+  }
+
   // enable scroll mode when CMD(GUI) is held down
   if (get_mods() & MOD_MASK_GUI) {
     keyball_set_scroll_mode(true);
@@ -53,6 +92,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ESC_AND_ENG:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_LANGUAGE_2));
+      }
+      break;
+
+    // for switching desktops with trackball
+    case MO(1):
+      if (record->event.pressed) {
+        switch_desktop_with_trackball = true;
+      } else {
+        switch_desktop_with_trackball = false;
+        x_movement_sum = 0;
       }
       break;
       
